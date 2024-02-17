@@ -8,15 +8,21 @@ export interface Photo {
   id: number
   title: string
   description: string
+  author: Author
   metadata: Metadata
   thumb_file: File
   medium_file?: File
 }
 
+export interface Author {
+  id: number
+  name: string
+}
+
 export interface Metadata {
   camera: Camera
   lens: Lens
-  location: Location
+  location?: Coordinate
   datetime: string
   exposure_time: number
   exposure_time_rat: string
