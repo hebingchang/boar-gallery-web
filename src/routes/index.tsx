@@ -33,8 +33,6 @@ export default function Index() {
     })
   }, [])
 
-  console.log(photos)
-
   return (
     <div>
       <Masonry
