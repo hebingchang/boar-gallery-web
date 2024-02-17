@@ -1,7 +1,7 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { Photo, Response } from "../models/gallery.ts";
-import { Masonry } from "masonic";
+import { Masonry, useInfiniteLoader } from "masonic";
 import { Card, Image, CardFooter, CardBody, useDisclosure } from "@nextui-org/react";
 import useMediaQuery from "../hooks/useMediaQuery.tsx";
 import PhotoModal from "../components/photo_modal.tsx";
@@ -11,12 +11,29 @@ export default function Index() {
   const [photos, setPhotos] = useState<Photo[]>([])
   const isDesktop = useMediaQuery('(min-width: 960px)');
 
+  const maybeLoadMore = useInfiniteLoader((startIndex, stopIndex, items) => {
+    const lastDate = (items[items.length - 1] as Photo).metadata.datetime
+    axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all', {
+      params: {
+        page_size: stopIndex - startIndex,
+        last_datetime: lastDate,
+      }
+    }).then((res) => {
+      if (res.data.payload.length > 0) {
+        setPhotos((current) => [...current, ...res.data.payload]);
+      }
+    })
+  }, {
+    isItemLoaded: (index, items) => !!items[index],
+  });
 
   useEffect(() => {
     axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all?page_size=20').then(res => {
       setPhotos(res.data.payload)
     })
   }, [])
+
+  console.log(photos)
 
   return (
     <div>
@@ -25,6 +42,8 @@ export default function Index() {
         render={MasonryCard}
         columnGutter={isDesktop ? 24 : 12}
         columnCount={isDesktop ? 3 : 2}
+        onRender={maybeLoadMore}
+        overscanBy={3}
       />
     </div>
   );
