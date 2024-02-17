@@ -43,7 +43,7 @@ export default function Index() {
         columnGutter={isDesktop ? 24 : 12}
         columnCount={isDesktop ? 3 : 2}
         onRender={maybeLoadMore}
-        overscanBy={3}
+        overscanBy={5}
       />
     </div>
   );
