@@ -65,14 +65,19 @@ const MasonryCard = ({data}: { index: number, data: Photo, width: number }) => {
         height={data.thumb_file.height}
       />
     </CardBody>
-    <CardFooter className="text-small justify-between">
-      <b>
-        {`${data.metadata.city.prefecture.name} ${data.metadata.city.name}`}
-      </b>
-      <p className="text-default-500">
-        {`${data.metadata.city.prefecture.country.name}`}
-      </p>
-    </CardFooter>
+    {
+      data.metadata.city ?
+        <CardFooter className="text-small justify-between">
+          <b>
+            {`${data.metadata.city.prefecture.name} ${data.metadata.city.name}`}
+          </b>
+          <p className="text-default-500">
+            {`${data.metadata.city.prefecture.country.name}`}
+          </p>
+        </CardFooter>
+        :
+        null
+    }
 
     <PhotoModal photo={photo} isOpen={isOpen} onOpenChange={onOpenChange}/>
   </Card>

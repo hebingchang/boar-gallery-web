@@ -29,7 +29,7 @@ export interface Metadata {
   f_number: number
   photographic_sensitivity: number
   focal_length: number
-  city: City
+  city?: City
   place?: Place
   timezone: string
 }
