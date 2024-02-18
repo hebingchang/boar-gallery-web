@@ -74,7 +74,7 @@ export default function PhotoModal(props: PhotoModalProps) {
                   />
                   <CardFooter
                     className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small right-1 z-10 w-auto font-normal">
-                    <div className='text-small text-white/80'>&copy; {photo.author.name}</div>
+                    <div className='text-tiny md:text-small text-white/80'>&copy; {moment(photo.metadata.datetime).year()} {photo.author.name}</div>
                   </CardFooter>
                 </Card>
               </ModalHeader>
@@ -83,16 +83,17 @@ export default function PhotoModal(props: PhotoModalProps) {
                   {
                     photo.metadata.city ?
                       <div className='flex items-center text-default-500 gap-1'>
-                        <IoLocationOutline size={20}/>
-                        <div className='flex gap-1'>
-                          <Link color='foreground'
-                                className="font-bold">{photo.metadata.city.prefecture.country.name}</Link>
-                          <Link color='foreground' className="font-bold">{photo.metadata.city.prefecture.name}</Link>
-                          <Link color='foreground' className="font-bold">{photo.metadata.city.name}</Link>
+                        <IoLocationOutline className='flex-shrink-0' size={20}/>
+                        <div className='flex flex-wrap gap-x-3'>
+                          <div className='flex gap-1'>
+                            <Link color='foreground'
+                                  className="font-bold">{photo.metadata.city.prefecture.country.name}</Link>
+                            <Link color='foreground' className="font-bold">{photo.metadata.city.prefecture.name}</Link>
+                            <Link color='foreground' className="font-bold">{photo.metadata.city.name}</Link>
+                          </div>
                           {
                             photo.metadata.place ?
                               <div className='flex items-center'>
-                                <Spacer x={2}/>
                                 <Link color='foreground'>{photo.metadata.place.name}</Link>
                               </div>
                               :
@@ -185,7 +186,7 @@ export default function PhotoModal(props: PhotoModalProps) {
                       />
                       <CardFooter
                         className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small right-1 z-10 w-auto font-normal">
-                        <div className='text-small text-white/80'>&copy; {photo.author.name}</div>
+                        <div className='text-tiny md:text-small text-white/80'>&copy; {moment(photo.metadata.datetime).year()} {photo.author.name}</div>
                       </CardFooter>
                     </Card>
                   </div>
@@ -195,7 +196,7 @@ export default function PhotoModal(props: PhotoModalProps) {
                       photo.metadata.city ?
                         <div className='flex items-center text-default-500 gap-1'>
                           <IoLocationOutline size={20}/>
-                          <div className='flex gap-1'>
+                          <div className='flex gap-1 flex-wrap'>
                             <Link color='foreground'
                                   className="font-bold">{photo.metadata.city.prefecture.country.name}</Link>
                             <Link color='foreground' className="font-bold">{photo.metadata.city.prefecture.name}</Link>

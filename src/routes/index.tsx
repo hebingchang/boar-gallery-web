@@ -113,7 +113,7 @@ const MasonryCard = ({data}: { data: Photo }) => {
     </CardBody>
     {
       data.metadata.city ?
-        <CardFooter className="text-small justify-between">
+        <CardFooter className="text-small justify-between flex-wrap">
           <b>
             {`${data.metadata.city.prefecture.name} ${data.metadata.city.name}`}
           </b>
