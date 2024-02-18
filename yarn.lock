@@ -258,6 +258,11 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.1.tgz#16308cea045f0fc777b6ff20a9f25474dd8293d2"
   integrity sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==
 
+"@fontsource-variable/dancing-script@^5.0.16":
+  version "5.0.16"
+  resolved "https://registry.yarnpkg.com/@fontsource-variable/dancing-script/-/dancing-script-5.0.16.tgz#cb79f7e816abe760775db36547f38ee42bc6818d"
+  integrity sha512-NrjPyK6uGT2cAfgY4onzqbFeLqNOU9sBRhoAg8CYn+h3ENKTigWF8cyOUQQ5t5U5q7/NYOkWzNtTL/UdWFP9kw==
+
 "@formatjs/ecma402-abstract@1.18.2":
   version "1.18.2"
   resolved "https://registry.yarnpkg.com/@formatjs/ecma402-abstract/-/ecma402-abstract-1.18.2.tgz#bf103712a406874eb1e387858d5be2371ab3aa14"

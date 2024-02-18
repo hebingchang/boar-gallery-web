@@ -31,7 +31,7 @@ export default function PhotoModal(props: PhotoModalProps) {
       isOpen={props.isOpen}
       onOpenChange={props.onOpenChange}
       backdrop='blur'
-      size={(isDesktop && isPortrait) ? '5xl' : '4xl'}
+      size='4xl'
       scrollBehavior='inside'
       classNames={{
         closeButton: 'z-20'
@@ -173,8 +173,8 @@ export default function PhotoModal(props: PhotoModalProps) {
             <>
               <ModalHeader className="p-0 flex flex-col gap-1"/>
               <ModalBody className="p-0 overflow-hidden">
-                <div className='flex flex-wrap'>
-                  <div className='flex-1'>
+                <div className='grid grid-cols-12'>
+                  <div className='col-span-7'>
                     <Card
                       isFooterBlurred
                       radius="lg"
@@ -195,7 +195,7 @@ export default function PhotoModal(props: PhotoModalProps) {
                     </Card>
                   </div>
 
-                  <div className='flex-1 p-6 flex flex-col gap-1 justify-end'>
+                  <div className='col-span-5 p-6 flex flex-col gap-1 justify-end'>
                     {
                       photo.metadata.city ?
                         <div className='flex items-center text-default-500 gap-1'>

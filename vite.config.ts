@@ -8,15 +8,10 @@ export default defineConfig({
     react(),
     Unfonts({
       // Google Fonts API V2
-      google: {
-        text: 'Boar Gallery',
+      fontsource: {
         families: [
-          {
-            name: 'Dancing Script',
-            styles: 'wght@400..700',
-            defer: false,
-          },
-        ],
+          'Dancing Script Variable'
+        ]
       },
     }),
   ],

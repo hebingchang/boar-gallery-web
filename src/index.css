@@ -11,7 +11,7 @@ html, body, #root, #root > div {
 }
 
 .text-logo {
-    font-family: "Dancing Script", cursive;
+    font-family: "Dancing Script Variable", cursive;
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: normal;

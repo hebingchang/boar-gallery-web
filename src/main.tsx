@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Root from "./routes/root";
 import './index.css'
+import 'unfonts.css'
 import { NextUIProvider } from "@nextui-org/react";
 import Index from "./routes";
 
