@@ -13,26 +13,36 @@ import {
 } from "masonic";
 import { useSize, useScroller } from "mini-virtual-list";
 
+
 export default function Index() {
   const [photos, setPhotos] = useState<Photo[]>([])
   const isDesktop = useMediaQuery('(min-width: 960px)');
   const containerRef = useRef(null);
   const {width, height} = useSize(containerRef);
   const {scrollTop, isScrolling} = useScroller(containerRef);
+  const [loadedIndex, setLoadedIndex] = useState<{ startIndex: number, stopIndex: number }[]>([])
   const positioner = usePositioner({
-    width,
+    width: width - (isDesktop ? 40 : 20),
     columnCount: isDesktop ? 3 : 2,
     columnGutter: isDesktop ? 16 : 8,
   });
   const resizeObserver = useResizeObserver(positioner);
 
   useEffect(() => {
-    axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all?page_size=20').then(res => {
+    axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all?page_size=60').then(res => {
       setPhotos(res.data.payload)
     })
   }, [])
 
   const maybeLoadMore = useInfiniteLoader((startIndex, stopIndex, items) => {
+    if (loadedIndex.find((e) => e.startIndex === startIndex && e.stopIndex === stopIndex)) {
+      return;
+    }
+    setLoadedIndex((current) => {
+      current.push({startIndex, stopIndex})
+      return current
+    })
+
     const lastDate = (items[items.length - 1] as Photo).metadata.datetime
     axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all', {
       params: {
@@ -49,7 +59,7 @@ export default function Index() {
   });
 
   return (
-    <div className='h-[100%] overflow-visible scrollbar-hide' ref={containerRef}>
+    <div className='h-[100%] overflow-scroll scrollbar-hide px-[10px] md:px-[20px] box-content' ref={containerRef}>
       {useMasonry({
         positioner,
         scrollTop,
@@ -57,9 +67,9 @@ export default function Index() {
         height,
         resizeObserver,
         items: photos,
-        overscanBy: 8,
+        overscanBy: 4,
         render: MasonryCard,
-        className: 'mt-[4.5rem]',
+        className: 'mt-[5rem]',
         onRender: maybeLoadMore,
       })}
     </div>

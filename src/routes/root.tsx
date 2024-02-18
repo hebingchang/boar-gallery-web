@@ -5,7 +5,7 @@ import {
   Navbar,
   NavbarBrand,
   NavbarContent,
-  NavbarItem, Spacer
+  NavbarItem
 } from "@nextui-org/react";
 import useDarkMode from "use-dark-mode";
 import { TbSun, TbMoon, TbHome, TbMap } from "react-icons/tb";
@@ -60,7 +60,7 @@ export default function Root() {
               className="container mx-auto max-w-[1024px] flex flex-row flex-1 overflow-y-auto scrollbar-hide"
               style={{height: '100%'}}
             >
-              <Listbox className="max-w-64 hidden md:flex sticky top-0 pt-[4rem]">
+              <Listbox className="max-w-64 hidden md:flex sticky top-0 pt-[5rem]">
                 <ListboxItem
                   key="home"
                   // href="/home"
@@ -81,13 +81,9 @@ export default function Root() {
                 </ListboxItem>
               </Listbox>
 
-              <Spacer x={4} className='hidden md:block'/>
-
-              <div className='w-full px-2'>
+              <div className='w-full'>
                 <Outlet/>
               </div>
-
-              <Spacer x={4} className='hidden md:block'/>
             </div>
           </div>
         </main>

@@ -70,7 +70,7 @@ export default function PhotoModal(props: PhotoModalProps) {
                     src={photo.medium_file!.url}
                     width={photo.medium_file!.width}
                     height={photo.medium_file!.height}
-                    style={isDesktop ? undefined : {maxHeight: 'calc(100dvh - 18rem)'}}
+                    style={isDesktop ? {maxHeight: 'calc(100dvh - 20rem)'} : {maxHeight: 'calc(100dvh - 18rem)'}}
                   />
                   <CardFooter
                     className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small right-1 z-10 w-auto font-normal">
@@ -215,11 +215,9 @@ export default function PhotoModal(props: PhotoModalProps) {
                         null
                     }
 
-                    <div className='flex items-center text-default-500 gap-1'>
+                    <div className='flex items-center text-default-500 gap-1 text-small'>
                       <IoCalendarOutline size={20}/>
-                      <code>
-                        {moment(photo.metadata.datetime).utcOffset(`+${photo.metadata.timezone.split('+')[1]}`).format('YYYY-MM-DD HH:mm (Z)')}
-                      </code>
+                      {moment(photo.metadata.datetime).utcOffset(`+${photo.metadata.timezone.split('+')[1]}`).format('YYYY-MM-DD HH:mm (Z)')}
                     </div>
 
                     <Spacer y={4}/>
