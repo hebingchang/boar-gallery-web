@@ -65,7 +65,7 @@ export default function Root() {
               <Listbox className="max-w-64 hidden md:flex sticky top-0 pt-[5rem]">
                 <ListboxItem
                   key="home"
-                  // href="/home"
+                  href="/"
                   className="px-4 py-3"
                   variant="flat"
                   startContent={<TbHome size={22}/>}
@@ -74,7 +74,7 @@ export default function Root() {
                 </ListboxItem>
                 <ListboxItem
                   key="map"
-                  // href="/map"
+                  href="/map"
                   className="px-4 py-3"
                   variant="flat"
                   startContent={<TbMap size={22}/>}

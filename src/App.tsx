@@ -1,41 +1,20 @@
-import './App.css'
-import {Button, Link, Navbar, NavbarBrand, NavbarContent, NavbarItem, NextUIProvider} from "@nextui-org/react";
+import { NextUIProvider } from "@nextui-org/react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import Root from "./routes/root.tsx";
+import Index from "./routes";
+import Map from "./routes/map.tsx";
 
 function App() {
+  const navigate = useNavigate();
+
   return (
-    <NextUIProvider>
-      <Navbar>
-        <NavbarBrand>
-          <p className="font-bold text-inherit">ACME</p>
-        </NavbarBrand>
-        <NavbarContent className="hidden sm:flex gap-4" justify="center">
-          <NavbarItem>
-            <Link color="foreground" href="#">
-              Features
-            </Link>
-          </NavbarItem>
-          <NavbarItem isActive>
-            <Link href="#" aria-current="page">
-              Customers
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link color="foreground" href="#">
-              Integrations
-            </Link>
-          </NavbarItem>
-        </NavbarContent>
-        <NavbarContent justify="end">
-          <NavbarItem className="hidden lg:flex">
-            <Link href="#">Login</Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Button as={Link} color="primary" href="#" variant="flat">
-              Sign Up
-            </Button>
-          </NavbarItem>
-        </NavbarContent>
-      </Navbar>
+    <NextUIProvider navigate={navigate}>
+      <Routes>
+        <Route path="/" element={<Root/>}>
+          <Route path="" element={<Index/>}/>
+          <Route path="map" element={<Map/>}/>
+        </Route>
+      </Routes>
     </NextUIProvider>
   )
 }
