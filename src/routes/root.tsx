@@ -57,7 +57,7 @@ export default function Root() {
 
           <div className="top-0 left-0 right-0 bottom-0 absolute">
             <div
-              className="container mx-auto p-4 max-w-[1024px] flex flex-row flex-1 overflow-auto scrollbar-hide"
+              className="container mx-auto max-w-[1024px] flex flex-row flex-1 overflow-y-auto scrollbar-hide"
               style={{height: '100%'}}
             >
               <Listbox className="max-w-64 hidden md:flex sticky top-0 pt-[4rem]">
@@ -83,9 +83,11 @@ export default function Root() {
 
               <Spacer x={4} className='hidden md:block'/>
 
-              <div className='w-full p-1 pt-[4rem]'>
+              <div className='w-full px-2'>
                 <Outlet/>
               </div>
+
+              <Spacer x={4} className='hidden md:block'/>
             </div>
           </div>
         </main>

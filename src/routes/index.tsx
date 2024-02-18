@@ -1,15 +1,36 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { Photo, Response } from "../models/gallery.ts";
-import { Masonry, useInfiniteLoader } from "masonic";
 import { Card, Image, CardFooter, CardBody, useDisclosure } from "@nextui-org/react";
 import useMediaQuery from "../hooks/useMediaQuery.tsx";
 import PhotoModal from "../components/photo_modal.tsx";
 import { LoadingContext } from "../contexts/loading.tsx";
+import {
+  useInfiniteLoader,
+  useMasonry,
+  usePositioner,
+  useResizeObserver
+} from "masonic";
+import { useSize, useScroller } from "mini-virtual-list";
 
 export default function Index() {
   const [photos, setPhotos] = useState<Photo[]>([])
   const isDesktop = useMediaQuery('(min-width: 960px)');
+  const containerRef = useRef(null);
+  const {width, height} = useSize(containerRef);
+  const {scrollTop, isScrolling} = useScroller(containerRef);
+  const positioner = usePositioner({
+    width,
+    columnCount: isDesktop ? 3 : 2,
+    columnGutter: isDesktop ? 16 : 8,
+  });
+  const resizeObserver = useResizeObserver(positioner);
+
+  useEffect(() => {
+    axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all?page_size=20').then(res => {
+      setPhotos(res.data.payload)
+    })
+  }, [])
 
   const maybeLoadMore = useInfiniteLoader((startIndex, stopIndex, items) => {
     const lastDate = (items[items.length - 1] as Photo).metadata.datetime
@@ -27,27 +48,25 @@ export default function Index() {
     isItemLoaded: (index, items) => !!items[index],
   });
 
-  useEffect(() => {
-    axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all?page_size=20').then(res => {
-      setPhotos(res.data.payload)
-    })
-  }, [])
-
   return (
-    <div>
-      <Masonry
-        items={photos}
-        render={MasonryCard}
-        columnGutter={isDesktop ? 24 : 12}
-        columnCount={isDesktop ? 3 : 2}
-        onRender={maybeLoadMore}
-        overscanBy={5}
-      />
+    <div className='h-[100%] overflow-visible scrollbar-hide' ref={containerRef}>
+      {useMasonry({
+        positioner,
+        scrollTop,
+        isScrolling,
+        height,
+        resizeObserver,
+        items: photos,
+        overscanBy: 8,
+        render: MasonryCard,
+        className: 'mt-[4.5rem]',
+        onRender: maybeLoadMore,
+      })}
     </div>
   );
 }
 
-const MasonryCard = ({data}: { index: number, data: Photo, width: number }) => {
+const MasonryCard = ({data}: { data: Photo }) => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [photo, setPhoto] = useState<Photo>(data);
   const loading = useContext(LoadingContext)
