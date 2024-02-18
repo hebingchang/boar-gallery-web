@@ -12,6 +12,7 @@ export interface Photo {
   metadata: Metadata
   thumb_file: File
   medium_file?: File
+  large_file?: File
 }
 
 export interface Author {
@@ -32,6 +33,7 @@ export interface Metadata {
   city?: City
   place?: Place
   timezone: string
+  altitude?: number
 }
 
 export interface Camera {

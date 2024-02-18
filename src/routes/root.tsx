@@ -1,4 +1,13 @@
-import { Button, Listbox, ListboxItem, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
+import {
+  Button, Dropdown,
+  DropdownItem, DropdownMenu, DropdownTrigger,
+  Listbox,
+  ListboxItem,
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem
+} from "@nextui-org/react";
 import useDarkMode from "use-dark-mode";
 import { TbHome, TbMap, TbMoon, TbSun } from "react-icons/tb";
 import { Outlet } from "react-router-dom";
@@ -7,6 +16,8 @@ import { useEffect, useState } from "react";
 import { MapToken, MapTokenContext, MapType } from "../contexts/map_token.tsx";
 import axios from "axios";
 import { Response } from "../models/gallery.ts";
+import { HiOutlineTranslate } from "react-icons/hi";
+import { useTranslation } from "react-i18next";
 
 export default function Root() {
   const darkMode = useDarkMode(false, {
@@ -33,6 +44,7 @@ export default function Root() {
 
   const [loading, setLoading] = useState(false)
   const [token, setToken] = useState<MapToken>({type: MapType.Apple, token: ''})
+  const {t, i18n} = useTranslation()
 
   return (
     <MapTokenContext.Provider value={{token, setToken}}>
@@ -44,6 +56,27 @@ export default function Root() {
               <p className="font-bold text-inherit text-logo">Boar Gallery</p>
             </NavbarBrand>
             <NavbarContent justify="end">
+              <NavbarItem>
+                <Dropdown>
+                  <DropdownTrigger>
+                    <Button isIconOnly variant="bordered">
+                      <HiOutlineTranslate size={20}/>
+                    </Button>
+                  </DropdownTrigger>
+                  <DropdownMenu
+                    aria-label="Single selection example"
+                    variant="flat"
+                    disallowEmptySelection
+                    selectionMode="single"
+                    selectedKeys={[i18n.language]}
+                    onSelectionChange={(l) => i18n.changeLanguage((l as Set<string>).values().next().value)}
+                  >
+                    <DropdownItem key="zh-CN">简体中文</DropdownItem>
+                    <DropdownItem key="en">English</DropdownItem>
+                    <DropdownItem key="ja">日本語</DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </NavbarItem>
               <NavbarItem>
                 <Button isIconOnly variant="flat" onClick={darkMode.toggle}>
                   {
@@ -70,7 +103,7 @@ export default function Root() {
                   variant="flat"
                   startContent={<TbHome size={22}/>}
                 >
-                  <p className="text-medium">Home</p>
+                  <p className="text-medium font-bold">{t('sidebar.home')}</p>
                 </ListboxItem>
                 <ListboxItem
                   key="map"
@@ -79,7 +112,7 @@ export default function Root() {
                   variant="flat"
                   startContent={<TbMap size={22}/>}
                 >
-                  <p className="text-medium">Map</p>
+                  <p className="text-medium font-bold">{t('sidebar.map')}</p>
                 </ListboxItem>
               </Listbox>
 

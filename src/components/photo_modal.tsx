@@ -22,8 +22,8 @@ export interface PhotoModalProps {
 export default function PhotoModal(props: PhotoModalProps) {
   const photo = props.photo;
   const isDesktop = useMediaQuery('(min-width: 960px)');
-  if (!photo.medium_file) return null;
 
+  if (!photo.medium_file) return null;
   const isPortrait = photo.medium_file!.width <= photo.medium_file!.height;
 
   return (

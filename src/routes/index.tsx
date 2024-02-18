@@ -87,15 +87,17 @@ const MasonryCard = ({data}: { data: Photo }) => {
       if (!photo.medium_file) {
         axios.get<Response<Photo>>(`https://api.gallery.boar.ac.cn/photos/get?id=${data.id}`).then(res => {
           setPhoto(res.data.payload)
+          history.pushState({}, '', `/photo/${photo.id}`)
           onOpen();
           loading.setLoading(false);
         })
       } else {
+        history.pushState({}, '', `/photo/${photo.id}`)
         onOpen();
         loading.setLoading(false)
       }
     }
-  }, [data.id, loading, onOpen, photo.medium_file])
+  }, [data.id, loading, onOpen, photo.id, photo.medium_file])
 
   return <Card
     radius="lg"
@@ -125,6 +127,11 @@ const MasonryCard = ({data}: { data: Photo }) => {
         null
     }
 
-    <PhotoModal photo={photo} isOpen={isOpen} onOpenChange={onOpenChange}/>
+    <PhotoModal photo={photo} isOpen={isOpen} onOpenChange={(isOpen) => {
+      if (!isOpen) {
+        history.back()
+      }
+      onOpenChange()
+    }}/>
   </Card>
 };
