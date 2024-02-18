@@ -24,12 +24,14 @@ export default function PhotoModal(props: PhotoModalProps) {
   const isDesktop = useMediaQuery('(min-width: 960px)');
   if (!photo.medium_file) return null;
 
+  const isPortrait = photo.medium_file!.width <= photo.medium_file!.height;
+
   return (
     <Modal
       isOpen={props.isOpen}
       onOpenChange={props.onOpenChange}
       backdrop='blur'
-      size='4xl'
+      size={(isDesktop && isPortrait) ? '5xl' : '4xl'}
       scrollBehavior='inside'
       classNames={{
         closeButton: 'z-20'
@@ -56,7 +58,7 @@ export default function PhotoModal(props: PhotoModalProps) {
       }}>
       <ModalContent className='overflow-hidden'>
         {() => (
-          (!isDesktop) || (photo.medium_file!.width > photo.medium_file!.height) ?
+          (!isDesktop) || (!isPortrait) ?
             <>
               <ModalHeader className="p-0 flex flex-col gap-1">
                 <Card
@@ -74,7 +76,8 @@ export default function PhotoModal(props: PhotoModalProps) {
                   />
                   <CardFooter
                     className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small right-1 z-10 w-auto font-normal">
-                    <div className='text-tiny md:text-small text-white/80'>&copy; {moment(photo.metadata.datetime).year()} {photo.author.name}</div>
+                    <div
+                      className='text-tiny md:text-small text-white/80'>&copy; {moment(photo.metadata.datetime).year()} {photo.author.name}</div>
                   </CardFooter>
                 </Card>
               </ModalHeader>
@@ -186,7 +189,8 @@ export default function PhotoModal(props: PhotoModalProps) {
                       />
                       <CardFooter
                         className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small right-1 z-10 w-auto font-normal">
-                        <div className='text-tiny md:text-small text-white/80'>&copy; {moment(photo.metadata.datetime).year()} {photo.author.name}</div>
+                        <div
+                          className='text-tiny md:text-small text-white/80'>&copy; {moment(photo.metadata.datetime).year()} {photo.author.name}</div>
                       </CardFooter>
                     </Card>
                   </div>

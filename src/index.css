@@ -17,3 +17,7 @@ html, body, #root, #root > div {
     font-style: normal;
     font-size: 1.5em;
 }
+
+.anchorBL {
+    display: none !important;
+}

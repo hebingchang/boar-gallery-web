@@ -1,18 +1,10 @@
-import {
-  Button,
-  Listbox,
-  ListboxItem,
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem
-} from "@nextui-org/react";
+import { Button, Listbox, ListboxItem, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
 import useDarkMode from "use-dark-mode";
-import { TbSun, TbMoon, TbHome, TbMap } from "react-icons/tb";
+import { TbHome, TbMap, TbMoon, TbSun } from "react-icons/tb";
 import { Outlet } from "react-router-dom";
 import { LoadingContext } from "../contexts/loading";
 import { useEffect, useState } from "react";
-import { MapTokenContext } from "../contexts/map_token.tsx";
+import { MapToken, MapTokenContext, MapType } from "../contexts/map_token.tsx";
 import axios from "axios";
 import { Response } from "../models/gallery.ts";
 
@@ -24,13 +16,23 @@ export default function Root() {
   });
 
   useEffect(() => {
-    axios.get<Response<string>>('https://api.gallery.boar.ac.cn/mapkit-js/token').then((res) => {
-      setToken(res.data.payload)
+    axios.get<Response<string>>('https://api.gallery.boar.ac.cn/geo/ip').then(async (res) => {
+      if (res.data.payload === 'CN') {
+        // baidu map
+        axios.get<Response<string>>('https://api.gallery.boar.ac.cn/baidu-map/token').then((res) => {
+          setToken({type: MapType.Baidu, token: res.data.payload})
+        })
+      } else {
+        // apple map
+        axios.get<Response<string>>('https://api.gallery.boar.ac.cn/mapkit-js/token').then((res) => {
+          setToken({type: MapType.Apple, token: res.data.payload})
+        })
+      }
     })
   }, [])
 
   const [loading, setLoading] = useState(false)
-  const [token, setToken] = useState('')
+  const [token, setToken] = useState<MapToken>({type: MapType.Apple, token: ''})
 
   return (
     <MapTokenContext.Provider value={{token, setToken}}>

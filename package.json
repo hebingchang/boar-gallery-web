@@ -12,6 +12,7 @@
   "dependencies": {
     "@mui/lab": "^5.0.0-alpha.165",
     "@nextui-org/react": "^2.2.9",
+    "@uiw/react-baidu-map": "^2.7.1",
     "axios": "^1.6.7",
     "framer-motion": "^11.0.5",
     "localforage": "^1.10.0",

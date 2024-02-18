@@ -12,7 +12,7 @@
   resolved "https://registry.yarnpkg.com/@alloc/quick-lru/-/quick-lru-5.2.0.tgz#7bf68b20c0a350f936915fcae06f58e32007ce30"
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
-"@babel/runtime@^7.20.13", "@babel/runtime@^7.23.8", "@babel/runtime@^7.23.9":
+"@babel/runtime@^7.18.0", "@babel/runtime@^7.20.13", "@babel/runtime@^7.23.8", "@babel/runtime@^7.23.9":
   version "7.23.9"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.23.9.tgz#47791a15e4603bb5f905bc0753801cf21d6345f7"
   integrity sha512-0CX6F+BI2s9dkUqr08KFrAIZgNFj75rdBU/DjCyYLIaV/quFjkk6T+EJ2LkZHyZTbEV4L5p97mNkUsHl2wLFAw==
@@ -2417,6 +2417,267 @@
   dependencies:
     "@typescript-eslint/types" "6.21.0"
     eslint-visitor-keys "^3.4.1"
+
+"@uiw/react-baidu-map-api-loader@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-api-loader/-/react-baidu-map-api-loader-2.7.1.tgz#4601d051ce456cbef12e15e38beb3014999b986e"
+  integrity sha512-DfSfD7C+0iSVSaRtu25288PmSfJfqpFI3kKJladuQJDAlFf9RDBCQQEtYUoCKS17u9mqsJSfWZv8S1U6bBGnAg==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-circle@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-circle/-/react-baidu-map-circle-2.7.1.tgz#a89b8d9b75bd2488d7ab7d87a6ee9b53d89e39e4"
+  integrity sha512-YelLX6gvwGoAWu8waqaOUYxMt2SQLxkqBcAAnScf9p2WvKWt+yuDCRPCkQn2X/9KPmJWWgbw7nOhjqnUG4BkNw==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-control@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-control/-/react-baidu-map-control-2.7.1.tgz#6279d986993fc3c2bfa68f4aa13ae3b3f23ce667"
+  integrity sha512-VW4DCrwQcTe8+dk9wzsTWgBytinrul7dBslyuY2lC4YimD2pgiWcSgUlJ3dgFxVWOCcVQXoIL9BBluYE7Ge4+Q==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-copyright-control@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-copyright-control/-/react-baidu-map-copyright-control-2.7.1.tgz#32aa7a300d1cccd40253ed98a98737b8be202398"
+  integrity sha512-oaAHeRrU7KziJfygIzzmXUcppz77AAmgQpkT0KWO90v2+maVCNeRIUwDb8cw/Kbqv0sB0CBAQnZCgzLHZuOQvw==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-curve-line@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-curve-line/-/react-baidu-map-curve-line-2.7.1.tgz#391f59da9225a107ca3295ae5cec883b7c299648"
+  integrity sha512-jaB+wKMeHnh8X9BM9HH3As6JSPo3/gHDYBfi1HMaDkf2d8KtwSLPng++EVbHKIkYqxYde8x3vyPAXE3xSNtghg==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-custom-overlay@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-custom-overlay/-/react-baidu-map-custom-overlay-2.7.1.tgz#55b25a58de5f8ab6a5f008ac2698bea8559e82de"
+  integrity sha512-+iEPsfBfU04sFi+d7J0BZfXxK+qqYWd6H5o06b5PisUrJz+qojAZrG2mSASR+doItFZ8uDkfqnk4UZP+e9rM3w==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-drawing-manager@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-drawing-manager/-/react-baidu-map-drawing-manager-2.7.1.tgz#375944d3751f0d6a835fbc636b3cebed82d0c2ff"
+  integrity sha512-qmrNy6MNOe5U8Sizts6SeIbNBToeOPyufZ3C1nXQKHzYZg+HhkWURVF3a29zqt/cyBkM99LfSuZVy3PU5QUslw==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-geolocation-control@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-geolocation-control/-/react-baidu-map-geolocation-control-2.7.1.tgz#5dd84359257859096a38e77a2a1a6a86a2190de8"
+  integrity sha512-LhhgvIQ2yg1xQ9i5I1lMNZg3avEI4tq8c1LMPBdj/vjmIzEkk3A0C+YvkislFcS4cjXbHzJxTFFgCXJmkf4H9w==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-ground-overlay@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-ground-overlay/-/react-baidu-map-ground-overlay-2.7.1.tgz#139b22c43418efccfa30038bfd274fcc3be0b7cb"
+  integrity sha512-we8rNrstEU3YtxUiRXje9ArBqsiWquNMS29e1xuDd6w5LTu6T3XUrpJRT0BGOwwdHWXyNiMDX0pP8KgLk0o3nQ==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-info-window@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-info-window/-/react-baidu-map-info-window-2.7.1.tgz#bd08dc8a5d82f15d1cf984b1bd9e519e00887d73"
+  integrity sha512-axmL+OW3aMhJnrmLrmwUNI6ZP5xv3CkIbdDSQUIDw80jS5Iw/cT53Ty0R19K9KLhnQHjhf/qM+6IWjSV4QjcCQ==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-label@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-label/-/react-baidu-map-label-2.7.1.tgz#e732abc3e71a76a17311e318a8801b05b83ab131"
+  integrity sha512-1Ci8us+LUaRtqz9vTNHlsn8+FZ3tPJcqifd1w1gnB9WypJwPcyHiFBoPSHZOhOb+SLgxCMkXYXGpTDvSTQBe+Q==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-map@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-map/-/react-baidu-map-map-2.7.1.tgz#5227925ab754fd1a530f28c211144733104a94dd"
+  integrity sha512-PCBEKovMPZDiocXf0GFXJh/kzqVI4zTL8d8McjCwRAN/kvXTOBpQ4Z+odgTXTAyt0eXIMP9sUZ3HiUZVPdjwfA==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-api-loader" "2.7.1"
+    "@uiw/react-baidu-map-types" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-marker@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-marker/-/react-baidu-map-marker-2.7.1.tgz#1810e80f6301cbebc2813868518e77df27817ede"
+  integrity sha512-sxS1LP9wzs4xlCWEikL8s17ZgGsi4xFGBCALrPDfGkOsbPjaWCtB5BdfCLF7/TBwx1E1HEF10xUuUFDe7CiEew==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-navigation-control@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-navigation-control/-/react-baidu-map-navigation-control-2.7.1.tgz#fd13f14f5a202efd09c48332618e575d4a881131"
+  integrity sha512-Vx+4MQlKZ85Hbnh3bvrGsMHeTq1o9C4CFvs7U9kLUA+vvmDramxHmlzKWZ4aGfYUodQwl6qDbs5suHG7OR8W/w==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-overview-map-control@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-overview-map-control/-/react-baidu-map-overview-map-control-2.7.1.tgz#2db53cfb4bc74e5765b3a1b2c276a96c3aad3155"
+  integrity sha512-et6Uuw/9mEmEIzAsOWnXa8bdd459GkMOAzcnW347OgFHiy/FsAXRoPC5HTva+5L+z/qmmDhWrpgCrrqLtRm8ng==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-panorama-control@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-panorama-control/-/react-baidu-map-panorama-control-2.7.1.tgz#cace7e35b3e056cfc017e1009d73e14ab9cd9fa2"
+  integrity sha512-h2RBej1f8JQGl3l4ToNrG8DzTZ7wIGwpZamuLVqKoVtNxCGcFJ0RvFoKHYNGSFfok5E6sBE5dUXrrBUN4e32Rw==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-point-collection@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-point-collection/-/react-baidu-map-point-collection-2.7.1.tgz#e788747114b91366ab347324f1d9a33fe6686c43"
+  integrity sha512-yL2Q/XmbFTgUmuzACy61yqAhjF5NNcvgWbTsz2Eve/9HS9aRWIfvZo82SabQeBIoKjRLNOiiV5FxXczUKgAIwA==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-polygon@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-polygon/-/react-baidu-map-polygon-2.7.1.tgz#8b6c5709337344fe95b3e77cbab082aa77ae088e"
+  integrity sha512-wkO0zDA/WBiTyfu4Mhcp1M2ib3Q7JRuitE4umaYpPYia3SHBHH4cjFIsa1Xp4trle+LpQ9VIgEEuTRDjp+SWZQ==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-polyline@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-polyline/-/react-baidu-map-polyline-2.7.1.tgz#c5fb0526890cedf3d43909152eb7d7580d85fa2f"
+  integrity sha512-reaToV6TEgfPNVpRc9WbGZg7quSgzZqEmXmXRiqlm8BQAnuCC7qjYIjRuw6uRX/p01z7B6BggAcKDKfQR+bsPw==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-require-script@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-require-script/-/react-baidu-map-require-script-2.7.1.tgz#9ecbd202a62a6fcbb88d210fb31977a030224543"
+  integrity sha512-D7xDkMHg+fBob+SO22gWnYd4d1w6Bd0bRSV8/Ngy3ijm1w+AynB49Vlx2cWHZp+np+IlBUdGd2ux+xtdSHEqrQ==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-scale-control@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-scale-control/-/react-baidu-map-scale-control-2.7.1.tgz#2aa630bc4f750482d5424dd63db6750de5c4d9ed"
+  integrity sha512-XquEa4oxCBV8GyMP5OXmL/9Tf2HyPCPAJOBbFjwubFxP+WwLYhgRDz9IKkimw12XRytSs9ClR3+hI86l71cjJw==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-tile-layer@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-tile-layer/-/react-baidu-map-tile-layer-2.7.1.tgz#903f35ef11807d58987354b33c988e2603df131f"
+  integrity sha512-gR2RK0h2Qqeaza7IiXFkWzsb3oSMstE5zMufJtemC0TwRSYnbiMQXL/9C+/8ifnVhHj5Z6AIR7QZsGs4KVrS5A==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-type-control@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-type-control/-/react-baidu-map-type-control-2.7.1.tgz#8d9f3ba3b6b0648d8a17c7a241fad406d1bf96c6"
+  integrity sha512-mdZzJa34fCkPxdPf+VNxB4Qr1QytqP4N5JqfLPT3/gjVHK27iDS05l4L+ATvmbh308JiuGEGb+MDJIfxhb4jBA==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+
+"@uiw/react-baidu-map-types@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-types/-/react-baidu-map-types-2.7.1.tgz#4063711996506155703c612ee8c6ac2ef2cb3d77"
+  integrity sha512-OtFXLL3Nddl3kNID+v4wDlbqzmzN8l+CeO0uWJfamR22z7h9ujIyKB2rBqJKIbn9bv7/inWO2ZCF9NPm3rbuPQ==
+
+"@uiw/react-baidu-map-utils@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-utils/-/react-baidu-map-utils-2.7.1.tgz#228254b06e878222f33028c809edd7d7583680ed"
+  integrity sha512-FSGafiPuneJzFGXfz7zgWhu88oD2EUK4gqHZ03g400yQwoAOqnjtTbQDuDvO60Y1MTdgjtGssWZ723v9NYpgYg==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-types" "2.7.1"
+
+"@uiw/react-baidu-map-with-map@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map-with-map/-/react-baidu-map-with-map-2.7.1.tgz#d415a9fc28960d1ef43333c1a2efe0d727191f2d"
+  integrity sha512-tgr42d39SM77ZH+f21Ps75qNFsQug+/nrCEvh9SOw1KeXjpUNOv5QJkA4fkcLuLyYO467FEpi3o0DYtHMvWK7Q==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-map" "2.7.1"
+
+"@uiw/react-baidu-map@^2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@uiw/react-baidu-map/-/react-baidu-map-2.7.1.tgz#6c156bfc5f30aa54f509f85645bbc6ccc907831b"
+  integrity sha512-CS4H1zuoMnPbVhdXSZNFMOuN5FZnULxpF3927h+qu3ZiBHPVq+VOC1DRog0mORCalBgMLB/cvm1nVncmURq1vg==
+  dependencies:
+    "@babel/runtime" "^7.18.0"
+    "@uiw/react-baidu-map-api-loader" "2.7.1"
+    "@uiw/react-baidu-map-circle" "2.7.1"
+    "@uiw/react-baidu-map-control" "2.7.1"
+    "@uiw/react-baidu-map-copyright-control" "2.7.1"
+    "@uiw/react-baidu-map-curve-line" "2.7.1"
+    "@uiw/react-baidu-map-custom-overlay" "2.7.1"
+    "@uiw/react-baidu-map-drawing-manager" "2.7.1"
+    "@uiw/react-baidu-map-geolocation-control" "2.7.1"
+    "@uiw/react-baidu-map-ground-overlay" "2.7.1"
+    "@uiw/react-baidu-map-info-window" "2.7.1"
+    "@uiw/react-baidu-map-label" "2.7.1"
+    "@uiw/react-baidu-map-map" "2.7.1"
+    "@uiw/react-baidu-map-marker" "2.7.1"
+    "@uiw/react-baidu-map-navigation-control" "2.7.1"
+    "@uiw/react-baidu-map-overview-map-control" "2.7.1"
+    "@uiw/react-baidu-map-panorama-control" "2.7.1"
+    "@uiw/react-baidu-map-point-collection" "2.7.1"
+    "@uiw/react-baidu-map-polygon" "2.7.1"
+    "@uiw/react-baidu-map-polyline" "2.7.1"
+    "@uiw/react-baidu-map-require-script" "2.7.1"
+    "@uiw/react-baidu-map-scale-control" "2.7.1"
+    "@uiw/react-baidu-map-tile-layer" "2.7.1"
+    "@uiw/react-baidu-map-type-control" "2.7.1"
+    "@uiw/react-baidu-map-types" "2.7.1"
+    "@uiw/react-baidu-map-utils" "2.7.1"
+    "@uiw/react-baidu-map-with-map" "2.7.1"
 
 "@ungap/structured-clone@^1.2.0":
   version "1.2.0"
