@@ -55,10 +55,10 @@ export default function PhotoPage() {
         <div>
           <Card>
             <CardBody>
-              <div className='flex flex-wrap items-center justify-between'>
+              <div className='flex flex-col gap-1'>
                 {
                   photo.metadata.city ?
-                    <div className='flex items-center text-default-500 gap-2 mb-1'>
+                    <div className='flex items-center text-default-500 gap-2'>
                       <IoLocationOutline className='flex-shrink-0' size={20}/>
                       <div className='flex flex-wrap gap-x-3'>
                         <div className='flex gap-1'>
@@ -90,7 +90,7 @@ export default function PhotoPage() {
 
                 {
                   photo.metadata.altitude ?
-                    <div className='flex items-center text-default-500 gap-2 mt-1'>
+                    <div className='flex items-center text-default-500 gap-2'>
                       <PiMountains size={20}/>
                       <div>
                         {photo.metadata.altitude}m
