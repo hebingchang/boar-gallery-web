@@ -173,16 +173,21 @@ export default function PhotoModal(props: PhotoModalProps) {
             <>
               <ModalHeader className="p-0 flex flex-col gap-1"/>
               <ModalBody className="p-0 overflow-hidden">
-                <div className='grid grid-cols-12'>
-                  <div className='col-span-7'>
+                <div className='grid grid-cols-24'>
+                  <div className='col-span-13'>
                     <Card
                       isFooterBlurred
                       radius="lg"
-                      className="border-none"
+                      className="border-none h-[100%]"
                     >
                       <Image
                         isBlurred
-                        className="object-contain"
+                        classNames={{
+                          wrapper: 'h-[100%]',
+                          zoomedWrapper: 'h-[100%]',
+                          blurredImg: 'h-[100%]',
+                        }}
+                        className="object-contain h-[100%]"
                         src={photo.medium_file!.url}
                         width={photo.medium_file!.width}
                         height={photo.medium_file!.height}
@@ -195,7 +200,7 @@ export default function PhotoModal(props: PhotoModalProps) {
                     </Card>
                   </div>
 
-                  <div className='col-span-5 p-6 flex flex-col gap-1 justify-end'>
+                  <div className='col-span-11 p-6 flex flex-col gap-1 justify-end'>
                     {
                       photo.metadata.city ?
                         <div className='flex items-center text-default-500 gap-1'>

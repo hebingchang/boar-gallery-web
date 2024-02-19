@@ -59,7 +59,7 @@ export default function Root() {
               <NavbarItem>
                 <Dropdown>
                   <DropdownTrigger>
-                    <Button isIconOnly variant="bordered">
+                    <Button isIconOnly variant="light">
                       <HiOutlineTranslate size={20}/>
                     </Button>
                   </DropdownTrigger>
