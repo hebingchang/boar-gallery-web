@@ -67,7 +67,7 @@ export default function Index() {
         height,
         resizeObserver,
         items: photos,
-        overscanBy: 4,
+        overscanBy: 6,
         render: MasonryCard,
         className: 'mt-[5rem]',
         onRender: maybeLoadMore,
