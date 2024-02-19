@@ -51,7 +51,7 @@ export default function PhotoPage() {
         </CardFooter>
       </Card>
 
-      <div className='gap-4 grid grid-cols-1 md:grid-cols-2 mt-4'>
+      <div className='gap-4 grid grid-cols-1 md:grid-cols-2 mt-4 pb-4'>
         <div>
           <Card>
             <CardBody>
