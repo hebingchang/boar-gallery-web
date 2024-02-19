@@ -1,6 +1,6 @@
 import {
   Button, Dropdown,
-  DropdownItem, DropdownMenu, DropdownTrigger,
+  DropdownItem, DropdownMenu, DropdownTrigger, Link,
   Listbox,
   ListboxItem,
   Navbar,
@@ -53,7 +53,7 @@ export default function Root() {
           className={`${darkMode.value ? 'dark' : ''} text-foreground bg-background overflow-y-scroll scrollbar-hide`}>
           <Navbar>
             <NavbarBrand>
-              <p className="font-bold text-inherit text-logo">Boar Gallery</p>
+              <Link className="font-bold text-inherit text-logo" href='/'>Boar Gallery</Link>
             </NavbarBrand>
             <NavbarContent justify="end">
               <NavbarItem>
