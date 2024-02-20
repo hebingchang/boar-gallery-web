@@ -2,13 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #root, #root > div {
-    height: 100%;
-}
+/*html, body, #root, #root > div {*/
+/*    height: 100%;*/
+/*}*/
 
-#root > div > main {
-    height: 100%;
-}
+/*#root > div > main {*/
+/*    height: 100%;*/
+/*}*/
 
 .text-logo {
     font-family: "Dancing Script Variable", cursive;
@@ -16,8 +16,4 @@ html, body, #root, #root > div {
     font-weight: 700;
     font-style: normal;
     font-size: 1.5em;
-}
-
-.anchorBL {
-    display: none !important;
 }

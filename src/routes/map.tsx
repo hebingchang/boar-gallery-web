@@ -18,7 +18,7 @@ export default function Map() {
   const isDesktop = useMediaQuery('(min-width: 960px)');
 
   return (
-    <div className='scrollbar-hide md:pl-[20px] h-[100%] box-border relative'>
+    <div className='scrollbar-hide md:pl-[20px] box-border relative' style={{height: 'calc(100dvh - 4rem)'}}>
       <ComposableMap
         projection="geoAzimuthalEqualArea"
         projectionConfig={{

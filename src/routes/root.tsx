@@ -57,7 +57,7 @@ export default function Root() {
     <MapTokenContext.Provider value={{token, setToken}}>
       <LoadingContext.Provider value={{loading, setLoading}}>
         <main
-          className={`${darkMode.value ? 'dark' : ''} text-foreground bg-background overflow-y-scroll scrollbar-hide`}>
+          className={`${darkMode.value ? 'dark' : ''} text-foreground bg-background scrollbar-hide`}>
           <Navbar onMenuOpenChange={setIsMenuOpen} isMenuOpen={isMenuOpen}>
             <NavbarBrand>
               <Link className="font-bold text-inherit text-logo" href='/'>Boar Gallery</Link>
@@ -120,30 +120,27 @@ export default function Root() {
             </NavbarMenu>
           </Navbar>
 
-          <div className="top-0 left-0 right-0 bottom-0 absolute">
-            <div
-              className="container mx-auto max-w-[1024px] flex flex-row flex-1 overflow-y-auto scrollbar-hide"
-              style={{height: '100%'}}
-            >
-              <Listbox className="max-w-64 hidden md:flex sticky top-0 pt-[5rem]">
-                {
-                  routes.map((r) => (
-                    <ListboxItem
-                      key={r.route}
-                      href={r.route}
-                      className="px-4 py-3"
-                      variant="flat"
-                      startContent={r.icon}
-                    >
-                      <p className="text-medium font-bold">{t(r.text)}</p>
-                    </ListboxItem>
-                  ))
-                }
-              </Listbox>
+          <div
+            className="mx-auto max-w-[1024px] flex"
+          >
+            <Listbox className="max-w-64 hidden md:flex sticky top-[5rem] h-[100%]">
+              {
+                routes.map((r) => (
+                  <ListboxItem
+                    key={r.route}
+                    href={r.route}
+                    className="px-4 py-3"
+                    variant="flat"
+                    startContent={r.icon}
+                  >
+                    <p className="text-medium font-bold">{t(r.text)}</p>
+                  </ListboxItem>
+                ))
+              }
+            </Listbox>
 
-              <div className='w-full'>
-                <Outlet/>
-              </div>
+            <div className='w-full'>
+              <Outlet/>
             </div>
           </div>
         </main>

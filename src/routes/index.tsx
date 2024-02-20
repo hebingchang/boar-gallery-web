@@ -5,28 +5,21 @@ import { Card, Image, CardFooter, CardBody, useDisclosure } from "@nextui-org/re
 import useMediaQuery from "../hooks/useMediaQuery.tsx";
 import PhotoModal from "../components/photo_modal.tsx";
 import { LoadingContext } from "../contexts/loading.tsx";
+import { useWindowSize } from "@react-hook/window-size";
 import {
+  Masonry,
+  useContainerPosition,
   useInfiniteLoader,
   useMasonry,
   usePositioner,
-  useResizeObserver
+  useScroller
 } from "masonic";
-import { useSize, useScroller } from "mini-virtual-list";
 
 
 export default function Index() {
   const [photos, setPhotos] = useState<Photo[]>([])
   const isDesktop = useMediaQuery('(min-width: 960px)');
-  const containerRef = useRef(null);
-  const {width, height} = useSize(containerRef);
-  const {scrollTop, isScrolling} = useScroller(containerRef);
   const [loadedIndex, setLoadedIndex] = useState<{ startIndex: number, stopIndex: number }[]>([])
-  const positioner = usePositioner({
-    width: width - (isDesktop ? 40 : 20),
-    columnCount: isDesktop ? 3 : 2,
-    columnGutter: isDesktop ? 16 : 8,
-  });
-  const resizeObserver = useResizeObserver(positioner);
 
   useEffect(() => {
     axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all?page_size=60').then(res => {
@@ -58,22 +51,17 @@ export default function Index() {
     isItemLoaded: (index, items) => !!items[index],
   });
 
-  return (
-    <div className='h-[100%] overflow-scroll scrollbar-hide px-[10px] md:px-[20px] box-content' ref={containerRef}>
-      {useMasonry({
-        positioner,
-        scrollTop,
-        isScrolling,
-        height,
-        resizeObserver,
-        items: photos,
-        overscanBy: 3,
-        render: MasonryCard,
-        className: 'mt-[5rem]',
-        onRender: maybeLoadMore,
-      })}
-    </div>
-  );
+  return <div className='px-2 pt-[1rem]'>
+    <Masonry
+      items={photos}
+      render={MasonryCard}
+      onRender={maybeLoadMore}
+      columnGutter={isDesktop ? 12 : 8}
+      columnCount={isDesktop ? 3 : 2}
+      overscanBy={3}
+      itemKey={(item) => item.id}
+    />
+  </div>
 }
 
 const MasonryCard = ({data}: { data: Photo }) => {
@@ -102,8 +90,8 @@ const MasonryCard = ({data}: { data: Photo }) => {
   return <Card
     radius="lg"
     className="border-none"
-    isPressable
-    onPress={openPhotoModel}
+    // isPressable
+    // onPress={openPhotoModel}
   >
     <CardBody className="overflow-visible p-0">
       <Image
@@ -111,6 +99,7 @@ const MasonryCard = ({data}: { data: Photo }) => {
         src={data.thumb_file.url}
         width={data.thumb_file.width}
         height={data.thumb_file.height}
+        onClick={openPhotoModel}
       />
     </CardBody>
     {
