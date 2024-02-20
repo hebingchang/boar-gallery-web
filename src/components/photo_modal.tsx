@@ -36,7 +36,7 @@ export default function PhotoModal(props: PhotoModalProps) {
       classNames={{
         closeButton: 'z-20'
       }}
-      motionProps={{
+      motionProps={isDesktop ? {
         variants: {
           enter: {
             transform: "scale(1)",
@@ -55,7 +55,8 @@ export default function PhotoModal(props: PhotoModalProps) {
             },
           },
         }
-      }}>
+      } : undefined}
+    >
       <ModalContent className='overflow-hidden'>
         {() => (
           (!isDesktop) || (!isPortrait) ?
@@ -160,14 +161,6 @@ export default function PhotoModal(props: PhotoModalProps) {
                   }
                 </div>
               </ModalBody>
-              {/*<ModalFooter>*/}
-              {/*  <Button color="danger" variant="light" onPress={onClose}>*/}
-              {/*    Close*/}
-              {/*  </Button>*/}
-              {/*  <Button color="primary" onPress={onClose}>*/}
-              {/*  Action*/}
-              {/*  </Button>*/}
-              {/*</ModalFooter>*/}
             </>
             :
             <>
