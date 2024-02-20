@@ -13,10 +13,11 @@ import useMediaQuery from "../hooks/useMediaQuery.tsx";
 export default function Map() {
   const darkmode = useDarkMode()
   const [zoom, setZoom] = useState(1)
+  const [hoverId, setHoverId] = useState(0)
   const isDesktop = useMediaQuery('(min-width: 960px)');
 
   return (
-    <div className='scrollbar-hide pl-[10px] md:pl-[20px] box-content h-[100%] !box-border'>
+    <div className='scrollbar-hide md:pl-[20px] box-content h-[100%] !box-border'>
       <ComposableMap
         projection="geoAzimuthalEqualArea"
         projectionConfig={{
@@ -41,6 +42,8 @@ export default function Map() {
                     stroke={darkmode.value ? '#000' : '#FFF'}
                     geography={geo}
                     fill={darkmode.value ? '#222' : '#DDD'}
+                    onMouseEnter={() => setHoverId(geo.properties['id'])}
+                    onMouseLeave={() => setHoverId(0)}
                     style={{
                       default: {
                         cursor: 'pointer',
@@ -71,11 +74,12 @@ export default function Map() {
                           y="2"
                           fontSize={Math.round((isDesktop ? 16 : 24) / zoom)}
                           textAnchor="middle"
-                          style={{cursor: 'pointer', userSelect: 'none'}}
+                          style={{cursor: 'pointer', userSelect: 'none', transition: 'font-weight .2s ease-out'}}
                           fill={darkmode.value ? '#fff' : '#000'}
                           onClick={() => {
                             console.log(geo)
                           }}
+                          fontWeight={hoverId === geo.properties['id'] ? 800 : 400}
                           opacity={0.8}
                         >
                           {geo.properties['name']}
