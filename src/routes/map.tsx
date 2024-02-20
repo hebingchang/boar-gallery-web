@@ -9,6 +9,7 @@ import { geoCentroid } from "d3-geo";
 import useDarkMode from "use-dark-mode";
 import { useState } from "react";
 import useMediaQuery from "../hooks/useMediaQuery.tsx";
+import { Card, CardBody } from "@nextui-org/react";
 
 export default function Map() {
   const darkmode = useDarkMode()
@@ -17,7 +18,7 @@ export default function Map() {
   const isDesktop = useMediaQuery('(min-width: 960px)');
 
   return (
-    <div className='scrollbar-hide md:pl-[20px] box-content h-[100%] !box-border'>
+    <div className='scrollbar-hide md:pl-[20px] h-[100%] box-border relative'>
       <ComposableMap
         projection="geoAzimuthalEqualArea"
         projectionConfig={{
@@ -69,7 +70,9 @@ export default function Map() {
                   const centroid = geoCentroid(geo);
                   return (
                     <g key={geo.rsmKey + "-name"}>
-                      <Marker coordinates={centroid}>
+                      <Marker
+                        coordinates={centroid}
+                      >
                         <text
                           y="2"
                           fontSize={Math.round((isDesktop ? 16 : 24) / zoom)}
@@ -81,6 +84,8 @@ export default function Map() {
                           }}
                           fontWeight={hoverId === geo.properties['id'] ? 800 : 400}
                           opacity={0.8}
+                          onMouseEnter={() => setHoverId(geo.properties['id'])}
+                          onMouseLeave={() => setHoverId(0)}
                         >
                           {geo.properties['name']}
                         </text>
@@ -93,6 +98,12 @@ export default function Map() {
           </Geographies>
         </ZoomableGroup>
       </ComposableMap>
+
+      <Card className='absolute bottom-4 left-2 right-2' isBlurred>
+        <CardBody>
+          aa
+        </CardBody>
+      </Card>
     </div>
   );
 }
