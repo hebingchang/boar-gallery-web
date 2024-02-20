@@ -36,26 +36,6 @@ export default function PhotoModal(props: PhotoModalProps) {
       classNames={{
         closeButton: 'z-20'
       }}
-      motionProps={isDesktop ? {
-        variants: {
-          enter: {
-            transform: "scale(1)",
-            opacity: 1,
-            transition: {
-              duration: 0.2,
-              ease: [0, 0, 0.2, 1],
-            },
-          },
-          exit: {
-            transform: "scale(1.03)",
-            opacity: 0,
-            transition: {
-              duration: 0.1,
-              ease: [0.4, 0, 1, 1],
-            },
-          },
-        }
-      } : undefined}
     >
       <ModalContent className='overflow-hidden'>
         {() => (
