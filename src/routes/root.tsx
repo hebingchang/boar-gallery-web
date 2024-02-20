@@ -6,7 +6,7 @@ import {
   Navbar,
   NavbarBrand,
   NavbarContent,
-  NavbarItem
+  NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle, Spacer
 } from "@nextui-org/react";
 import useDarkMode from "use-dark-mode";
 import { TbHome, TbMap, TbMoon, TbSun } from "react-icons/tb";
@@ -18,6 +18,11 @@ import axios from "axios";
 import { Response } from "../models/gallery.ts";
 import { HiOutlineTranslate } from "react-icons/hi";
 import { useTranslation } from "react-i18next";
+
+const routes = [
+  {route: '/', text: 'sidebar.home', icon: <TbHome size={22}/>},
+  {route: '/map', text: 'sidebar.map', icon: <TbMap size={22}/>},
+]
 
 export default function Root() {
   const darkMode = useDarkMode(false, {
@@ -44,6 +49,7 @@ export default function Root() {
 
   const [loading, setLoading] = useState(false)
   const [token, setToken] = useState<MapToken>({type: MapType.Apple, token: ''})
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {t, i18n} = useTranslation()
 
   return (
@@ -51,12 +57,12 @@ export default function Root() {
       <LoadingContext.Provider value={{loading, setLoading}}>
         <main
           className={`${darkMode.value ? 'dark' : ''} text-foreground bg-background overflow-y-scroll scrollbar-hide`}>
-          <Navbar>
+          <Navbar onMenuOpenChange={setIsMenuOpen} isMenuOpen={isMenuOpen}>
             <NavbarBrand>
               <Link className="font-bold text-inherit text-logo" href='/'>Boar Gallery</Link>
             </NavbarBrand>
             <NavbarContent justify="end">
-              <NavbarItem>
+              <NavbarItem className={`${isMenuOpen ? '' : 'hidden'} sm:flex`}>
                 <Dropdown>
                   <DropdownTrigger>
                     <Button isIconOnly variant="light">
@@ -77,7 +83,7 @@ export default function Root() {
                   </DropdownMenu>
                 </Dropdown>
               </NavbarItem>
-              <NavbarItem>
+              <NavbarItem className={`${isMenuOpen ? '' : 'hidden'} sm:flex`}>
                 <Button isIconOnly variant="flat" onClick={darkMode.toggle}>
                   {
                     darkMode.value ?
@@ -87,7 +93,28 @@ export default function Root() {
                   }
                 </Button>
               </NavbarItem>
+              <NavbarMenuToggle className="sm:hidden ml-2"/>
             </NavbarContent>
+
+            <NavbarMenu>
+              {
+                routes.map((r) => (
+                  <NavbarMenuItem key={r.route}>
+                    <Link
+                      className="w-full pt-3 font-bold"
+                      href={r.route}
+                      size="lg"
+                      onPress={() => setIsMenuOpen(false)}
+                      color='foreground'
+                    >
+                      {r.icon}
+                      <Spacer x={2}/>
+                      {t(r.text)}
+                    </Link>
+                  </NavbarMenuItem>
+                ))
+              }
+            </NavbarMenu>
           </Navbar>
 
           <div className="top-0 left-0 right-0 bottom-0 absolute">
@@ -96,24 +123,19 @@ export default function Root() {
               style={{height: '100%'}}
             >
               <Listbox className="max-w-64 hidden md:flex sticky top-0 pt-[5rem]">
-                <ListboxItem
-                  key="home"
-                  href="/"
-                  className="px-4 py-3"
-                  variant="flat"
-                  startContent={<TbHome size={22}/>}
-                >
-                  <p className="text-medium font-bold">{t('sidebar.home')}</p>
-                </ListboxItem>
-                <ListboxItem
-                  key="map"
-                  href="/map"
-                  className="px-4 py-3"
-                  variant="flat"
-                  startContent={<TbMap size={22}/>}
-                >
-                  <p className="text-medium font-bold">{t('sidebar.map')}</p>
-                </ListboxItem>
+                {
+                  routes.map((r) => (
+                    <ListboxItem
+                      key={r.route}
+                      href={r.route}
+                      className="px-4 py-3"
+                      variant="flat"
+                      startContent={r.icon}
+                    >
+                      <p className="text-medium font-bold">{t(r.text)}</p>
+                    </ListboxItem>
+                  ))
+                }
               </Listbox>
 
               <div className='w-full'>
