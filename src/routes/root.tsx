@@ -10,7 +10,7 @@ import {
 } from "@nextui-org/react";
 import useDarkMode from "use-dark-mode";
 import { TbHome, TbMap, TbMoon, TbSun } from "react-icons/tb";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { LoadingContext } from "../contexts/loading";
 import { useEffect, useState } from "react";
 import { MapToken, MapTokenContext, MapType } from "../contexts/map_token.tsx";
@@ -51,6 +51,7 @@ export default function Root() {
   const [token, setToken] = useState<MapToken>({type: MapType.Apple, token: ''})
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {t, i18n} = useTranslation()
+  const navigate = useNavigate();
 
   return (
     <MapTokenContext.Provider value={{token, setToken}}>
@@ -102,9 +103,11 @@ export default function Root() {
                   <NavbarMenuItem key={r.route}>
                     <Link
                       className="w-full pt-3 font-bold"
-                      href={r.route}
                       size="lg"
-                      onPress={() => setIsMenuOpen(false)}
+                      onPress={() => {
+                        navigate(r.route)
+                        setIsMenuOpen(false)
+                      }}
                       color='foreground'
                     >
                       {r.icon}
