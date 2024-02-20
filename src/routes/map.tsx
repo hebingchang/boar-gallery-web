@@ -9,7 +9,7 @@ import { geoCentroid } from "d3-geo";
 import useDarkMode from "use-dark-mode";
 import { useEffect, useState } from "react";
 import useMediaQuery from "../hooks/useMediaQuery.tsx";
-import { Button, Card, CardBody, Select, SelectItem } from "@nextui-org/react";
+import { Select, SelectItem } from "@nextui-org/react";
 import { Country, Prefecture, Response } from "../models/gallery.ts";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
@@ -71,7 +71,12 @@ export default function Map() {
                     key={geo.rsmKey}
                     stroke={darkmode.value ? '#000' : '#FFF'}
                     geography={geo}
-                    fill={darkmode.value ? '#222' : '#DDD'}
+                    fill={
+                      darkmode.value ?
+                        (prefectures.find((p) => p.id === geo.properties['id'])?.photos_count ?? 0) > 0 ? '#792A4C' : '#222'
+                        :
+                        (prefectures.find((p) => p.id === geo.properties['id'])?.photos_count ?? 0) > 0 ? '#FEDFE1' : '#DDD'
+                    }
                     onMouseEnter={() => setHoverId(geo.properties['id'])}
                     onMouseLeave={() => setHoverId(0)}
                     style={{
