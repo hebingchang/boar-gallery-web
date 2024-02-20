@@ -122,6 +122,7 @@ export default function Root() {
 
           <div
             className="mx-auto max-w-[1024px] flex"
+            style={{minHeight: 'calc(100dvh - 4rem)'}}
           >
             <Listbox className="max-w-64 hidden md:flex sticky top-[5rem] h-[100%]">
               {

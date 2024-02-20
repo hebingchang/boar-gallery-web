@@ -72,6 +72,7 @@ export default function Index() {
       containerRef,
       items: photos,
       overscanBy: 3,
+      itemHeightEstimate: 0,
       onRender: maybeLoadMore,
       render: MasonryCard,
       itemKey: (item) => item.id,

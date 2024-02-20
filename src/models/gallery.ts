@@ -78,16 +78,17 @@ export interface Prefecture {
   id: number
   name: string
   country: Country
-  // geom_svg: string
-  // x_min: number
-  // y_min: number
-  // x_max: number
-  // y_max: number
+  photos_count?: number
 }
 
 export interface Country {
   id: number
   name: string
+  code: string
+  rotate: [number, number, number]
+  scale: [number, number]
+  translate_extent: [number, number, number, number]
+  max_zoom: [number, number]
 }
 
 export interface File {

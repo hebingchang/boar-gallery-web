@@ -7,34 +7,63 @@ import {
 } from "react-simple-maps";
 import { geoCentroid } from "d3-geo";
 import useDarkMode from "use-dark-mode";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useMediaQuery from "../hooks/useMediaQuery.tsx";
-import { Card, CardBody } from "@nextui-org/react";
+import { Button, Card, CardBody, Select, SelectItem } from "@nextui-org/react";
+import { Country, Prefecture, Response } from "../models/gallery.ts";
+import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 export default function Map() {
   const darkmode = useDarkMode()
   const [zoom, setZoom] = useState(1)
   const [hoverId, setHoverId] = useState(0)
   const isDesktop = useMediaQuery('(min-width: 960px)');
+  const [countries, setCountries] = useState<Country[]>([])
+  const [country, setCountry] = useState<Country>()
+  const [prefectures, setPrefectures] = useState<Prefecture[]>([])
+  const {t} = useTranslation()
+
+  useEffect(() => {
+    axios.get<Response<Country[]>>('https://api.gallery.boar.ac.cn/geo/countries').then((res) => {
+      setCountries(res.data.payload)
+      setCountry(res.data.payload[0])
+    })
+  }, [])
+
+  useEffect(() => {
+    if (country) {
+      axios.get<Response<Prefecture[]>>('https://api.gallery.boar.ac.cn/geo/prefectures', {
+        params: {
+          country_id: country.id,
+          with_photos_count: true
+        }
+      }).then((res) => {
+        setPrefectures(res.data.payload)
+      })
+    }
+  }, [country])
+
+  if (!country) return;
 
   return (
-    <div className='scrollbar-hide md:pl-[20px] box-border relative' style={{height: 'calc(100dvh - 4rem)'}}>
+    <div className='scrollbar-hide box-border relative' style={{height: 'calc(100dvh - 4rem)'}}>
       <ComposableMap
         projection="geoAzimuthalEqualArea"
         projectionConfig={{
-          rotate: [-138, -37, 0],
-          scale: isDesktop ? 3600 : 4000
+          rotate: country.rotate,
+          scale: isDesktop ? country.scale[0] : country.scale[1]
         }}
         className='h-[100%] w-[100%]'
       >
         <ZoomableGroup
-          maxZoom={2}
+          maxZoom={isDesktop ? country.max_zoom[0] : country.max_zoom[1]}
           onMove={({zoom}) => {
             setZoom(zoom)
           }}
-          translateExtent={[[-600, -200], [900, 1000]]}
+          translateExtent={[[country.translate_extent[0], country.translate_extent[1]], [country.translate_extent[2], country.translate_extent[3]]]}
         >
-          <Geographies geography='/geojson/JPN.json'>
+          <Geographies geography={`/geojson/${country.code}.json`}>
             {({geographies}) => (
               <>
                 {geographies.map(geo => (
@@ -99,11 +128,20 @@ export default function Map() {
         </ZoomableGroup>
       </ComposableMap>
 
-      <Card className='absolute bottom-4 left-2 right-2' isBlurred>
-        <CardBody>
-          aa
-        </CardBody>
-      </Card>
+      <Select
+        items={countries}
+        label={t('map.countries')}
+        placeholder={t('map.select_country')}
+        selectedKeys={[country.id.toString()]}
+        onChange={(e) => {
+          if (e.target.value !== '') {
+            setCountry(countries.find((c) => c.id.toString() === e.target.value))
+          }
+        }}
+        className='absolute bottom-4 left-4 w-[20rem]'
+      >
+        {(c) => <SelectItem key={c.id}>{c.name}</SelectItem>}
+      </Select>
     </div>
   );
 }

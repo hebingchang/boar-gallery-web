@@ -27,7 +27,7 @@ export default function PhotoPage() {
   if (!photo) return null;
 
   return (
-    <div className='scrollbar-hide px-[10px] md:px-[20px] box-content pt-[5rem] pb-4'>
+    <div className='scrollbar-hide px-[10px] md:px-[20px] box-content pt-4 pb-4'>
       <div className='text-5xl mb-8 md:mb-12 ml-2 pt-2'>
         #{id}
       </div>
