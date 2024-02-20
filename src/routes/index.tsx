@@ -7,7 +7,6 @@ import PhotoModal from "../components/photo_modal.tsx";
 import { LoadingContext } from "../contexts/loading.tsx";
 import { useWindowSize } from "@react-hook/window-size";
 import {
-  Masonry,
   useContainerPosition,
   useInfiniteLoader,
   useMasonry,
@@ -21,8 +20,21 @@ export default function Index() {
   const isDesktop = useMediaQuery('(min-width: 960px)');
   const [loadedIndex, setLoadedIndex] = useState<{ startIndex: number, stopIndex: number }[]>([])
 
+  const containerRef = useRef(null);
+  const [windowWidth, height] = useWindowSize();
+  const {offset, width} = useContainerPosition(containerRef, [
+    windowWidth,
+    height
+  ]);
+  const positioner = usePositioner({
+    width,
+    columnGutter: isDesktop ? 12 : 8,
+    columnCount: isDesktop ? 3 : 2,
+  });
+  const {scrollTop, isScrolling} = useScroller(offset);
+
   useEffect(() => {
-    axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all?page_size=60').then(res => {
+    axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all?page_size=20').then(res => {
       setPhotos(res.data.payload)
     })
   }, [])
@@ -52,15 +64,18 @@ export default function Index() {
   });
 
   return <div className='px-2 pt-[1rem]'>
-    <Masonry
-      items={photos}
-      render={MasonryCard}
-      onRender={maybeLoadMore}
-      columnGutter={isDesktop ? 12 : 8}
-      columnCount={isDesktop ? 3 : 2}
-      overscanBy={3}
-      itemKey={(item) => item.id}
-    />
+    {useMasonry({
+      positioner,
+      scrollTop,
+      isScrolling,
+      height,
+      containerRef,
+      items: photos,
+      overscanBy: 3,
+      onRender: maybeLoadMore,
+      render: MasonryCard,
+      itemKey: (item) => item.id,
+    })}
   </div>
 }
 
@@ -68,6 +83,7 @@ const MasonryCard = ({data}: { data: Photo }) => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [photo, setPhoto] = useState<Photo>(data);
   const loading = useContext(LoadingContext)
+  const isDesktop = useMediaQuery('(min-width: 960px)');
 
   const openPhotoModel = useMemo(() => () => {
     if (loading && !loading.loading) {
@@ -90,8 +106,8 @@ const MasonryCard = ({data}: { data: Photo }) => {
   return <Card
     radius="lg"
     className="border-none"
-    // isPressable
-    // onPress={openPhotoModel}
+    isPressable={isDesktop}
+    onPress={isDesktop ? openPhotoModel : undefined}
   >
     <CardBody className="overflow-visible p-0">
       <Image
@@ -99,7 +115,7 @@ const MasonryCard = ({data}: { data: Photo }) => {
         src={data.thumb_file.url}
         width={data.thumb_file.width}
         height={data.thumb_file.height}
-        onClick={openPhotoModel}
+        onClick={isDesktop ? undefined : openPhotoModel}
       />
     </CardBody>
     {
