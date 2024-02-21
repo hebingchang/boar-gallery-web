@@ -13,6 +13,7 @@ import { Select, SelectItem } from "@nextui-org/react";
 import { Country, Prefecture, Response } from "../models/gallery.ts";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 export default function Map() {
   const darkmode = useDarkMode()
@@ -23,6 +24,7 @@ export default function Map() {
   const [country, setCountry] = useState<Country>()
   const [prefectures, setPrefectures] = useState<Prefecture[]>([])
   const {t} = useTranslation()
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get<Response<Country[]>>('https://api.gallery.boar.ac.cn/geo/countries').then((res) => {
@@ -79,6 +81,7 @@ export default function Map() {
                     }
                     onMouseEnter={() => setHoverId(geo.properties['id'])}
                     onMouseLeave={() => setHoverId(0)}
+                    onClick={() => navigate(`/prefecture/${geo.properties['id']}`)}
                     style={{
                       default: {
                         cursor: 'pointer',
@@ -113,9 +116,7 @@ export default function Map() {
                           textAnchor="middle"
                           style={{cursor: 'pointer', userSelect: 'none', transition: 'font-weight .2s ease-out'}}
                           fill={darkmode.value ? '#fff' : '#000'}
-                          onClick={() => {
-                            console.log(geo)
-                          }}
+                          onClick={() => navigate(`/prefecture/${geo.properties['id']}`)}
                           fontWeight={hoverId === geo.properties['id'] ? 800 : 400}
                           opacity={0.8}
                           onMouseEnter={() => setHoverId(geo.properties['id'])}

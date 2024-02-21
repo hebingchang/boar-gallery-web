@@ -4,6 +4,7 @@ import Root from "./routes/root.tsx";
 import Index from "./routes";
 import Map from "./routes/map.tsx";
 import Photo from "./routes/photo.tsx";
+import Prefecture from "./routes/prefecture.tsx";
 
 function App() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ function App() {
           <Route path="" element={<Index/>}/>
           <Route path="map" element={<Map/>}/>
           <Route path="photo/:id" element={<Photo/>}/>
+          <Route path="prefecture/:id" element={<Prefecture/>}/>
         </Route>
       </Routes>
     </NextUIProvider>
