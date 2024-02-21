@@ -184,15 +184,17 @@ export default function PhotoModal(props: PhotoModalProps) {
                       photo.metadata.city ?
                         <div className='flex items-center text-default-500 gap-1'>
                           <IoLocationOutline size={20}/>
-                          <div className='flex gap-1 flex-wrap'>
-                            <Link color='foreground'
-                                  className="font-bold">{photo.metadata.city.prefecture.country.name}</Link>
-                            <Link color='foreground' className="font-bold">{photo.metadata.city.prefecture.name}</Link>
-                            <Link color='foreground' className="font-bold">{photo.metadata.city.name}</Link>
+                          <div className='flex gap-x-3 flex-wrap'>
+                            <div className='flex gap-1'>
+                              <Link color='foreground'
+                                    className="font-bold">{photo.metadata.city.prefecture.country.name}</Link>
+                              <Link color='foreground'
+                                    className="font-bold">{photo.metadata.city.prefecture.name}</Link>
+                              <Link color='foreground' className="font-bold">{photo.metadata.city.name}</Link>
+                            </div>
                             {
                               photo.metadata.place ?
                                 <div className='flex items-center'>
-                                  <Spacer x={2}/>
                                   <Link color='foreground'>{photo.metadata.place.name}</Link>
                                 </div>
                                 :
