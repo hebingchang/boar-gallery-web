@@ -5,5 +5,7 @@ export default {
 
     "map.countries": "Country / Region",
     "map.select_country": "Select a country or region",
+
+    "unknown_lens": "Unknown lens",
   }
 }

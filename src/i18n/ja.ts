@@ -5,5 +5,7 @@ export default {
 
     "map.countries": "国・地域",
     "map.select_country": "国・地域を選択してください",
+
+    "unknown_lens": "レンズ不明",
   }
 }

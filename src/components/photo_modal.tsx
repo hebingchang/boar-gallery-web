@@ -12,6 +12,7 @@ import useMediaQuery from "../hooks/useMediaQuery.tsx";
 import ManufactureIcon from "./manufacture_icon.tsx";
 import DialogMap from "./dialog_map.tsx";
 import { MdOutlineOpenInNew } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 export interface PhotoModalProps {
   photo: Photo
@@ -22,6 +23,7 @@ export interface PhotoModalProps {
 export default function PhotoModal(props: PhotoModalProps) {
   const photo = props.photo;
   const isDesktop = useMediaQuery('(min-width: 960px)');
+  const {t} = useTranslation()
 
   if (!photo.medium_file) return null;
   const isPortrait = photo.medium_file!.width <= photo.medium_file!.height;
@@ -103,7 +105,11 @@ export default function PhotoModal(props: PhotoModalProps) {
                       <ManufactureIcon name={photo.metadata.camera.manufacture.name}/> {photo.metadata.camera.model}
                     </CardHeader>
                     <CardBody className='text-small text-default-500 py-2 overflow-y-visible'>
-                      {photo.metadata.lens.manufacture.name} {photo.metadata.lens.model}
+                      {photo.metadata.lens ?
+                        `${photo.metadata.lens.manufacture.name} ${photo.metadata.lens.model}`
+                        :
+                        t('unknown_lens')
+                      }
                     </CardBody>
                     <Divider className='bg-default-100'/>
                     <CardFooter className='py-2 flex justify-around text-default-500'>

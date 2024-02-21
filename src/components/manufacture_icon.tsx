@@ -5,6 +5,8 @@ import sigmaLogo from '../assets/SIGMA.svg';
 import sigmaLogoDark from '../assets/SIGMA_dark.svg';
 import appleLogo from '../assets/Apple.svg';
 import appleLogoDark from '../assets/Apple_dark.svg';
+import panasonicLogo from '../assets/Panasonic.svg';
+import panasonicLogoDark from '../assets/Panasonic_dark.svg';
 
 const logos: { [k: string]: { light: string, dark: string, style: string } } = {
   'SONY': {
@@ -21,6 +23,11 @@ const logos: { [k: string]: { light: string, dark: string, style: string } } = {
     light: appleLogo,
     dark: appleLogoDark,
     style: 'h-[1rem]',
+  },
+  'Panasonic': {
+    light: panasonicLogo,
+    dark: panasonicLogoDark,
+    style: 'h-[0.7rem]',
   },
 }
 

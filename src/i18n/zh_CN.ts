@@ -5,5 +5,7 @@ export default {
 
     "map.countries": "国家 / 地区",
     "map.select_country": "请选择一个国家或地区",
+
+    "unknown_lens": "未知镜头",
   }
 }
