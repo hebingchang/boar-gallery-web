@@ -51,6 +51,11 @@ export default function PhotoModal(props: PhotoModalProps) {
                 >
                   <Image
                     isBlurred
+                    draggable={false}
+                    classNames={{
+                      img: 'pointer-events-none',
+                      blurredImg: 'pointer-events-none'
+                    }}
                     className="object-contain"
                     src={photo.medium_file!.url}
                     width={photo.medium_file!.width}
@@ -164,7 +169,8 @@ export default function PhotoModal(props: PhotoModalProps) {
                         classNames={{
                           wrapper: 'h-[100%]',
                           zoomedWrapper: 'h-[100%]',
-                          blurredImg: 'h-[100%]',
+                          blurredImg: 'h-[100%] pointer-events-none',
+                          img: 'pointer-events-none',
                         }}
                         className="object-contain h-[100%]"
                         src={photo.medium_file!.url}

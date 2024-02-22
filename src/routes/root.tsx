@@ -1,5 +1,5 @@
 import {
-  Button, Dropdown,
+  Button, Divider, Dropdown,
   DropdownItem, DropdownMenu, DropdownTrigger, Link,
   Listbox,
   ListboxItem,
@@ -18,6 +18,7 @@ import axios from "axios";
 import { Response } from "../models/gallery.ts";
 import { HiOutlineTranslate } from "react-icons/hi";
 import { useTranslation } from "react-i18next";
+import moment from "moment";
 
 const routes = [
   {route: '/', text: 'sidebar.home', icon: <TbHome size={22}/>},
@@ -124,23 +125,31 @@ export default function Root() {
             className="mx-auto max-w-[1024px] flex"
             style={{minHeight: 'calc(100dvh - 4rem)'}}
           >
-            <Listbox className="max-w-64 hidden md:flex sticky top-[5rem] h-[100%]">
-              {
-                routes.map((r) => (
-                  <ListboxItem
-                    key={r.route}
-                    href={r.route}
-                    className="px-4 py-3"
-                    variant="flat"
-                    startContent={r.icon}
-                  >
-                    <p className="text-medium font-bold">{t(r.text)}</p>
-                  </ListboxItem>
-                ))
-              }
-            </Listbox>
+            <div className="max-w-64 hidden md:flex flex-col sticky top-[5rem] h-[100%] flex-shrink-0">
+              <Listbox>
+                {
+                  routes.map((r) => (
+                    <ListboxItem
+                      key={r.route}
+                      href={r.route}
+                      className="px-4 py-3"
+                      variant="flat"
+                      startContent={r.icon}
+                    >
+                      <p className="text-medium font-bold">{t(r.text)}</p>
+                    </ListboxItem>
+                  ))
+                }
+              </Listbox>
 
-            <div className='w-full'>
+              <Divider className='mt-4 mb-4'/>
+
+              <div className='text-tiny text-default-200 px-4'>
+                <p>{t('copyright.reserved', {year: moment().year()})}</p>
+                <p className='mt-2'>{t('copyright.description')}</p>
+              </div>
+            </div>
+            <div className='min-w-0' style={{flex: '1 1 auto'}}>
               <Outlet/>
             </div>
           </div>

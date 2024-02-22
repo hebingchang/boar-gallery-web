@@ -72,6 +72,7 @@ export interface City {
   id: number
   name: string
   prefecture: Prefecture
+  photos_count: number
 }
 
 export interface Prefecture {
@@ -79,6 +80,7 @@ export interface Prefecture {
   name: string
   country: Country
   photos_count?: number
+  cities: City[]
 }
 
 export interface Country {

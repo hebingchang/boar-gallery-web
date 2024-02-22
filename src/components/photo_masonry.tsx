@@ -15,7 +15,7 @@ import {
 } from "masonic";
 
 
-export default function PhotoMasonry(props: { prefecture_id?: string }) {
+export default function PhotoMasonry(props: { prefectureId?: string, cityId?: string }) {
   const [photos, setPhotos] = useState<Photo[]>([])
   const isDesktop = useMediaQuery('(min-width: 960px)');
   const loadedIndex = useRef<{ startIndex: number, stopIndex: number }[]>([]);
@@ -32,17 +32,21 @@ export default function PhotoMasonry(props: { prefecture_id?: string }) {
     columnCount: isDesktop ? 3 : 2,
   });
   const {scrollTop, isScrolling} = useScroller(offset);
+  const query = useMemo(() => ({
+    prefecture_id: props.prefectureId && props.prefectureId !== '0' ? props.prefectureId : undefined,
+    city_id: props.cityId && props.cityId !== '0' ? props.cityId : undefined,
+  }), [props.cityId, props.prefectureId])
 
   useEffect(() => {
     axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all', {
       params: {
-        ...props,
+        ...query,
         page_size: 20
       }
     }).then(res => {
       setPhotos(res.data.payload)
     })
-  }, [props.prefecture_id])
+  }, [query])
 
   const maybeLoadMore = useInfiniteLoader((startIndex, stopIndex, items) => {
     if (loadedIndex.current.find((e) => e.startIndex === startIndex && e.stopIndex === stopIndex)) {
@@ -53,7 +57,7 @@ export default function PhotoMasonry(props: { prefecture_id?: string }) {
     const lastDate = (items[items.length - 1] as Photo).metadata.datetime
     axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all', {
       params: {
-        ...props,
+        ...query,
         page_size: stopIndex - startIndex,
         last_datetime: lastDate,
       }
@@ -113,7 +117,12 @@ const MasonryCard = ({data}: { data: Photo }) => {
   >
     <CardBody className="overflow-visible p-0">
       <Image
-        className="object-cover"
+        className="object-cover pointer-events-none"
+        draggable={false}
+        classNames={{
+          img: 'pointer-events-none',
+          blurredImg: 'pointer-events-none'
+        }}
         src={data.thumb_file.url}
         width={data.thumb_file.width}
         height={data.thumb_file.height}
