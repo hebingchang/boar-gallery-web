@@ -119,6 +119,10 @@ const MasonryCard = ({data}: { data: Photo }) => {
       <Image
         className="object-cover"
         draggable={false}
+        classNames={{
+          img: 'pointer-events-none',
+          blurredImg: 'pointer-events-none'
+        }}
         src={data.thumb_file.url}
         width={data.thumb_file.width}
         height={data.thumb_file.height}
