@@ -34,7 +34,6 @@ export default function PhotoMasonry(props: { prefecture_id?: string }) {
   const {scrollTop, isScrolling} = useScroller(offset);
 
   useEffect(() => {
-    console.log(props)
     axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all', {
       params: {
         ...props,
