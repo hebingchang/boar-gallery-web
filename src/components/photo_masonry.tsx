@@ -89,6 +89,7 @@ const MasonryCard = ({data}: { data: Photo }) => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [photo, setPhoto] = useState<Photo>(data);
   const loading = useContext(LoadingContext)
+  const isDesktop = useMediaQuery('(min-width: 960px)');
 
   const openPhotoModel = useMemo(() => () => {
     if (loading && !loading.loading) {
@@ -111,10 +112,10 @@ const MasonryCard = ({data}: { data: Photo }) => {
   return <Card
     radius="lg"
     className="border-none"
-    isPressable
-    onPress={openPhotoModel}
+    isPressable={isDesktop}
+    onPress={isDesktop ? openPhotoModel : undefined}
   >
-    <CardBody className="overflow-visible p-0">
+    <CardBody className="overflow-visible p-0" onClick={isDesktop ? undefined : openPhotoModel}>
       <Image
         className="object-cover"
         draggable={false}
