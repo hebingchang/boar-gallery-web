@@ -15,7 +15,7 @@ import {
 } from "masonic";
 
 
-export default function PhotoMasonry(props: { query?: object }) {
+export default function PhotoMasonry(props: { prefecture_id?: number }) {
   const [photos, setPhotos] = useState<Photo[]>([])
   const isDesktop = useMediaQuery('(min-width: 960px)');
   const loadedIndex = useRef<{ startIndex: number, stopIndex: number }[]>([]);
@@ -34,15 +34,16 @@ export default function PhotoMasonry(props: { query?: object }) {
   const {scrollTop, isScrolling} = useScroller(offset);
 
   useEffect(() => {
+    console.log(props)
     axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all', {
       params: {
-        ...props.query,
+        ...props,
         page_size: 20
       }
     }).then(res => {
       setPhotos(res.data.payload)
     })
-  }, [props.query])
+  }, [props.prefecture_id])
 
   const maybeLoadMore = useInfiniteLoader((startIndex, stopIndex, items) => {
     if (loadedIndex.current.find((e) => e.startIndex === startIndex && e.stopIndex === stopIndex)) {

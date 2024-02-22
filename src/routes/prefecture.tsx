@@ -10,7 +10,6 @@ export default function PrefecturePage() {
   const [prefecture, setPrefecture] = useState<Prefecture>()
 
   useEffect(() => {
-    console.log(id)
     axios.get<Response<Prefecture>>('https://api.gallery.boar.ac.cn/geo/prefecture', {
       params: {
         id
@@ -28,7 +27,7 @@ export default function PrefecturePage() {
     </div>
 
     <div>
-      <PhotoMasonry query={{prefecture_id: id}}/>
+      <PhotoMasonry prefecture_id={id}/>
     </div>
   </div>
 }
