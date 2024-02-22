@@ -117,7 +117,7 @@ const MasonryCard = ({data}: { data: Photo }) => {
   >
     <CardBody className="overflow-visible p-0">
       <Image
-        className="object-cover pointer-events-none"
+        className="object-cover"
         draggable={false}
         src={data.thumb_file.url}
         width={data.thumb_file.width}
