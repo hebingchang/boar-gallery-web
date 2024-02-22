@@ -89,7 +89,6 @@ const MasonryCard = ({data}: { data: Photo }) => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const [photo, setPhoto] = useState<Photo>(data);
   const loading = useContext(LoadingContext)
-  const isDesktop = useMediaQuery('(min-width: 960px)');
 
   const openPhotoModel = useMemo(() => () => {
     if (loading && !loading.loading) {
