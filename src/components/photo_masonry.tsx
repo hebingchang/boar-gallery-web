@@ -15,7 +15,7 @@ import {
 } from "masonic";
 
 
-export default function PhotoMasonry(props: { prefecture_id?: number }) {
+export default function PhotoMasonry(props: { prefecture_id?: string }) {
   const [photos, setPhotos] = useState<Photo[]>([])
   const isDesktop = useMediaQuery('(min-width: 960px)');
   const loadedIndex = useRef<{ startIndex: number, stopIndex: number }[]>([]);
@@ -54,7 +54,7 @@ export default function PhotoMasonry(props: { prefecture_id?: number }) {
     const lastDate = (items[items.length - 1] as Photo).metadata.datetime
     axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all', {
       params: {
-        ...props.query,
+        ...props,
         page_size: stopIndex - startIndex,
         last_datetime: lastDate,
       }
