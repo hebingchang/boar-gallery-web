@@ -115,17 +115,14 @@ const MasonryCard = ({data}: { data: Photo }) => {
     isPressable={isDesktop}
     onPress={isDesktop ? openPhotoModel : undefined}
   >
-    <CardBody className="overflow-visible p-0" onClick={isDesktop ? undefined : openPhotoModel}>
+    <CardBody className="overflow-visible p-0">
       <Image
         className="object-cover pointer-events-none"
         draggable={false}
-        classNames={{
-          img: 'pointer-events-none',
-          blurredImg: 'pointer-events-none'
-        }}
         src={data.thumb_file.url}
         width={data.thumb_file.width}
         height={data.thumb_file.height}
+        onClick={isDesktop ? undefined : openPhotoModel}
       />
     </CardBody>
     {
