@@ -71,7 +71,8 @@ export default function PhotoPage() {
                         <div className='flex gap-1'>
                           <Link color='foreground'
                                 className="font-bold">{photo.metadata.city.prefecture.country.name}</Link>
-                          <Link color='foreground' className="font-bold">{photo.metadata.city.prefecture.name}</Link>
+                          <Link color='foreground' className="font-bold"
+                                href={`/prefecture/${photo.metadata.city.prefecture.id}`}>{photo.metadata.city.prefecture.name}</Link>
                           <Link color='foreground' className="font-bold">{photo.metadata.city.name}</Link>
                         </div>
                         {
