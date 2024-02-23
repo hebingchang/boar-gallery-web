@@ -85,7 +85,8 @@ export default function PhotoModal(props: PhotoModalProps) {
                           <Link color='foreground'
                                 className="font-bold">{photo.metadata.city.prefecture.country.name}</Link>
                           <Link color='foreground'
-                                className="font-bold">{photo.metadata.city.prefecture.name}</Link>
+                                className="font-bold"
+                                href={`/prefecture/${photo.metadata.city.prefecture.id}`}>{photo.metadata.city.prefecture.name}</Link>
                           <Link color='foreground' className="font-bold">{photo.metadata.city.name}</Link>
                         </div>
                         {
@@ -225,7 +226,8 @@ export default function PhotoModal(props: PhotoModalProps) {
                             <Link color='foreground'
                                   className="font-bold">{photo.metadata.city.prefecture.country.name}</Link>
                             <Link color='foreground'
-                                  className="font-bold">{photo.metadata.city.prefecture.name}</Link>
+                                  className="font-bold"
+                                  href={`/prefecture/${photo.metadata.city.prefecture.id}`}>{photo.metadata.city.prefecture.name}</Link>
                             <Link color='foreground' className="font-bold">{photo.metadata.city.name}</Link>
                           </div>
                           {
