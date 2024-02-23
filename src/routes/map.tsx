@@ -112,7 +112,7 @@ export default function Map() {
                       >
                         <text
                           y="2"
-                          fontSize={Math.round((isDesktop ? (-4 * zoom + 16) : (-4 * zoom + 16)))}
+                          fontSize={Math.round((isDesktop ? 16 : 24) / zoom)}
                           textAnchor="middle"
                           style={{cursor: 'pointer', userSelect: 'none', transition: 'font-weight .2s ease-out'}}
                           fill={darkmode.value ? '#fff' : '#000'}
