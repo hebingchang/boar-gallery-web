@@ -35,9 +35,9 @@ export default function Root() {
   useEffect(() => {
     axios.get<Response<string>>('https://api.gallery.boar.ac.cn/geo/ip').then(async (res) => {
       if (res.data.payload === 'CN') {
-        // baidu map
-        axios.get<Response<string>>('https://api.gallery.boar.ac.cn/baidu-map/token').then((res) => {
-          setToken({type: MapType.Baidu, token: res.data.payload})
+        // mapbox
+        axios.get<Response<string>>('https://api.gallery.boar.ac.cn/mapbox/token').then((res) => {
+          setToken({type: MapType.MapBox, token: res.data.payload})
         })
       } else {
         // apple map

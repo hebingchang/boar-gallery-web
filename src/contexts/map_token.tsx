@@ -2,7 +2,8 @@ import React, { createContext } from "react";
 
 export enum MapType {
   Apple,
-  Baidu
+  Baidu,
+  MapBox,
 }
 
 export interface MapToken {
