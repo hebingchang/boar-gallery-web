@@ -11,6 +11,6 @@ export interface MapToken {
 }
 
 export const MapTokenContext = createContext<{
-  token: MapToken,
-  setToken: React.Dispatch<React.SetStateAction<MapToken>>
+  token: MapToken | undefined,
+  setToken: React.Dispatch<React.SetStateAction<MapToken | undefined>>
 } | null>(null);

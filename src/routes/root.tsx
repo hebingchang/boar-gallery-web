@@ -49,7 +49,7 @@ export default function Root() {
   }, [])
 
   const [loading, setLoading] = useState(false)
-  const [token, setToken] = useState<MapToken>({type: MapType.Apple, token: ''})
+  const [token, setToken] = useState<MapToken>()
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const {t, i18n} = useTranslation()
   const navigate = useNavigate();
@@ -118,6 +118,13 @@ export default function Root() {
                   </NavbarMenuItem>
                 ))
               }
+
+              <Divider className='mt-4 mb-4'/>
+
+              <div className='text-tiny text-default-400'>
+                <p>{t('copyright.reserved', {year: moment().year()})}</p>
+                <p className='mt-2'>{t('copyright.description')}</p>
+              </div>
             </NavbarMenu>
           </Navbar>
 

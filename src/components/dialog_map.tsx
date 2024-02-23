@@ -13,6 +13,8 @@ export default function DialogMap(props: DialogMapProps) {
   const token = useContext(MapTokenContext)
   const darkmode = useDarkMode()
 
+  if (!token?.token) return;
+
   return (
     token!.token.type === MapType.Apple ?
       <AppleMap
