@@ -54,7 +54,7 @@ export default function PhotoPage() {
         <CardFooter
           className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small right-1 z-10 w-auto font-normal">
           <div
-            className='text-tiny md:text-small text-white/80'>&copy; {moment(photo.metadata.datetime).year()} {photo.author.name}</div>
+            className='text-tiny md:text-small text-white/80'>&copy; {moment(photo.metadata.datetime).year()} {photo.author?.name}</div>
         </CardFooter>
       </Card>
 
@@ -112,7 +112,7 @@ export default function PhotoPage() {
 
           <Card className='overflow-visible mt-4'>
             <CardHeader className='text-small font-semibold bg-default-100 py-2'>
-              <ManufactureIcon name={photo.metadata.camera.manufacture.name}/> {photo.metadata.camera.model}
+              <ManufactureIcon name={photo.metadata.camera?.manufacture.name}/> {photo.metadata.camera?.model}
             </CardHeader>
             <CardBody className='text-small text-default-500 py-2 overflow-y-visible'>
               {photo.metadata.lens ?
