@@ -1,10 +1,9 @@
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { Photo, Response } from "../models/gallery.ts";
 import { Card, Image, CardFooter, CardBody, useDisclosure } from "@nextui-org/react";
 import useMediaQuery from "../hooks/useMediaQuery.tsx";
 import PhotoModal from "../components/photo_modal.tsx";
-import { LoadingContext } from "../contexts/loading.tsx";
 import { useWindowSize } from "@react-hook/window-size";
 import {
   useContainerPosition,
@@ -87,27 +86,12 @@ export default function PhotoMasonry(props: { prefectureId?: string, cityId?: st
 
 const MasonryCard = ({data}: { data: Photo }) => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
-  const [photo, setPhoto] = useState<Photo>(data);
-  const loading = useContext(LoadingContext)
   const isDesktop = useMediaQuery('(min-width: 960px)');
 
   const openPhotoModel = useMemo(() => () => {
-    if (loading && !loading.loading) {
-      loading.setLoading(true)
-      if (!photo.medium_file) {
-        axios.get<Response<Photo>>(`https://api.gallery.boar.ac.cn/photos/get?id=${data.id}`).then(res => {
-          setPhoto(res.data.payload)
-          history.pushState({}, '', `/photo/${photo.id}`)
-          onOpen();
-          loading.setLoading(false);
-        })
-      } else {
-        history.pushState({}, '', `/photo/${photo.id}`)
-        onOpen();
-        loading.setLoading(false)
-      }
-    }
-  }, [data.id, loading, onOpen, photo.id, photo.medium_file])
+    history.pushState({}, '', `/photo/${data.id}`)
+    onOpen();
+  }, [onOpen, data.id])
 
   return <Card
     radius="lg"
@@ -142,7 +126,7 @@ const MasonryCard = ({data}: { data: Photo }) => {
         null
     }
 
-    <PhotoModal photo={photo} isOpen={isOpen} onOpenChange={(isOpen) => {
+    <PhotoModal photo={data} isOpen={isOpen} onOpenChange={(isOpen) => {
       if (!isOpen) {
         history.back()
       }

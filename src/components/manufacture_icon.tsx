@@ -32,13 +32,15 @@ const logos: { [k: string]: { light: string, dark: string, style: string } } = {
 }
 
 export interface ManufactureIconProps {
-  name: string
+  name?: string
 }
 
 export default function ManufactureIcon(props: ManufactureIconProps) {
   const darkmode = useDarkMode()
-  const manufacture = logos[props.name]
 
+  if (!props.name) return;
+
+  const manufacture = logos[props.name]
   if (!manufacture) return props.name
 
   return (
