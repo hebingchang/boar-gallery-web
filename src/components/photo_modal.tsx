@@ -188,8 +188,8 @@ export default function PhotoModal(props: PhotoModalProps) {
           <>
             <ModalHeader className="p-0 flex flex-col gap-1"/>
             <ModalBody className="p-0 overflow-hidden">
-              <div className='grid grid-cols-24'>
-                <div className='col-span-13'>
+              <div className='flex overflow-hidden'>
+                <div className='w-[54%]'>
                   <Card
                     isFooterBlurred
                     radius="lg"
@@ -216,7 +216,7 @@ export default function PhotoModal(props: PhotoModalProps) {
                   </Card>
                 </div>
 
-                <div className='col-span-11 p-6 flex flex-col gap-1 justify-end'>
+                <div className='w-[46%] p-6 flex flex-col gap-1 justify-end'>
                   {
                     photo.metadata.city ?
                       <div className='flex items-center text-default-500 gap-1'>
