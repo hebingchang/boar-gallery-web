@@ -27,7 +27,7 @@ export default function PhotoMasonry(props: { prefectureId?: string, cityId?: st
   ]);
   const positioner = usePositioner({
     width,
-    columnGutter: isDesktop ? 12 : 8,
+    columnGutter: 8,
     columnCount: isDesktop ? 3 : 2,
   });
   const {scrollTop, isScrolling} = useScroller(offset);
