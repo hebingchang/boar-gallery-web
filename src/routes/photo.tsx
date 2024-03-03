@@ -113,7 +113,7 @@ export default function PhotoPage() {
 
           <Card className='overflow-visible mt-4'>
             <CardHeader className='text-small font-semibold bg-default-100 py-2'>
-              <ManufactureIcon name={photo.metadata.camera?.manufacture.name}/> {photo.metadata.camera?.model}
+              <ManufactureIcon name={photo.metadata.camera?.manufacture.name}/> {photo.metadata.camera?.genera_name ?? photo.metadata.camera?.model}
             </CardHeader>
             <CardBody className='text-small text-default-500 py-2 overflow-y-visible'>
               {photo.metadata.lens ?
