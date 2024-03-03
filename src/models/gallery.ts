@@ -41,7 +41,7 @@ export interface Camera {
   id: number
   model: string
   manufacture: Manufacture
-  genera_name?: string
+  general_name?: string
 }
 
 export interface Manufacture {
