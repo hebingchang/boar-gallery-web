@@ -59,8 +59,22 @@ export default function Root() {
   return (
     <MapTokenContext.Provider value={{token, setToken}}>
       <LoadingContext.Provider value={{loading, setLoading}}>
+        <div aria-hidden="true"
+             className="fixed hidden dark:md:block dark:opacity-70 -bottom-[40%] -left-[20%] pointer-events-none">
+          <img src={gradLeft}
+               className="relative opacity-0 shadow-black/5 data-[loaded=true]:opacity-100 shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large"
+               alt="left background" data-loaded="true"/>
+        </div>
+
+        <div aria-hidden="true"
+             className="fixed hidden dark:md:block dark:opacity-70 -top-[80%] -right-[60%] 2xl:-top-[60%] 2xl:-right-[45%] rotate-12 pointer-events-none">
+          <img src={gradRight}
+               className="relative opacity-0 shadow-black/5 data-[loaded=true]:opacity-100 shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large"
+               alt="right background" data-loaded="true"/>
+        </div>
+
         <main
-          className={`${darkMode.value ? 'dark' : ''} text-foreground bg-background scrollbar-hide`}>
+          className={`${darkMode.value ? 'dark' : ''} text-foreground scrollbar-hide`}>
           <Navbar onMenuOpenChange={setIsMenuOpen} isMenuOpen={isMenuOpen}>
             <NavbarBrand>
               <Link className="font-bold text-inherit text-logo" href='/'>Boar Gallery</Link>
@@ -163,19 +177,6 @@ export default function Root() {
             </div>
           </div>
         </main>
-
-        <div aria-hidden="true" className="fixed hidden dark:md:block dark:opacity-70 -bottom-[40%] -left-[20%] -z-10 pointer-events-none">
-          <img src={gradLeft}
-               className="relative z-10 opacity-0 shadow-black/5 data-[loaded=true]:opacity-100 shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large"
-               alt="left background" data-loaded="true"/>
-        </div>
-
-        <div aria-hidden="true"
-             className="fixed hidden dark:md:block dark:opacity-70 -top-[80%] -right-[60%] 2xl:-top-[60%] 2xl:-right-[45%] -z-10 rotate-12 pointer-events-none">
-          <img src={gradRight}
-               className="relative z-10 opacity-0 shadow-black/5 data-[loaded=true]:opacity-100 shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large"
-               alt="right background" data-loaded="true"/>
-        </div>
       </LoadingContext.Provider>
     </MapTokenContext.Provider>
   );
