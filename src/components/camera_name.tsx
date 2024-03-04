@@ -18,14 +18,14 @@ export default function CameraName(props: CameraNameProps) {
   let cameraName: JSX.Element
 
   if (props.camera.manufacture.name === 'SONY' && props.camera.general_name.startsWith('α')) {
-    cameraName = <Tooltip content={props.camera.model}>
+    cameraName = <Tooltip content={props.camera.model} showArrow>
       <div className='flex items-center'>
         <img alt='α' src={sonyAlpha} className='h-[0.7rem] mr-1 inline'/>
         {props.camera.general_name.replace('α', '')}
       </div>
     </Tooltip>
   } else if (props.camera.manufacture.name === 'Panasonic' && props.camera.general_name.startsWith('Lumix')) {
-    cameraName = <Tooltip content={props.camera.model}>
+    cameraName = <Tooltip content={props.camera.model} showArrow>
       <div className='flex items-center'>
         <img alt='Lumix' src={darkmode.value ? lumixDark : lumix} className='h-[0.8rem] mr-1 inline'/>
         {props.camera.general_name.replace('Lumix', '')}
