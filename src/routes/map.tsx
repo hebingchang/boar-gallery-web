@@ -72,6 +72,7 @@ export default function Map() {
                   <Geography
                     key={geo.rsmKey}
                     stroke={darkmode.value ? '#000' : '#FFF'}
+                    strokeWidth={1 / zoom}
                     geography={geo}
                     fill={
                       darkmode.value ?
