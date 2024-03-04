@@ -153,7 +153,7 @@ export default function Root() {
 
               <Divider className='mt-4 mb-4'/>
 
-              <div className='text-tiny text-default-200 px-4'>
+              <div className='text-tiny text-default-300 px-4'>
                 <p>{t('copyright.reserved', {year: moment().year()})}</p>
                 <p className='mt-2'>{t('copyright.description')}</p>
               </div>
