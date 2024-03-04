@@ -11,6 +11,7 @@ import { MdOutlineOpenInNew } from "react-icons/md";
 import { IoCalendarOutline, IoLocationOutline } from "react-icons/io5";
 import { PiMountains } from "react-icons/pi";
 import { useTranslation } from "react-i18next";
+import CameraName from "../components/camera_name.tsx";
 
 export default function PhotoPage() {
   const {id} = useParams()
@@ -113,7 +114,8 @@ export default function PhotoPage() {
 
           <Card className='overflow-visible mt-4'>
             <CardHeader className='text-small font-semibold bg-default-100 py-2'>
-              <ManufactureIcon name={photo.metadata.camera?.manufacture.name}/> {photo.metadata.camera?.general_name ?? photo.metadata.camera?.model}
+              <ManufactureIcon name={photo.metadata.camera?.manufacture.name}/>
+              <CameraName camera={photo.metadata.camera}/>
             </CardHeader>
             <CardBody className='text-small text-default-500 py-2 overflow-y-visible'>
               {photo.metadata.lens ?

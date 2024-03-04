@@ -15,6 +15,7 @@ import { MdOutlineOpenInNew } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
+import CameraName from "./camera_name.tsx";
 
 export interface PhotoModalProps {
   photo: Photo
@@ -122,7 +123,8 @@ export default function PhotoModal(props: PhotoModalProps) {
                         :
                         <>
                           <ManufactureIcon
-                            name={photo.metadata.camera?.manufacture.name}/> {photo.metadata.camera?.general_name ?? photo.metadata.camera?.model}
+                            name={photo.metadata.camera?.manufacture.name}/>
+                          <CameraName camera={photo.metadata.camera}/>
                         </>
                     }
                   </CardHeader>
@@ -262,7 +264,8 @@ export default function PhotoModal(props: PhotoModalProps) {
                             :
                             <>
                               <ManufactureIcon
-                                name={photo.metadata.camera?.manufacture.name}/> {photo.metadata.camera?.model}
+                                name={photo.metadata.camera?.manufacture.name}/>
+                              <CameraName camera={photo.metadata.camera}/>
                             </>
                         }
                       </CardHeader>
