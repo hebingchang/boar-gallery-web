@@ -144,7 +144,7 @@ export default function Map() {
             setCountry(countries.find((c) => c.id.toString() === e.target.value))
           }
         }}
-        className='absolute bottom-4 left-4 w-[20rem]'
+        className='absolute top-4 left-4 w-[20rem]'
       >
         {(c) => <SelectItem key={c.id}>{c.name}</SelectItem>}
       </Select>

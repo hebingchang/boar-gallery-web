@@ -1,6 +1,6 @@
-import sonyAlpha from '../assets/Sony_Alpha_logo.svg';
-import lumix from '../assets/Lumix_logo.svg';
-import lumixDark from '../assets/Lumix_logo_dark.svg';
+import sonyAlpha from '../assets/logos/Sony_Alpha_logo.svg';
+import lumix from '../assets/logos/Lumix_logo.svg';
+import lumixDark from '../assets/logos/Lumix_logo_dark.svg';
 import { Camera } from "../models/gallery.ts";
 import useDarkMode from "use-dark-mode";
 import { Tooltip } from "@nextui-org/react";

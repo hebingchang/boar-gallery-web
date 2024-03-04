@@ -1,12 +1,12 @@
 import useDarkMode from "use-dark-mode";
-import sonyLogo from '../assets/SONY.svg';
-import sonyLogoDark from '../assets/SONY_dark.svg';
-import sigmaLogo from '../assets/SIGMA.svg';
-import sigmaLogoDark from '../assets/SIGMA_dark.svg';
-import appleLogo from '../assets/Apple.svg';
-import appleLogoDark from '../assets/Apple_dark.svg';
-import panasonicLogo from '../assets/Panasonic.svg';
-import panasonicLogoDark from '../assets/Panasonic_dark.svg';
+import sonyLogo from '../assets/logos/SONY.svg';
+import sonyLogoDark from '../assets/logos/SONY_dark.svg';
+import sigmaLogo from '../assets/logos/SIGMA.svg';
+import sigmaLogoDark from '../assets/logos/SIGMA_dark.svg';
+import appleLogo from '../assets/logos/Apple.svg';
+import appleLogoDark from '../assets/logos/Apple_dark.svg';
+import panasonicLogo from '../assets/logos/Panasonic.svg';
+import panasonicLogoDark from '../assets/logos/Panasonic_dark.svg';
 
 const logos: { [k: string]: { light: string, dark: string, style: string } } = {
   'SONY': {
