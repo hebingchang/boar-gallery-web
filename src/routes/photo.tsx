@@ -102,7 +102,7 @@ export default function PhotoPage() {
                     <div className='flex items-center text-default-500 gap-2'>
                       <PiMountains size={20}/>
                       <div>
-                        {photo.metadata.altitude}m
+                        {parseFloat(photo.metadata.altitude.toFixed(2))}m
                       </div>
                     </div>
                     :

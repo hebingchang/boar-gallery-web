@@ -2,6 +2,7 @@ export default {
   translation: {
     "sidebar.home": "ホーム",
     "sidebar.map": "マップ",
+    "sidebar.lucky": "I'm Feeling Lucky",
 
     "map.countries": "国・地域",
     "map.select_country": "国・地域を選択してください",

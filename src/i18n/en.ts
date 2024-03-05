@@ -2,6 +2,7 @@ export default {
   translation: {
     "sidebar.home": "Timeline",
     "sidebar.map": "Map",
+    "sidebar.lucky": "I'm Feeling Lucky",
 
     "map.countries": "Country / Region",
     "map.select_country": "Select a country or region",

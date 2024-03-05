@@ -5,7 +5,7 @@ import {
   Marker,
   ZoomableGroup
 } from "react-simple-maps";
-import { geoCentroid } from "d3-geo";
+import { geoCentroid, geoArea } from "d3-geo";
 import useDarkMode from "use-dark-mode";
 import { useEffect, useState } from "react";
 import useMediaQuery from "../hooks/useMediaQuery.tsx";
@@ -105,7 +105,26 @@ export default function Map() {
                 ))}
 
                 {geographies.map(geo => {
-                  const centroid = geoCentroid(geo);
+                  let largestPolygon = null;
+                  let largestArea = 0;
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-expect-error
+                  geo.geometry.coordinates.forEach((polygon) => {
+                    const polygonFeature = {
+                      type: 'Polygon',
+                      coordinates: polygon
+                    };
+
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-expect-error
+                    const area = geoArea(polygonFeature);
+
+                    if (area > largestArea) {
+                      largestArea = area;
+                      largestPolygon = polygonFeature;
+                    }
+                  })
+                  const centroid = geoCentroid(largestPolygon!);
                   return (
                     <g key={geo.rsmKey + "-name"}>
                       <Marker
@@ -113,7 +132,7 @@ export default function Map() {
                       >
                         <text
                           y="2"
-                          fontSize={Math.round((isDesktop ? 16 : 24) / zoom)}
+                          fontSize={Math.floor(isDesktop ? (-6 * zoom + 20) : (24 / zoom))}
                           textAnchor="middle"
                           style={{cursor: 'pointer', userSelect: 'none', transition: 'font-weight .2s ease-out'}}
                           fill={darkmode.value ? '#fff' : '#000'}
@@ -123,7 +142,7 @@ export default function Map() {
                           onMouseEnter={() => setHoverId(geo.properties['id'])}
                           onMouseLeave={() => setHoverId(0)}
                         >
-                          {geo.properties['name']}
+                          {zoom < 1.5 ? (geo.properties['name'] === '北海道' ? geo.properties['name'] : geo.properties['name'].substring(0, geo.properties['name'].length - 1)) : geo.properties['name']}
                         </text>
                       </Marker>
                     </g>

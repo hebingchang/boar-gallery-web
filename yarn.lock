@@ -2348,6 +2348,11 @@
   resolved "https://registry.yarnpkg.com/@swc/types/-/types-0.1.5.tgz#043b731d4f56a79b4897a3de1af35e75d56bc63a"
   integrity sha512-myfUej5naTBWnqOCc/MdVOLVjXUXtIA+NpDrDBKJtLLg2shUjBu3cZmB/85RyitKc55+lUUyl7oRfLOvkr2hsw==
 
+"@types/apple-mapkit-js-browser@^5.65.7":
+  version "5.65.7"
+  resolved "https://registry.yarnpkg.com/@types/apple-mapkit-js-browser/-/apple-mapkit-js-browser-5.65.7.tgz#6903d06d7f094c1335d6b135d91445362ed9412d"
+  integrity sha512-fCOeNsWTUtWK/JCmqL+cMMq+vFVyf1Jk+ZY+5XkEiILrgFR8Xz8lfE1rtHUTnG/sDVa1aWFpuvuJ0naH5vSvvw==
+
 "@types/d3-color@^2":
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/@types/d3-color/-/d3-color-2.0.6.tgz#88a9a06afea2d3a400ea650a6c3e60e9bf9b0f2a"

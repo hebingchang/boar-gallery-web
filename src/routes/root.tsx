@@ -21,6 +21,7 @@ import { useTranslation } from "react-i18next";
 import moment from "moment";
 import gradLeft from '../assets/gradients/left.png';
 import gradRight from '../assets/gradients/right.png';
+import { FaDice } from "react-icons/fa6";
 
 const routes = [
   {route: '/', text: 'sidebar.home', icon: <TbHome size={22}/>},
@@ -135,6 +136,23 @@ export default function Root() {
                 ))
               }
 
+              <NavbarMenuItem key='lucky'>
+                <Link
+                  className="w-full pt-3 font-bold"
+                  size="lg"
+                  onPress={async () => {
+                    const id = (await axios.get<Response<number>>('https://api.gallery.boar.ac.cn/photos/lucky')).data.payload
+                    navigate(`/photo/${id}`)
+                    setIsMenuOpen(false)
+                  }}
+                  color='foreground'
+                >
+                  <FaDice size={22}/>
+                  <Spacer x={2}/>
+                  {t('sidebar.lucky')}
+                </Link>
+              </NavbarMenuItem>
+
               <Divider className='mt-4 mb-4'/>
 
               <div className='text-tiny text-default-400'>
@@ -151,7 +169,7 @@ export default function Root() {
             <div className="max-w-64 hidden md:flex flex-col sticky top-[5rem] h-[100%] flex-shrink-0">
               <Listbox>
                 {
-                  routes.map((r) => (
+                  [...routes.map((r) => (
                     <ListboxItem
                       key={r.route}
                       href={r.route}
@@ -161,7 +179,20 @@ export default function Root() {
                     >
                       <p className="text-medium font-bold">{t(r.text)}</p>
                     </ListboxItem>
-                  ))
+                  )),
+                    <ListboxItem
+                      key='lucky'
+                      onPress={async () => {
+                        const id = (await axios.get<Response<number>>('https://api.gallery.boar.ac.cn/photos/lucky')).data.payload
+                        navigate(`/photo/${id}`)
+                      }}
+                      className="px-4 py-3"
+                      variant="flat"
+                      startContent={<FaDice size={22}/>}
+                    >
+                      <p className="text-medium font-bold">{t('sidebar.lucky')}</p>
+                    </ListboxItem>
+                  ]
                 }
               </Listbox>
 
