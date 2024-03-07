@@ -327,7 +327,7 @@ export default function PhotoModal(props: PhotoModalProps) {
           </>
       )}
     </ModalContent>
-  }, [isDesktop, isPortrait, loading, photo.author?.name, photo.medium_file?.height, photo.medium_file?.url, photo.medium_file?.width, photo.metadata.camera?.general_name, photo.metadata.camera?.manufacture.name, photo.metadata.camera?.model, photo.metadata.city, photo.metadata.datetime, photo.metadata.exposure_time_rat, photo.metadata.f_number, photo.metadata.focal_length, photo.metadata.has_location, photo.metadata.lens, photo.metadata.location, photo.metadata.photographic_sensitivity, photo.metadata.place, photo.metadata.timezone, t])
+  }, [isDesktop, isPortrait, loading, photo.author?.name, photo.medium_file?.height, photo.medium_file?.url, photo.medium_file?.width, photo.metadata.camera, photo.metadata.city, photo.metadata.datetime, photo.metadata.exposure_time_rat, photo.metadata.f_number, photo.metadata.focal_length, photo.metadata.has_location, photo.metadata.lens, photo.metadata.location, photo.metadata.photographic_sensitivity, photo.metadata.place, photo.metadata.timezone, t])
 
   return <Modal
     isOpen={props.isOpen}
