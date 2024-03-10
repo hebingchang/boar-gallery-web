@@ -16,7 +16,8 @@ function App() {
           <Route path="" element={<Index/>}/>
           <Route path="map" element={<Map/>}/>
           <Route path="photo/:id" element={<Photo/>}/>
-          <Route path="prefecture/:id" element={<Prefecture/>}/>
+          <Route path="prefecture/:prefectureId" element={<Prefecture/>}/>
+          <Route path="prefecture/:prefectureId/city/:cityId" element={<Prefecture/>}/>
         </Route>
       </Routes>
     </NextUIProvider>

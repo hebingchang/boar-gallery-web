@@ -20,7 +20,7 @@ import CameraName from "./camera_name.tsx";
 export interface PhotoModalProps {
   photo: Photo
   isOpen: boolean,
-  onOpenChange: (isOpen: boolean) => void;
+  onOpenChange: (isOpen: boolean, path?: string) => void;
 }
 
 export default function PhotoModal(props: PhotoModalProps) {
@@ -43,6 +43,25 @@ export default function PhotoModal(props: PhotoModalProps) {
 
   // if (!photo.medium_file) return null;
   const isPortrait = photo.thumb_file.width <= photo.thumb_file.height;
+
+  const cityLinks = useMemo(() => <div className='flex gap-1'>
+    <Link color='foreground'
+          className="font-bold">{photo.metadata.city?.prefecture.country.name}</Link>
+    <Link
+      color='foreground'
+      className="font-bold cursor-pointer"
+      onClick={() => props.onOpenChange(false, `/prefecture/${photo.metadata.city?.prefecture.id}`)}
+    >
+      {photo.metadata.city?.prefecture.name}
+    </Link>
+    <Link
+      color='foreground'
+      className="font-bold cursor-pointer"
+      onClick={() => props.onOpenChange(false, `/prefecture/${photo.metadata.city?.prefecture.id}/city/${photo.metadata.city?.id}`)}
+    >
+      {photo.metadata.city?.name}
+    </Link>
+  </div>, [photo.metadata.city?.id, photo.metadata.city?.name, photo.metadata.city?.prefecture.country.name, photo.metadata.city?.prefecture.id, photo.metadata.city?.prefecture.name, props])
 
   const modal = useMemo(() => {
     return <ModalContent className='overflow-hidden'>
@@ -82,14 +101,7 @@ export default function PhotoModal(props: PhotoModalProps) {
                     <div className='flex items-center text-default-500 gap-1'>
                       <IoLocationOutline className='flex-shrink-0' size={20}/>
                       <div className='flex flex-wrap gap-x-3'>
-                        <div className='flex gap-1'>
-                          <Link color='foreground'
-                                className="font-bold">{photo.metadata.city.prefecture.country.name}</Link>
-                          <Link color='foreground'
-                                className="font-bold"
-                                href={`/prefecture/${photo.metadata.city.prefecture.id}`}>{photo.metadata.city.prefecture.name}</Link>
-                          <Link color='foreground' className="font-bold">{photo.metadata.city.name}</Link>
-                        </div>
+                        {cityLinks}
                         {
                           photo.metadata.place ?
                             <div className='flex items-center'>
@@ -224,14 +236,7 @@ export default function PhotoModal(props: PhotoModalProps) {
                       <div className='flex items-center text-default-500 gap-1'>
                         <IoLocationOutline size={20}/>
                         <div className='flex gap-x-3 flex-wrap'>
-                          <div className='flex gap-1'>
-                            <Link color='foreground'
-                                  className="font-bold">{photo.metadata.city.prefecture.country.name}</Link>
-                            <Link color='foreground'
-                                  className="font-bold"
-                                  href={`/prefecture/${photo.metadata.city.prefecture.id}`}>{photo.metadata.city.prefecture.name}</Link>
-                            <Link color='foreground' className="font-bold">{photo.metadata.city.name}</Link>
-                          </div>
+                          {cityLinks}
                           {
                             photo.metadata.place ?
                               <div className='flex items-center'>

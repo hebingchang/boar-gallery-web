@@ -12,6 +12,7 @@ import {
   usePositioner,
   useScroller
 } from "masonic";
+import { useNavigate } from "react-router-dom";
 
 
 export default function PhotoMasonry(props: { prefectureId?: string, cityId?: string }) {
@@ -87,6 +88,7 @@ export default function PhotoMasonry(props: { prefectureId?: string, cityId?: st
 const MasonryCard = ({data}: { data: Photo }) => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const isDesktop = useMediaQuery('(min-width: 960px)');
+  const navigate = useNavigate()
 
   const openPhotoModel = useMemo(() => () => {
     history.pushState({}, '', `/photo/${data.id}`)
@@ -126,8 +128,10 @@ const MasonryCard = ({data}: { data: Photo }) => {
         null
     }
 
-    <PhotoModal photo={data} isOpen={isOpen} onOpenChange={(isOpen) => {
-      if (!isOpen) {
+    <PhotoModal photo={data} isOpen={isOpen} onOpenChange={(isOpen, path) => {
+      if (!isOpen && path) {
+        navigate(path)
+      } else if (!isOpen) {
         history.back()
       }
       onOpenChange()

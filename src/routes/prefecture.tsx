@@ -1,5 +1,5 @@
 import PhotoMasonry from "../components/photo_masonry.tsx";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Prefecture, Response } from "../models/gallery.ts";
@@ -7,21 +7,21 @@ import { Chip, Select, SelectItem } from "@nextui-org/react";
 import { useTranslation } from "react-i18next";
 
 export default function PrefecturePage() {
-  const {id} = useParams()
+  const params = useParams()
   const [prefecture, setPrefecture] = useState<Prefecture>()
-  const [cityId, setCityId] = useState('0')
   const {t} = useTranslation()
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get<Response<Prefecture>>('https://api.gallery.boar.ac.cn/geo/prefecture', {
       params: {
-        id,
+        id: params.prefectureId,
         with_cities: true
       }
     }).then((res) => {
       setPrefecture(res.data.payload)
     })
-  }, [id]);
+  }, [params.prefectureId]);
 
   if (!prefecture) return;
 
@@ -31,7 +31,13 @@ export default function PrefecturePage() {
     </div>
 
     <div className='mb-8 md:mb-12'>
-      <Select label={t('prefecture.city')} defaultSelectedKeys={[cityId]} onChange={(e) => setCityId(e.target.value)}>
+      <Select label={t('prefecture.city')} selectedKeys={[params.cityId ?? '0']} onChange={(e) => {
+        if (e.target.value === '0') {
+          navigate(`/prefecture/${params.prefectureId}`)
+        } else {
+          navigate(`/prefecture/${params.prefectureId}/city/${e.target.value}`)
+        }
+      }}>
         {[{
           id: 0,
           name: t('prefecture.all_area', {name: prefecture.name}),
@@ -46,10 +52,10 @@ export default function PrefecturePage() {
 
     <div>
       {
-        cityId === '0' ?
-          <PhotoMasonry prefectureId={id} key={cityId}/>
+        !params.cityId ?
+          <PhotoMasonry prefectureId={params.prefectureId} key={'0'}/>
           :
-          <PhotoMasonry cityId={cityId} key={cityId}/>
+          <PhotoMasonry cityId={params.cityId} key={params.cityId}/>
       }
     </div>
   </div>
