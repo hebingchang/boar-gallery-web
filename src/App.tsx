@@ -2,7 +2,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Root from "./routes/root.tsx";
 import Index from "./routes";
-import Map from "./routes/map.tsx";
+import Map from "./routes/map_openlayers.tsx";
 import Photo from "./routes/photo.tsx";
 import Prefecture from "./routes/prefecture.tsx";
 
