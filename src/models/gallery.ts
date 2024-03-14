@@ -89,10 +89,9 @@ export interface Country {
   id: number
   name: string
   code: string
-  rotate: [number, number, number]
-  scale: [number, number]
-  translate_extent: [number, number, number, number]
-  max_zoom: [number, number]
+  center: [number, number]
+  extent: [number, number, number, number]
+  zoom: [number, number, number]
 }
 
 export interface File {

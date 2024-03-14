@@ -116,11 +116,11 @@ export default function MapPage() {
       map.current = new Map({
         target: mapElement.current,
         view: new View({
-          center: fromLonLat([137.2819151, 34.9796481]),
-          zoom: 6,
-          minZoom: 5,
-          maxZoom: 8,
-          extent: transformExtent([122.6094611, 23.4088831, 147.7602811, 46.0830055], 'EPSG:4326', 'EPSG:3857'),
+          center: fromLonLat(country.center),
+          zoom: country.zoom[0],
+          minZoom: country.zoom[1],
+          maxZoom: country.zoom[2],
+          extent: transformExtent(country.extent, 'EPSG:4326', 'EPSG:3857'),
         }),
         controls: [],
       })
