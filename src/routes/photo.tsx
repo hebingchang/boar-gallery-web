@@ -1,23 +1,25 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { Photo, Response } from "../models/gallery.ts";
+import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {Photo, Response} from "../models/gallery.ts";
 import axios from "axios";
-import { Button, Card, CardBody, CardFooter, CardHeader, Divider, Image, Link } from "@nextui-org/react";
+import {Button, Card, CardBody, CardFooter, CardHeader, Divider, Image, Link, Switch, Tooltip} from "@nextui-org/react";
 import moment from "moment/moment";
 import useMediaQuery from "../hooks/useMediaQuery.tsx";
 import ManufactureIcon from "../components/manufacture_icon.tsx";
 import DialogMap from "../components/dialog_map.tsx";
-import { MdOutlineOpenInNew } from "react-icons/md";
-import { IoCalendarOutline, IoLocationOutline } from "react-icons/io5";
-import { PiMountains } from "react-icons/pi";
-import { useTranslation } from "react-i18next";
+import {MdOutlineOpenInNew} from "react-icons/md";
+import {IoCalendarOutline, IoLocationOutline} from "react-icons/io5";
+import {PiMountains} from "react-icons/pi";
+import {useTranslation} from "react-i18next";
 import CameraName from "../components/camera_name.tsx";
+import {RxQuestionMarkCircled} from "react-icons/rx";
 
 export default function PhotoPage() {
   const {id} = useParams()
   const [photo, setPhoto] = useState<Photo>()
   const isDesktop = useMediaQuery('(min-width: 960px)');
   const {t} = useTranslation()
+  const [showHDR, setShowHDR] = useState(false);
 
   useEffect(() => {
     axios.get<Response<Photo>>('https://api.gallery.boar.ac.cn/photos/get', {
@@ -48,9 +50,9 @@ export default function PhotoPage() {
             img: 'pointer-events-none',
             blurredImg: 'pointer-events-none'
           }}
-          src={photo.large_file!.url}
-          width={photo.large_file!.width}
-          height={photo.large_file!.height}
+          src={showHDR ? photo.hdr_file!.url : photo.large_file!.url}
+          width={showHDR ? photo.hdr_file!.width : photo.large_file!.width}
+          height={showHDR ? photo.hdr_file!.height : photo.large_file!.width}
         />
         <CardFooter
           className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small right-1 z-10 w-auto font-normal">
@@ -58,6 +60,27 @@ export default function PhotoPage() {
             className='text-tiny md:text-small text-white/80'>&copy; {moment(photo.metadata.datetime).year()} {photo.author?.name}</div>
         </CardFooter>
       </Card>
+
+      {
+        photo.hdr_file ?
+          <div className='mt-4 flex justify-end'>
+            <div className='flex justify-center items-center gap-2'>
+              <Switch isSelected={showHDR} onValueChange={setShowHDR}>
+                {t('photo.enable_hdr')}
+              </Switch>
+              <Tooltip
+                content={t('photo.hdr_tooltip')}
+                showArrow
+              >
+                <div>
+                  <RxQuestionMarkCircled/>
+                </div>
+              </Tooltip>
+            </div>
+          </div>
+          :
+          null
+      }
 
       <div className='gap-4 grid grid-cols-1 md:grid-cols-2 mt-4 pb-4'>
         <div>
@@ -140,25 +163,25 @@ export default function PhotoPage() {
 
         {
           photo.metadata.location &&
-          <Card className='overflow-hidden min-h-[200px] md:min-h-0' isFooterBlurred>
-            <DialogMap coordinate={photo.metadata.location}/>
-            <CardFooter
-              className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden p-0 absolute before:rounded-xl rounded-large bottom-1 shadow-small right-1 z-10 w-auto font-normal">
-              <Button
-                className="text-tiny text-white bg-black/20"
-                variant="flat"
-                color="default"
-                radius="lg"
-                size="sm"
-                isIconOnly
-                onPress={() => {
-                  window.open(`https://maps.google.com/?q=${photo.metadata.location!.latitude},${photo.metadata.location!.longitude}`)
-                }}
-              >
-                <MdOutlineOpenInNew size={16}/>
-              </Button>
-            </CardFooter>
-          </Card>
+            <Card className='overflow-hidden min-h-[200px] md:min-h-0' isFooterBlurred>
+                <DialogMap coordinate={photo.metadata.location}/>
+                <CardFooter
+                    className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden p-0 absolute before:rounded-xl rounded-large bottom-1 shadow-small right-1 z-10 w-auto font-normal">
+                    <Button
+                        className="text-tiny text-white bg-black/20"
+                        variant="flat"
+                        color="default"
+                        radius="lg"
+                        size="sm"
+                        isIconOnly
+                        onPress={() => {
+                          window.open(`https://maps.google.com/?q=${photo.metadata.location!.latitude},${photo.metadata.location!.longitude}`)
+                        }}
+                    >
+                        <MdOutlineOpenInNew size={16}/>
+                    </Button>
+                </CardFooter>
+            </Card>
         }
       </div>
     </div>

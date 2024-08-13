@@ -13,6 +13,7 @@ export interface Photo {
   thumb_file: File
   medium_file?: File
   large_file?: File
+  hdr_file?: File
 }
 
 export interface Author {
