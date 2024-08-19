@@ -5,6 +5,7 @@ import Index from "./routes";
 import Map from "./routes/map_openlayers.tsx";
 import Photo from "./routes/photo.tsx";
 import Prefecture from "./routes/prefecture.tsx";
+import "./App.css"
 
 function App() {
   const navigate = useNavigate();

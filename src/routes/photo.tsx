@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect, useState, cloneElement, MouseEvent} from "react";
 import {Photo, Response} from "../models/gallery.ts";
 import axios from "axios";
 import {Button, Card, CardBody, CardFooter, CardHeader, Divider, Image, Link, Switch, Tooltip} from "@nextui-org/react";
@@ -13,6 +13,7 @@ import {PiMountains} from "react-icons/pi";
 import {useTranslation} from "react-i18next";
 import CameraName from "../components/camera_name.tsx";
 import {RxQuestionMarkCircled} from "react-icons/rx";
+import Zoom from 'react-medium-image-zoom'
 
 export default function PhotoPage() {
   const {id} = useParams()
@@ -42,18 +43,29 @@ export default function PhotoPage() {
         radius="lg"
         className="border-none"
       >
-        <Image
-          isBlurred
-          className={`object-contain ${isDesktop ? 'max-h-[32rem]' : ''}`}
-          draggable={false}
-          classNames={{
-            img: 'pointer-events-none',
-            blurredImg: 'pointer-events-none'
-          }}
-          src={showHDR ? photo.hdr_file!.url : photo.large_file!.url}
-          width={showHDR ? photo.hdr_file!.width : photo.large_file!.width}
-          height={showHDR ? photo.hdr_file!.height : photo.large_file!.width}
-        />
+        <Zoom
+          ZoomContent={({buttonUnzoom, img,}) => <>
+            {buttonUnzoom}
+            {img ? cloneElement(img, {
+              draggable: false,
+              onContextMenu: (e: MouseEvent<HTMLImageElement>) => e.preventDefault()
+            }) : null}
+          </>}
+        >
+          <Image
+            isBlurred
+            className={`object-contain ${isDesktop ? 'max-h-[32rem]' : ''}`}
+            draggable={false}
+            classNames={{
+              // img: 'pointer-events-none',
+              // blurredImg: 'pointer-events-none'
+            }}
+            onContextMenu={(e) => e.preventDefault()}
+            src={showHDR ? photo.hdr_file!.url : photo.large_file!.url}
+            width={showHDR ? photo.hdr_file!.width : photo.large_file!.width}
+            height={showHDR ? photo.hdr_file!.height : photo.large_file!.width}
+          />
+        </Zoom>
         <CardFooter
           className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small right-1 z-10 w-auto font-normal">
           <div
