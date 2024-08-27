@@ -1,27 +1,22 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Country, PhotoClusterItem, Prefecture, Response } from "../models/gallery.ts";
+import { Country, PhotoClusterItem, Response } from "../models/gallery.ts";
 import axios from "axios";
-import { useTranslation } from "react-i18next";
-import { Card, Image, Select, SelectItem } from "@nextui-org/react";
+import { Card } from "@nextui-org/react";
 import useDarkMode from "use-dark-mode";
-import { useNavigate } from "react-router-dom";
-import { Annotation, ColorScheme, Map, MapType, Marker } from "mapkit-react";
+import { Annotation, ColorScheme, Map, MapType } from "mapkit-react";
 import { MapTokenContext } from "../contexts/map_token.tsx";
 
 export default function ClusterPage() {
   const darkmode = useDarkMode()
   const [clusterItems, setClusterItems] = useState<PhotoClusterItem[]>([])
   const [country, setCountry] = useState<Country>()
-  const [countries, setCountries] = useState<Country[]>([])
-  const hoverIds = useRef<number[]>([]);
-  const navigate = useNavigate()
-  const {t} = useTranslation()
+  // const [countries, setCountries] = useState<Country[]>([])
   const token = useContext(MapTokenContext)
   const appleRef = useRef<mapkit.Map | null>(null)
 
   useEffect(() => {
     axios.get<Response<Country[]>>('https://api.gallery.boar.ac.cn/geo/countries').then((res) => {
-      setCountries(res.data.payload)
+      // setCountries(res.data.payload)
       setCountry(res.data.payload[0])
     })
   }, []);
