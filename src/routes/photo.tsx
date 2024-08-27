@@ -1,18 +1,29 @@
-import {useParams} from "react-router-dom";
-import {useEffect, useState, cloneElement, MouseEvent} from "react";
-import {Photo, Response} from "../models/gallery.ts";
+import { useParams } from "react-router-dom";
+import { useEffect, useState, cloneElement, MouseEvent } from "react";
+import { Photo, Response } from "../models/gallery.ts";
 import axios from "axios";
-import {Button, Card, CardBody, CardFooter, CardHeader, Divider, Image, Link, Switch, Tooltip} from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Divider,
+  Image,
+  Link,
+  Switch,
+  Tooltip
+} from "@nextui-org/react";
 import moment from "moment/moment";
 import useMediaQuery from "../hooks/useMediaQuery.tsx";
 import ManufactureIcon from "../components/manufacture_icon.tsx";
 import DialogMap from "../components/dialog_map.tsx";
-import {MdOutlineOpenInNew} from "react-icons/md";
-import {IoCalendarOutline, IoLocationOutline} from "react-icons/io5";
-import {PiMountains} from "react-icons/pi";
-import {useTranslation} from "react-i18next";
+import { MdOutlineOpenInNew } from "react-icons/md";
+import { IoCalendarOutline, IoLocationOutline } from "react-icons/io5";
+import { PiMountains } from "react-icons/pi";
+import { useTranslation } from "react-i18next";
 import CameraName from "../components/camera_name.tsx";
-import {RxQuestionMarkCircled} from "react-icons/rx";
+import { RxQuestionMarkCircled } from "react-icons/rx";
 import Zoom from 'react-medium-image-zoom'
 
 export default function PhotoPage() {
