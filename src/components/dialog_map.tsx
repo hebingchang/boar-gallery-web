@@ -19,7 +19,7 @@ export default function DialogMap(props: DialogMapProps) {
     if (appleRef && appleRef.current) {
       appleRef.current.setCenterAnimated(new mapkit.Coordinate(props.coordinate.latitude, props.coordinate.longitude), true)
     } else if (mapboxRef && mapboxRef.current) {
-      mapboxRef.current.setCenter({lat: props.coordinate.latitude, lng: props.coordinate.longitude})
+      mapboxRef.current.setCenter({ lat: props.coordinate.latitude, lng: props.coordinate.longitude })
     }
   }, [props.coordinate.latitude, props.coordinate.longitude])
 
@@ -51,7 +51,7 @@ export default function DialogMap(props: DialogMapProps) {
           latitude: props.coordinate.latitude,
           zoom: 10
         }}
-        style={{width: '100%', height: '100%', position: 'absolute'}}
+        style={{ width: '100%', height: '100%', position: 'absolute' }}
         mapStyle={darkmode.value ? 'mapbox://styles/mapbox/dark-v11' : 'mapbox://styles/mapbox/streets-v12'}
         ref={mapboxRef}
         onRender={(e) => {

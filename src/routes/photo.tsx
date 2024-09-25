@@ -27,15 +27,15 @@ import { RxQuestionMarkCircled } from "react-icons/rx";
 import Zoom from 'react-medium-image-zoom'
 
 export default function PhotoPage() {
-  const {id} = useParams()
+  const { id } = useParams()
   const [photo, setPhoto] = useState<Photo>()
   const isDesktop = useMediaQuery('(min-width: 960px)');
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const [showHDR, setShowHDR] = useState(false);
 
   useEffect(() => {
     axios.get<Response<Photo>>('https://api.gallery.boar.ac.cn/photos/get', {
-      params: {id}
+      params: { id }
     }).then((res) => {
       setPhoto(res.data.payload)
     })
@@ -55,7 +55,7 @@ export default function PhotoPage() {
         className="border-none"
       >
         <Zoom
-          ZoomContent={({buttonUnzoom, img,}) => <>
+          ZoomContent={({ buttonUnzoom, img, }) => <>
             {buttonUnzoom}
             {img ? cloneElement(img, {
               draggable: false,
@@ -75,6 +75,7 @@ export default function PhotoPage() {
             src={showHDR ? photo.hdr_file!.url : photo.large_file!.url}
             width={showHDR ? photo.hdr_file!.width : photo.large_file!.width}
             height={showHDR ? photo.hdr_file!.height : photo.large_file!.width}
+            style={{ height: 'auto' }}
           />
         </Zoom>
         <CardFooter

@@ -24,8 +24,8 @@ import gradRight from '../assets/gradients/right.png';
 import { FaDice } from "react-icons/fa6";
 
 const routes = [
-  {route: '/', text: 'sidebar.home', icon: <TbHome size={22}/>},
-  {route: '/map', text: 'sidebar.map', icon: <TbMap size={22}/>},
+  { route: '/', text: 'sidebar.home', icon: <TbHome size={22}/> },
+  { route: '/map', text: 'sidebar.map', icon: <TbMap size={22}/> },
 ]
 
 export default function Root() {
@@ -40,12 +40,12 @@ export default function Root() {
       if (res.data.payload === 'CN') {
         // mapbox
         axios.get<Response<string>>('https://api.gallery.boar.ac.cn/mapbox/token').then((res) => {
-          setToken({type: MapType.MapBox, token: res.data.payload})
+          setToken({ type: MapType.MapBox, token: res.data.payload })
         })
       } else {
         // apple map
         axios.get<Response<string>>('https://api.gallery.boar.ac.cn/mapkit-js/token').then((res) => {
-          setToken({type: MapType.Apple, token: res.data.payload})
+          setToken({ type: MapType.Apple, token: res.data.payload })
         })
       }
     })
@@ -54,12 +54,12 @@ export default function Root() {
   const [loading, setLoading] = useState(false)
   const [token, setToken] = useState<MapToken>()
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const {t, i18n} = useTranslation()
+  const { t, i18n } = useTranslation()
   const navigate = useNavigate();
 
   return (
-    <MapTokenContext.Provider value={{token, setToken}}>
-      <LoadingContext.Provider value={{loading, setLoading}}>
+    <MapTokenContext.Provider value={{ token, setToken }}>
+      <LoadingContext.Provider value={{ loading, setLoading }}>
         <div aria-hidden="true"
              className="fixed hidden dark:md:block dark:opacity-70 -bottom-[40%] -left-[20%] pointer-events-none">
           <img src={gradLeft}
@@ -156,7 +156,7 @@ export default function Root() {
               <Divider className='mt-4 mb-4'/>
 
               <div className='text-tiny text-default-400'>
-                <p>{t('copyright.reserved', {year: moment().year()})}</p>
+                <p>{t('copyright.reserved', { year: moment().year() })}</p>
                 <p className='mt-2'>{t('copyright.description')}</p>
               </div>
             </NavbarMenu>
@@ -164,7 +164,7 @@ export default function Root() {
 
           <div
             className="mx-auto max-w-[1024px] flex"
-            style={{minHeight: 'calc(100dvh - 4rem)'}}
+            style={{ minHeight: 'calc(100dvh - 4rem)' }}
           >
             <div className="max-w-64 hidden md:flex flex-col sticky top-[5rem] h-[100%] flex-shrink-0">
               <Listbox>
@@ -199,11 +199,11 @@ export default function Root() {
               <Divider className='mt-4 mb-4'/>
 
               <div className='text-tiny text-default-300 px-4'>
-                <p>{t('copyright.reserved', {year: moment().year()})}</p>
+                <p>{t('copyright.reserved', { year: moment().year() })}</p>
                 <p className='mt-2'>{t('copyright.description')}</p>
               </div>
             </div>
-            <div className='min-w-0' style={{flex: '1 1 auto'}}>
+            <div className='min-w-0' style={{ flex: '1 1 auto' }}>
               <Outlet/>
             </div>
           </div>

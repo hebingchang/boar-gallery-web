@@ -24,7 +24,7 @@ export default function MapPage() {
   const [prefectures, setPrefectures] = useState<Prefecture[]>([])
   const hoverIds = useRef<number[]>([]);
   const navigate = useNavigate()
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   useEffect(() => {
     axios.get<Response<Country[]>>('https://api.gallery.boar.ac.cn/geo/countries').then((res) => {
@@ -151,7 +151,7 @@ export default function MapPage() {
 
   if (!country) return;
 
-  return <div className='scrollbar-hide box-border relative' style={{height: 'calc(100dvh - 4rem)'}}>
+  return <div className='scrollbar-hide box-border relative' style={{ height: 'calc(100dvh - 4rem)' }}>
     <div className='h-[100%] w-[100%]' ref={mapElement}/>
 
     <Select

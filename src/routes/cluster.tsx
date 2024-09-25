@@ -30,7 +30,7 @@ export default function ClusterPage() {
   if (!token?.token) return;
   if (!country) return;
 
-  return <div className='scrollbar-hide box-border relative' style={{height: 'calc(100dvh - 4rem)'}}>
+  return <div className='scrollbar-hide box-border relative' style={{ height: 'calc(100dvh - 4rem)' }}>
     <Map
       token={token!.token.token}
       allowWheelToZoom

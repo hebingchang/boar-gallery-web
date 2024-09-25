@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 export default function PrefecturePage() {
   const params = useParams()
   const [prefecture, setPrefecture] = useState<Prefecture>()
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function PrefecturePage() {
       }}>
         {[{
           id: 0,
-          name: t('prefecture.all_area', {name: prefecture.name}),
+          name: t('prefecture.all_area', { name: prefecture.name }),
           photos_count: prefecture.cities.reduce((a, o) => a + o.photos_count, 0)
         }, ...prefecture.cities].map((c) => (
           <SelectItem key={c.id} value={c.id} endContent={<Chip>{c.photos_count}</Chip>}>

@@ -22,7 +22,7 @@ export default function PhotoMasonry(props: { prefectureId?: string, cityId?: st
 
   const containerRef = useRef(null);
   const [windowWidth, height] = useWindowSize();
-  const {offset, width} = useContainerPosition(containerRef, [
+  const { offset, width } = useContainerPosition(containerRef, [
     windowWidth,
     height
   ]);
@@ -31,7 +31,7 @@ export default function PhotoMasonry(props: { prefectureId?: string, cityId?: st
     columnGutter: 8,
     columnCount: isDesktop ? 3 : 2,
   });
-  const {scrollTop, isScrolling} = useScroller(offset);
+  const { scrollTop, isScrolling } = useScroller(offset);
   const query = useMemo(() => ({
     prefecture_id: props.prefectureId && props.prefectureId !== '0' ? props.prefectureId : undefined,
     city_id: props.cityId && props.cityId !== '0' ? props.cityId : undefined,
@@ -52,7 +52,7 @@ export default function PhotoMasonry(props: { prefectureId?: string, cityId?: st
     if (loadedIndex.current.find((e) => e.startIndex === startIndex && e.stopIndex === stopIndex)) {
       return;
     }
-    loadedIndex.current.push({startIndex, stopIndex})
+    loadedIndex.current.push({ startIndex, stopIndex })
 
     const lastDate = (items[items.length - 1] as Photo).metadata.datetime
     axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all', {
@@ -85,8 +85,8 @@ export default function PhotoMasonry(props: { prefectureId?: string, cityId?: st
   })
 }
 
-const MasonryCard = ({data}: { data: Photo }) => {
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+const MasonryCard = ({ data }: { data: Photo }) => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const isDesktop = useMediaQuery('(min-width: 960px)');
   const navigate = useNavigate()
 
@@ -112,6 +112,7 @@ const MasonryCard = ({data}: { data: Photo }) => {
         src={data.thumb_file.url}
         width={data.thumb_file.width}
         height={data.thumb_file.height}
+        style={{ height: 'auto' }}
       />
     </CardBody>
     {
