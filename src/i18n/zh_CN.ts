@@ -22,7 +22,7 @@ export default {
     "shuin.basic_information": "基本信息",
     "shuin.is_limited": "限定",
     "shuin.price": "价格",
-    "shuin.type.written": "书写",
+    "shuin.type.written": "手写",
     "shuin.type.leaflet": "预印",
     "shuin.yen": "日元",
   }

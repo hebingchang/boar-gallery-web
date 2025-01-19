@@ -13,8 +13,8 @@ export default {
     "prefecture.all_area": "{{name}}全域",
     "prefecture.city": "市・区・町・村",
 
-    "copyright.reserved": "© {{year}}。全ての権利を保有。",
-    "copyright.description": "すべての写真の著作権は、各写真のページに表示された著作権者に帰属します。無断での複製、配布、転載を禁じます。",
+    "copyright.reserved": "© {{year}}。無断使用・無断転載を禁じます。",
+    "copyright.description": "当サイトに掲載されている写真やコンテンツの著作権は、各ページに表示された著作権者に帰属します。無断複製、転載、配布、改変、商用利用を禁じます。",
 
     "photo.enable_hdr": "HDR",
     "photo.hdr_tooltip": "すべてのデバイスが高ダイナミックレンジ（HDR）をサポートしているわけではありません。",
