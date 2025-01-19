@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 export default function MapPage() {
   const darkmode = useDarkMode()
   const mapElement = useRef<HTMLDivElement>(null)
-  const map = useRef<Map>()
+  const map = useRef<Map>(null)
   const [country, setCountry] = useState<Country>()
   const [countries, setCountries] = useState<Country[]>([])
   const [prefectures, setPrefectures] = useState<Prefecture[]>([])

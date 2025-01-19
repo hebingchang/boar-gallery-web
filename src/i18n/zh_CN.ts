@@ -2,6 +2,7 @@ export default {
   translation: {
     "sidebar.home": "主页",
     "sidebar.map": "地图",
+    "sidebar.shuin": "御朱印",
     "sidebar.lucky": "手气不错",
 
     "map.countries": "国家 / 地区",
@@ -17,5 +18,12 @@ export default {
 
     "photo.enable_hdr": "HDR",
     "photo.hdr_tooltip": "并非所有终端都支持高动态范围（HDR）的显示。",
+
+    "shuin.basic_information": "基本信息",
+    "shuin.is_limited": "限定",
+    "shuin.price": "价格",
+    "shuin.type.written": "书写",
+    "shuin.type.leaflet": "预印",
+    "shuin.yen": "日元",
   }
 }

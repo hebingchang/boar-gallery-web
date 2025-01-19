@@ -58,6 +58,8 @@ export default function PhotoPage() {
           ZoomContent={({ buttonUnzoom, img, }) => <>
             {buttonUnzoom}
             {img ? cloneElement(img, {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
               draggable: false,
               onContextMenu: (e: MouseEvent<HTMLImageElement>) => e.preventDefault()
             }) : null}
@@ -74,7 +76,7 @@ export default function PhotoPage() {
             onContextMenu={(e) => e.preventDefault()}
             src={showHDR ? photo.hdr_file!.url : photo.large_file!.url}
             width={showHDR ? photo.hdr_file!.width : photo.large_file!.width}
-            height={showHDR ? photo.hdr_file!.height : photo.large_file!.width}
+            height={showHDR ? photo.hdr_file!.height : photo.large_file!.height}
             style={{ height: 'auto' }}
           />
         </Zoom>

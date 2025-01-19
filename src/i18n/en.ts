@@ -2,6 +2,7 @@ export default {
   translation: {
     "sidebar.home": "Timeline",
     "sidebar.map": "Map",
+    "sidebar.shuin": "Shuin",
     "sidebar.lucky": "I'm Feeling Lucky",
 
     "map.countries": "Country / Region",
@@ -17,5 +18,12 @@ export default {
 
     "photo.enable_hdr": "HDR",
     "photo.hdr_tooltip": "Not all devices support High Dynamic Range (HDR) display.",
+
+    "shuin.basic_information": "Information",
+    "shuin.is_limited": "LIMITED",
+    "shuin.price": "Price",
+    "shuin.type.written": "Hand-written",
+    "shuin.type.leaflet": "Pre-printed",
+    "shuin.yen": "yen",
   }
 }

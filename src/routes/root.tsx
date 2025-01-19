@@ -9,7 +9,7 @@ import {
   NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle, Spacer
 } from "@nextui-org/react";
 import useDarkMode from "use-dark-mode";
-import { TbHome, TbMap, TbMoon, TbSun } from "react-icons/tb";
+import { TbBook, TbHome, TbMap, TbMoon, TbSun } from "react-icons/tb";
 import { Outlet, useNavigate } from "react-router-dom";
 import { LoadingContext } from "../contexts/loading";
 import { useEffect, useState } from "react";
@@ -25,6 +25,7 @@ import { FaDice } from "react-icons/fa6";
 
 const routes = [
   { route: '/', text: 'sidebar.home', icon: <TbHome size={22}/> },
+  { route: '/shuin', text: 'sidebar.shuin', icon: <TbBook size={22}/> },
   { route: '/map', text: 'sidebar.map', icon: <TbMap size={22}/> },
 ]
 

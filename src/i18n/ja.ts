@@ -2,6 +2,7 @@ export default {
   translation: {
     "sidebar.home": "ホーム",
     "sidebar.map": "マップ",
+    "sidebar.shuin": "御朱印",
     "sidebar.lucky": "I'm Feeling Lucky",
 
     "map.countries": "国・地域",
@@ -17,5 +18,12 @@ export default {
 
     "photo.enable_hdr": "HDR",
     "photo.hdr_tooltip": "すべてのデバイスが高ダイナミックレンジ（HDR）をサポートしているわけではありません。",
+
+    "shuin.basic_information": "御朱印情報",
+    "shuin.is_limited": "限定",
+    "shuin.price": "初穂料",
+    "shuin.type.written": "直書き",
+    "shuin.type.leaflet": "書き置き",
+    "shuin.yen": "円",
   }
 }

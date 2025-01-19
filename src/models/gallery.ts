@@ -16,6 +16,19 @@ export interface Photo {
   hdr_file?: File
 }
 
+export interface Shuin {
+  id: number
+  place: Place
+  is_limited: boolean
+  price: number
+  type: string
+  thumb_file: File
+  medium_file?: File
+  large_file?: File
+  hdr_file?: File
+  date: string
+}
+
 export interface PhotoClusterItem {
   id: number
   coordinate?: Coordinate
@@ -61,6 +74,7 @@ export interface Place {
   id: number
   name: string
   geom: Coordinate
+  city?: City
 }
 
 export interface Coordinate {
