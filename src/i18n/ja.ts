@@ -25,5 +25,7 @@ export default {
     "shuin.type.written": "直書き",
     "shuin.type.leaflet": "書き置き",
     "shuin.yen": "円",
+    "shuin.genre.shrine": "神社",
+    "shuin.genre.temple": "お寺",
   }
 }

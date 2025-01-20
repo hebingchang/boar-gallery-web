@@ -25,5 +25,7 @@ export default {
     "shuin.type.written": "手写",
     "shuin.type.leaflet": "预印",
     "shuin.yen": "日元",
+    "shuin.genre.shrine": "神社",
+    "shuin.genre.temple": "寺院",
   }
 }

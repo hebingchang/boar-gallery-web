@@ -13,6 +13,7 @@ import {
 } from "masonic";
 import { useNavigate } from "react-router-dom";
 import ShuinModal from "./shuin_modal.tsx";
+import { useTranslation } from "react-i18next";
 
 
 export default function ShuinMasonry() {
@@ -84,6 +85,7 @@ const MasonryCard = ({ data }: { data: Shuin }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const isDesktop = useMediaQuery('(min-width: 960px)');
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const openPhotoModel = useMemo(() => () => {
     history.pushState({}, '', `/shuin/${data.id}`)
@@ -114,6 +116,9 @@ const MasonryCard = ({ data }: { data: Shuin }) => {
       <b>
         {data.place.name}
       </b>
+      <p className="text-default-500">
+        {t(`shuin.genre.${data.genre}`)}
+      </p>
     </CardFooter>
 
     <ShuinModal shuin={data} isOpen={isOpen} onOpenChange={(isOpen, path) => {

@@ -25,5 +25,7 @@ export default {
     "shuin.type.written": "Hand-written",
     "shuin.type.leaflet": "Pre-printed",
     "shuin.yen": "yen",
+    "shuin.genre.shrine": "Shrine",
+    "shuin.genre.temple": "Temple",
   }
 }

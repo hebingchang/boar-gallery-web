@@ -27,6 +27,7 @@ export interface Shuin {
   large_file?: File
   hdr_file?: File
   date: string
+  genre: string
 }
 
 export interface PhotoClusterItem {
