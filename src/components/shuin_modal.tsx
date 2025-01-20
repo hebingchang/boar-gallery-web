@@ -4,9 +4,9 @@ import {
   Modal,
   ModalContent,
   ModalHeader,
-  ModalBody, Spacer, Card, CardFooter, CardHeader, CardBody, Divider, Button, Skeleton, Chip
+  ModalBody, Spacer, Card, CardFooter, Button, Chip
 } from "@nextui-org/react";
-import { IoCalendarOutline, IoLocationOutline } from "react-icons/io5";
+import { IoCalendarOutline, IoLocationOutline, IoPricetagOutline } from "react-icons/io5";
 import moment from "moment";
 import useMediaQuery from "../hooks/useMediaQuery.tsx";
 import DialogMap from "./dialog_map.tsx";
@@ -81,7 +81,7 @@ export default function ShuinModal(props: ShuinModalProps) {
               </Card>
             </ModalHeader>
             <ModalBody className="p-4">
-              <div className='flex flex-wrap items-center justify-between'>
+              <div className='flex flex-wrap items-center gap-1'>
                 {
                   shuin.place.city ?
                     <div className='flex items-center text-default-500 gap-1'>
@@ -97,53 +97,39 @@ export default function ShuinModal(props: ShuinModalProps) {
                     null
                 }
 
-                <div className='flex items-center text-small text-default-500 gap-1.5'>
-                  <IoCalendarOutline size={18}/>
-                  <div>
-                    {moment(shuin.date).format('YYYY/M/D')}
+                <div className='flex items-center gap-4'>
+                  <div className='flex items-center text-small text-default-500 gap-1.5'>
+                    <IoCalendarOutline size={18}/>
+                    <div>
+                      {moment(shuin.date).format('YYYY/M/D')}
+                    </div>
+                  </div>
+
+                  <div className='flex items-center text-small text-default-500 gap-1.5'>
+                    <IoPricetagOutline size={18}/>
+                    <div>
+                      {shuin.price} {t('shuin.yen')}
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className='gap-4 grid grid-cols-1 md:grid-cols-2'>
-                <Card className='overflow-visible'>
-                  <CardHeader className='text-small font-semibold bg-default-100 py-2'>
-                    {
-                      loading ?
-                        <Skeleton className="w-2/5 rounded-lg">
-                          <div className="h-5 w-2/5 rounded-lg bg-default-200"></div>
-                        </Skeleton>
-                        :
-                        <div>{t('shuin.basic_information')}</div>
-                    }
-                  </CardHeader>
-                  <CardBody className='text-small text-default-500 py-2 overflow-y-visible'>
-                    {
-                      loading ?
-                        <Skeleton className="w-4/5 rounded-lg">
-                          <div className="h-5 w-4/5 rounded-lg bg-default-200"></div>
-                        </Skeleton>
-                        :
-                        <div><b>{t('shuin.price')}：</b>{shuin.price} {t('shuin.yen')}</div>
-                    }
-                  </CardBody>
-                  <Divider className='bg-default-100'/>
-                  <CardFooter className='py-2 flex space-x-2 text-default-500'>
-                    <Chip variant="flat">
-                      {t(`shuin.type.${shuin.type}`)}
+              <div className='py-2 flex space-x-2 text-default-500'>
+                <Chip variant="flat">
+                  {t(`shuin.type.${shuin.type}`)}
+                </Chip>
+
+                {
+                  shuin.is_limited ?
+                    <Chip color="warning" variant="flat">
+                      {t('shuin.is_limited')}
                     </Chip>
+                    :
+                    null
+                }
+              </div>
 
-                    {
-                      shuin.is_limited ?
-                        <Chip color="warning" variant="flat">
-                          {t('shuin.is_limited')}
-                        </Chip>
-                        :
-                        null
-                    }
-                  </CardFooter>
-                </Card>
-
+              <div className='gap-4 grid grid-cols-1 md:grid-cols-2'>
                 <Card className='overflow-hidden min-h-[109px] md:min-h-0' isFooterBlurred>
                   <DialogMap coordinate={shuin.place.geom}/>
                   <CardFooter
@@ -215,52 +201,36 @@ export default function ShuinModal(props: ShuinModalProps) {
                       null
                   }
 
-                  <div className='flex items-center text-default-500 gap-1 text-small'>
-                    <IoCalendarOutline size={20}/>
-                    {moment(shuin.date).format('YYYY/M/D')}
+                  <div className='flex items-center gap-4'>
+                    <div className='flex items-center text-default-500 gap-1 text-small'>
+                      <IoCalendarOutline size={20}/>
+                      {moment(shuin.date).format('YYYY/M/D')}
+                    </div>
+
+                    <div className='flex items-center text-default-500 gap-1 text-small'>
+                      <IoPricetagOutline size={20}/>
+                      {shuin.price} {t('shuin.yen')}
+                    </div>
+                  </div>
+
+                  <div className='py-2 flex space-x-2 text-default-500'>
+                    <Chip variant="flat">
+                      {t(`shuin.type.${shuin.type}`)}
+                    </Chip>
+
+                    {
+                      shuin.is_limited ?
+                        <Chip color="warning" variant="flat">
+                          {t('shuin.is_limited')}
+                        </Chip>
+                        :
+                        null
+                    }
                   </div>
 
                   <Spacer y={4}/>
 
                   <div className='gap-4 grid grid-cols-1'>
-                    <Card className='overflow-visible'>
-                      <CardHeader className='text-small font-semibold bg-default-100 py-2'>
-                        {
-                          loading ?
-                            <Skeleton className="w-2/5 rounded-lg">
-                              <div className="h-5 w-2/5 rounded-lg bg-default-200"></div>
-                            </Skeleton>
-                            :
-                            <div>{t('shuin.basic_information')}</div>
-                        }
-                      </CardHeader>
-                      <CardBody className='text-small text-default-500 py-2 overflow-y-visible'>
-                        {
-                          loading ?
-                            <Skeleton className="w-4/5 rounded-lg">
-                              <div className="h-5 w-4/5 rounded-lg bg-default-200"></div>
-                            </Skeleton>
-                            :
-                            <div><b>{t('shuin.price')}：</b>{shuin.price} {t('shuin.yen')}</div>
-                        }
-                      </CardBody>
-                      <Divider className='bg-default-100'/>
-                      <CardFooter className='py-2 flex space-x-2 text-default-500'>
-                        <Chip variant="flat">
-                          {t(`shuin.type.${shuin.type}`)}
-                        </Chip>
-
-                        {
-                          shuin.is_limited ?
-                            <Chip color="warning" variant="flat">
-                              {t('shuin.is_limited')}
-                            </Chip>
-                            :
-                            null
-                        }
-                      </CardFooter>
-                    </Card>
-
                     <Card className='overflow-hidden min-h-[256px]' isFooterBlurred>
                       <DialogMap coordinate={shuin.place.geom}/>
                       <CardFooter

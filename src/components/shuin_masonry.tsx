@@ -49,15 +49,16 @@ export default function ShuinMasonry() {
     }
     loadedIndex.current.push({ startIndex, stopIndex })
 
-    const lastId = (items[items.length - 1] as Shuin).id
+    const lastDate = (items[items.length - 1] as Shuin).date
     axios.get<Response<Shuin[]>>('https://api.gallery.boar.ac.cn/shuin/all', {
       params: {
         page_size: stopIndex - startIndex,
-        last_id: lastId,
+        last_date: lastDate,
       }
     }).then((res) => {
-      if (res.data.payload.length > 0) {
-        setShuin((current) => [...current, ...res.data.payload]);
+      const newItems = res.data.payload.filter((item) => !shuin.find(s => s.id === item.id));
+      if (newItems.length > 0) {
+        setShuin((current) => [...current, ...newItems]);
       }
     })
   }, {
