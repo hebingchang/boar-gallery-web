@@ -37,15 +37,15 @@ export default function Root() {
   });
 
   useEffect(() => {
-    axios.get<Response<string>>('https://api.gallery.boar.ac.cn/geo/ip').then(async (res) => {
+    axios.get<Response<string>>('https://gallery-api.boar.osaka/geo/ip').then(async (res) => {
       if (res.data.payload === 'CN') {
         // mapbox
-        axios.get<Response<string>>('https://api.gallery.boar.ac.cn/mapbox/token').then((res) => {
+        axios.get<Response<string>>('https://gallery-api.boar.osaka/mapbox/token').then((res) => {
           setToken({ type: MapType.MapBox, token: res.data.payload })
         })
       } else {
         // apple map
-        axios.get<Response<string>>('https://api.gallery.boar.ac.cn/mapkit-js/token').then((res) => {
+        axios.get<Response<string>>('https://gallery-api.boar.osaka/mapkit-js/token').then((res) => {
           setToken({ type: MapType.Apple, token: res.data.payload })
         })
       }
@@ -142,7 +142,7 @@ export default function Root() {
                   className="w-full pt-3 font-bold"
                   size="lg"
                   onPress={async () => {
-                    const id = (await axios.get<Response<number>>('https://api.gallery.boar.ac.cn/photos/lucky')).data.payload
+                    const id = (await axios.get<Response<number>>('https://gallery-api.boar.osaka/photos/lucky')).data.payload
                     navigate(`/photo/${id}`)
                     setIsMenuOpen(false)
                   }}
@@ -184,7 +184,7 @@ export default function Root() {
                     <ListboxItem
                       key='lucky'
                       onPress={async () => {
-                        const id = (await axios.get<Response<number>>('https://api.gallery.boar.ac.cn/photos/lucky')).data.payload
+                        const id = (await axios.get<Response<number>>('https://gallery-api.boar.osaka/photos/lucky')).data.payload
                         navigate(`/photo/${id}`)
                       }}
                       className="px-4 py-3"

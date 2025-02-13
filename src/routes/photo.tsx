@@ -34,7 +34,7 @@ export default function PhotoPage() {
   const [showHDR, setShowHDR] = useState(false);
 
   useEffect(() => {
-    axios.get<Response<Photo>>('https://api.gallery.boar.ac.cn/photos/get', {
+    axios.get<Response<Photo>>('https://gallery-api.boar.osaka/photos/get', {
       params: { id }
     }).then((res) => {
       setPhoto(res.data.payload)

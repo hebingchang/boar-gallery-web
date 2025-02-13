@@ -27,7 +27,7 @@ export default function ShuinPage() {
   const { t } = useTranslation()
 
   useEffect(() => {
-    axios.get<Response<Shuin>>('https://api.gallery.boar.ac.cn/shuin/get', {
+    axios.get<Response<Shuin>>('https://gallery-api.boar.osaka/shuin/get', {
       params: { id }
     }).then((res) => {
       setShuin(res.data.payload)

@@ -38,7 +38,7 @@ export default function PhotoMasonry(props: { prefectureId?: string, cityId?: st
   }), [props.cityId, props.prefectureId])
 
   useEffect(() => {
-    axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all', {
+    axios.get<Response<Photo[]>>('https://gallery-api.boar.osaka/photos/all', {
       params: {
         ...query,
         page_size: 20
@@ -55,7 +55,7 @@ export default function PhotoMasonry(props: { prefectureId?: string, cityId?: st
     loadedIndex.current.push({ startIndex, stopIndex })
 
     const lastDate = (items[items.length - 1] as Photo).metadata.datetime
-    axios.get<Response<Photo[]>>('https://api.gallery.boar.ac.cn/photos/all', {
+    axios.get<Response<Photo[]>>('https://gallery-api.boar.osaka/photos/all', {
       params: {
         ...query,
         page_size: stopIndex - startIndex,
