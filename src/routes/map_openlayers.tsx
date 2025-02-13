@@ -27,7 +27,7 @@ export default function MapPage() {
   const { t } = useTranslation()
 
   useEffect(() => {
-    axios.get<Response<Country[]>>('https://gallery-api.boar.osaka/geo/countries').then((res) => {
+    axios.get<Response<Country[]>>('https://api.gallery.boar.dyweb.sjtu.cn/geo/countries').then((res) => {
       setCountries(res.data.payload)
       setCountry(res.data.payload[0])
     })
@@ -35,7 +35,7 @@ export default function MapPage() {
 
   useEffect(() => {
     if (country) {
-      axios.get<Response<Prefecture[]>>('https://gallery-api.boar.osaka/geo/prefectures', {
+      axios.get<Response<Prefecture[]>>('https://api.gallery.boar.dyweb.sjtu.cn/geo/prefectures', {
         params: {
           country_id: country.id,
           with_photos_count: true

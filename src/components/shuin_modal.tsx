@@ -31,7 +31,7 @@ export default function ShuinModal(props: ShuinModalProps) {
     if (props.isOpen) {
       setLoading(true)
       setTimeout(() => {
-        axios.get<Response<Shuin>>(`https://gallery-api.boar.osaka/shuin/get?id=${props.shuin.id}`).then(res => {
+        axios.get<Response<Shuin>>(`https://api.gallery.boar.dyweb.sjtu.cn/shuin/get?id=${props.shuin.id}`).then(res => {
           setShuin(res.data.payload)
           setLoading(false)
         })
@@ -81,7 +81,7 @@ export default function ShuinModal(props: ShuinModalProps) {
               </Card>
             </ModalHeader>
             <ModalBody className="p-4">
-              <div className='flex flex-wrap items-center gap-1'>
+              <div className='flex flex-wrap items-center gap-1 justify-between'>
                 {
                   shuin.place.city ?
                     <div className='flex items-center text-default-500 gap-1'>
@@ -94,7 +94,7 @@ export default function ShuinModal(props: ShuinModalProps) {
                       </div>
                     </div>
                     :
-                    null
+                    <div />
                 }
 
                 <div className='flex items-center gap-4'>
@@ -114,23 +114,23 @@ export default function ShuinModal(props: ShuinModalProps) {
                 </div>
               </div>
 
-              <div className='py-2 flex space-x-2 text-default-500'>
-                <Chip variant="flat">
-                  {t(`shuin.type.${shuin.type}`)}
-                </Chip>
-
-                {
-                  shuin.is_limited ?
-                    <Chip color="warning" variant="flat">
-                      {t('shuin.is_limited')}
-                    </Chip>
-                    :
-                    null
-                }
-              </div>
-
               <div className='gap-4 grid grid-cols-1 md:grid-cols-2'>
-                <Card className='overflow-hidden min-h-[109px] md:min-h-0' isFooterBlurred>
+                <div className='py-2 flex space-x-2 text-default-500'>
+                  <Chip variant="flat">
+                    {t(`shuin.type.${shuin.type}`)}
+                  </Chip>
+
+                  {
+                    shuin.is_limited ?
+                      <Chip color="warning" variant="flat">
+                        {t('shuin.is_limited')}
+                      </Chip>
+                      :
+                      null
+                  }
+                </div>
+
+                <Card className='overflow-hidden min-h-[109px]' isFooterBlurred>
                   <DialogMap coordinate={shuin.place.geom}/>
                   <CardFooter
                     className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden p-0 absolute before:rounded-xl rounded-large bottom-1 shadow-small right-1 z-10 w-auto font-normal">

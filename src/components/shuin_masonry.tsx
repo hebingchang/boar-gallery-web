@@ -35,7 +35,7 @@ export default function ShuinMasonry() {
   const { scrollTop, isScrolling } = useScroller(offset);
 
   useEffect(() => {
-    axios.get<Response<Shuin[]>>('https://gallery-api.boar.osaka/shuin/all', {
+    axios.get<Response<Shuin[]>>('https://api.gallery.boar.dyweb.sjtu.cn/shuin/all', {
       params: {
         page_size: 20
       }
@@ -51,7 +51,7 @@ export default function ShuinMasonry() {
     loadedIndex.current.push({ startIndex, stopIndex })
 
     const lastDate = (items[items.length - 1] as Shuin).date
-    axios.get<Response<Shuin[]>>('https://gallery-api.boar.osaka/shuin/all', {
+    axios.get<Response<Shuin[]>>('https://api.gallery.boar.dyweb.sjtu.cn/shuin/all', {
       params: {
         page_size: stopIndex - startIndex,
         last_date: lastDate,
