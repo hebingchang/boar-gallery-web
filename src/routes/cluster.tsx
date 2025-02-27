@@ -15,14 +15,14 @@ export default function ClusterPage() {
   const appleRef = useRef<mapkit.Map | null>(null)
 
   useEffect(() => {
-    axios.get<Response<Country[]>>('https://api.gallery.boar.dyweb.sjtu.cn/geo/countries').then((res) => {
+    axios.get<Response<Country[]>>('https://api.gallery.boar.ac.cn/geo/countries').then((res) => {
       // setCountries(res.data.payload)
       setCountry(res.data.payload[0])
     })
   }, []);
 
   useEffect(() => {
-    axios.get<Response<PhotoClusterItem[]>>(`https://api.gallery.boar.dyweb.sjtu.cn/photos/cluster?country_id=${country?.id}`).then((res) => {
+    axios.get<Response<PhotoClusterItem[]>>(`https://api.gallery.boar.ac.cn/photos/cluster?country_id=${country?.id}`).then((res) => {
       setClusterItems(res.data.payload)
     })
   }, [country])

@@ -31,7 +31,7 @@ export default function ShuinModal(props: ShuinModalProps) {
     if (props.isOpen) {
       setLoading(true)
       setTimeout(() => {
-        axios.get<Response<Shuin>>(`https://api.gallery.boar.dyweb.sjtu.cn/shuin/get?id=${props.shuin.id}`).then(res => {
+        axios.get<Response<Shuin>>(`https://api.gallery.boar.ac.cn/shuin/get?id=${props.shuin.id}`).then(res => {
           setShuin(res.data.payload)
           setLoading(false)
         })

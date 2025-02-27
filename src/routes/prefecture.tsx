@@ -13,7 +13,7 @@ export default function PrefecturePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get<Response<Prefecture>>('https://api.gallery.boar.dyweb.sjtu.cn/geo/prefecture', {
+    axios.get<Response<Prefecture>>('https://api.gallery.boar.ac.cn/geo/prefecture', {
       params: {
         id: params.prefectureId,
         with_cities: true

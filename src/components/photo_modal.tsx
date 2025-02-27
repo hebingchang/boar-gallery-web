@@ -33,7 +33,7 @@ export default function PhotoModal(props: PhotoModalProps) {
     if (props.isOpen) {
       setLoading(true)
       setTimeout(() => {
-        axios.get<Response<Photo>>(`https://api.gallery.boar.dyweb.sjtu.cn/photos/get?id=${props.photo.id}`).then(res => {
+        axios.get<Response<Photo>>(`https://api.gallery.boar.ac.cn/photos/get?id=${props.photo.id}`).then(res => {
           setPhoto(res.data.payload)
           setLoading(false)
         })
