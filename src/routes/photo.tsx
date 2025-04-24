@@ -13,7 +13,7 @@ import {
   Link,
   Switch,
   Tooltip
-} from "@nextui-org/react";
+} from "@heroui/react";
 import moment from "moment/moment";
 import useMediaQuery from "../hooks/useMediaQuery.tsx";
 import ManufactureIcon from "../components/manufacture_icon.tsx";

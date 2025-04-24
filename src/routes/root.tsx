@@ -7,7 +7,7 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle, Spacer
-} from "@nextui-org/react";
+} from "@heroui/react";
 import useDarkMode from "use-dark-mode";
 import { TbBook, TbHome, TbMap, TbMoon, TbSun } from "react-icons/tb";
 import { Outlet, useNavigate } from "react-router-dom";

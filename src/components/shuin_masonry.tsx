@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { Response, Shuin } from "../models/gallery.ts";
-import { Card, Image, CardFooter, CardBody, useDisclosure } from "@nextui-org/react";
+import { Card, Image, CardFooter, CardBody, useDisclosure } from "@heroui/react";
 import useMediaQuery from "../hooks/useMediaQuery.tsx";
 import { useWindowSize } from "@react-hook/window-size";
 import {

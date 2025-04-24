@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Country, PhotoClusterItem, Response } from "../models/gallery.ts";
 import axios from "axios";
-import { Card } from "@nextui-org/react";
+import { Card } from "@heroui/react";
 import useDarkMode from "use-dark-mode";
 import { Annotation, ColorScheme, Map, MapType } from "mapkit-react";
 import { MapTokenContext } from "../contexts/map_token.tsx";

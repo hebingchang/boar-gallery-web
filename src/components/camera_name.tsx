@@ -3,7 +3,7 @@ import lumix from '../assets/logos/Lumix_logo.svg';
 import lumixDark from '../assets/logos/Lumix_logo_dark.svg';
 import { Camera } from "../models/gallery.ts";
 import useDarkMode from "use-dark-mode";
-import { Tooltip } from "@nextui-org/react";
+import { Tooltip } from "@heroui/react";
 import { JSX } from "react";
 
 export interface CameraNameProps {

@@ -11,7 +11,7 @@ import {
   Divider,
   Image,
   Link,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import moment from "moment/moment";
 import useMediaQuery from "../hooks/useMediaQuery.tsx";
 import DialogMap from "../components/dialog_map.tsx";

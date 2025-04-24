@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Prefecture, Response } from "../models/gallery.ts";
-import { Chip, Select, SelectItem } from "@nextui-org/react";
+import { Chip, Select, SelectItem } from "@heroui/react";
 import { useTranslation } from "react-i18next";
 
 export default function PrefecturePage() {

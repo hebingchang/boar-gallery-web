@@ -11,7 +11,7 @@ import { Fill, Stroke, Style, Text } from 'ol/style.js';
 import { getArea } from 'ol/sphere';
 import { MultiPolygon } from "ol/geom";
 import { useTranslation } from "react-i18next";
-import { Select, SelectItem } from "@nextui-org/react";
+import { Select, SelectItem } from "@heroui/react";
 import useDarkMode from "use-dark-mode";
 import { useNavigate } from "react-router-dom";
 

@@ -5,7 +5,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody, Spacer, Card, CardFooter, Button, Chip
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { IoCalendarOutline, IoLocationOutline, IoPricetagOutline } from "react-icons/io5";
 import moment from "moment";
 import useMediaQuery from "../hooks/useMediaQuery.tsx";

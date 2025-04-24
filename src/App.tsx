@@ -1,4 +1,4 @@
-import { NextUIProvider } from "@nextui-org/react";
+import { HeroUIProvider } from "@heroui/react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Root from "./routes/root.tsx";
 import Index from "./routes";
@@ -14,7 +14,7 @@ function App() {
   const navigate = useNavigate();
 
   return (
-    <NextUIProvider navigate={navigate}>
+    <HeroUIProvider navigate={navigate}>
       <Routes>
         <Route path="/" element={<Root/>}>
           <Route path="" element={<Index/>}/>
@@ -27,7 +27,7 @@ function App() {
           <Route path="prefecture/:prefectureId/city/:cityId" element={<Prefecture/>}/>
         </Route>
       </Routes>
-    </NextUIProvider>
+    </HeroUIProvider>
   )
 }
 
