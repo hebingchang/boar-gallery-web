@@ -43,7 +43,7 @@ export default function PrefecturePage() {
           name: t('prefecture.all_area', { name: prefecture.name }),
           photos_count: prefecture.cities.reduce((a, o) => a + o.photos_count, 0)
         }, ...prefecture.cities].map((c) => (
-          <SelectItem key={c.id} value={c.id} endContent={<Chip>{c.photos_count}</Chip>}>
+          <SelectItem key={c.id} textValue={c.name} endContent={<Chip>{c.photos_count}</Chip>}>
             {c.name}
           </SelectItem>
         ))}

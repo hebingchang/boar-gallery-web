@@ -104,7 +104,7 @@ export default function Root() {
                 </Dropdown>
               </NavbarItem>
               <NavbarItem className={`${isMenuOpen ? '' : 'hidden'} sm:flex`}>
-                <Button isIconOnly variant="flat" onClick={darkMode.toggle}>
+                <Button isIconOnly variant="flat" onPress={darkMode.toggle}>
                   {
                     darkMode.value ?
                       <TbSun size={24}/>

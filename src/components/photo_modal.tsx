@@ -50,14 +50,14 @@ export default function PhotoModal(props: PhotoModalProps) {
     <Link
       color='foreground'
       className="font-bold cursor-pointer"
-      onClick={() => props.onOpenChange(false, `/prefecture/${photo.metadata.city?.prefecture.id}`)}
+      onPress={() => props.onOpenChange(false, `/prefecture/${photo.metadata.city?.prefecture.id}`)}
     >
       {photo.metadata.city?.prefecture.name}
     </Link>
     <Link
       color='foreground'
       className="font-bold cursor-pointer"
-      onClick={() => props.onOpenChange(false, `/prefecture/${photo.metadata.city?.prefecture.id}/city/${photo.metadata.city?.id}`)}
+      onPress={() => props.onOpenChange(false, `/prefecture/${photo.metadata.city?.prefecture.id}/city/${photo.metadata.city?.id}`)}
     >
       {photo.metadata.city?.name}
     </Link>
@@ -333,7 +333,7 @@ export default function PhotoModal(props: PhotoModalProps) {
           </>
       )}
     </ModalContent>
-  }, [isDesktop, isPortrait, loading, photo.author?.name, photo.medium_file?.height, photo.medium_file?.url, photo.medium_file?.width, photo.metadata.camera, photo.metadata.city, photo.metadata.datetime, photo.metadata.exposure_time_rat, photo.metadata.f_number, photo.metadata.focal_length, photo.metadata.has_location, photo.metadata.lens, photo.metadata.location, photo.metadata.photographic_sensitivity, photo.metadata.place, photo.metadata.timezone, t])
+  }, [cityLinks, isDesktop, isPortrait, loading, photo.author?.name, photo.medium_file?.height, photo.medium_file?.url, photo.medium_file?.width, photo.metadata.camera, photo.metadata.city, photo.metadata.datetime, photo.metadata.exposure_time_rat, photo.metadata.f_number, photo.metadata.focal_length, photo.metadata.has_location, photo.metadata.lens, photo.metadata.location, photo.metadata.photographic_sensitivity, photo.metadata.place, photo.metadata.timezone, t])
 
   return <Modal
     isOpen={props.isOpen}
