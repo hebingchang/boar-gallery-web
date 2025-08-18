@@ -43,6 +43,7 @@ export default function PhotoModal(props: PhotoModalProps) {
 
   // if (!photo.medium_file) return null;
   const isPortrait = photo.thumb_file.width <= photo.thumb_file.height;
+  const photoDateTime = moment(photo.metadata.datetime).utcOffset(`+${photo.metadata.timezone.split('+')[1]}`).format('M/D HH:mm ([GMT]Z)');
 
   const cityLinks = useMemo(() => <div className='flex gap-1'>
     <Link color='foreground'
@@ -119,7 +120,7 @@ export default function PhotoModal(props: PhotoModalProps) {
                 <div className='flex items-center text-small text-default-500 gap-1.5'>
                   <IoCalendarOutline size={18}/>
                   <div>
-                    {moment(photo.metadata.datetime).utcOffset(`+${photo.metadata.timezone.split('+')[1]}`).format('YYYY-MM-DD HH:mm ([GMT]Z)')}
+                    {photoDateTime}
                   </div>
                 </div>
               </div>
@@ -254,7 +255,7 @@ export default function PhotoModal(props: PhotoModalProps) {
 
                   <div className='flex items-center text-default-500 gap-1 text-small'>
                     <IoCalendarOutline size={20}/>
-                    {moment(photo.metadata.datetime).utcOffset(`+${photo.metadata.timezone.split('+')[1]}`).format('YYYY-MM-DD HH:mm ([GMT]Z)')}
+                    {photoDateTime}
                   </div>
 
                   <Spacer y={4}/>

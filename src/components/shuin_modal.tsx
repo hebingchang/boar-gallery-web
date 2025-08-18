@@ -101,7 +101,7 @@ export default function ShuinModal(props: ShuinModalProps) {
                   <div className='flex items-center text-small text-default-500 gap-1.5'>
                     <IoCalendarOutline size={18}/>
                     <div>
-                      {moment(shuin.date).format('YYYY/M/D')}
+                      {moment(shuin.date).format('YYYY/MM')}
                     </div>
                   </div>
 
@@ -204,7 +204,7 @@ export default function ShuinModal(props: ShuinModalProps) {
                   <div className='flex items-center gap-4'>
                     <div className='flex items-center text-default-500 gap-1 text-small'>
                       <IoCalendarOutline size={20}/>
-                      {moment(shuin.date).format('YYYY/M/D')}
+                      {moment(shuin.date).format('YYYY/MM')}
                     </div>
 
                     <div className='flex items-center text-default-500 gap-1 text-small'>

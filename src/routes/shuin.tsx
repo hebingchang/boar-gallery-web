@@ -108,7 +108,7 @@ export default function ShuinPage() {
                 <div className='flex items-center text-default-500 gap-2'>
                   <IoCalendarOutline size={20}/>
                   <div>
-                    {moment(shuin.date).format('YYYY/M/D')}
+                    {moment(shuin.date).format('YYYY/MM')}
                   </div>
                 </div>
               </div>

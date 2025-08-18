@@ -143,7 +143,7 @@ export default function PhotoPage() {
                 <div className='flex items-center text-default-500 gap-2'>
                   <IoCalendarOutline size={20}/>
                   <div>
-                    {moment(photo.metadata.datetime).utcOffset(`+${photo.metadata.timezone.split('+')[1]}`).format('YYYY-MM-DD HH:mm ([GMT]Z)')}
+                    {moment(photo.metadata.datetime).utcOffset(`+${photo.metadata.timezone.split('+')[1]}`).format('M/D HH:mm ([GMT]Z)')}
                   </div>
                 </div>
 
