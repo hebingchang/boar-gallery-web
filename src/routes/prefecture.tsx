@@ -25,7 +25,7 @@ export default function PrefecturePage() {
 
   if (!prefecture) return;
 
-  return <div className='px-2 pt-[1rem] pb-12'>
+  return <div className='px-2 pt-4 pb-12'>
     <div className='text-5xl mb-4 md:mb-6 ml-2 pt-2'>
       {prefecture.name}
     </div>

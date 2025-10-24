@@ -60,7 +60,7 @@ export default function ShuinPage() {
         >
           <Image
             isBlurred
-            className={`object-contain ${isDesktop ? 'max-h-[32rem]' : ''}`}
+            className={`object-contain ${isDesktop ? 'max-h-128' : ''}`}
             draggable={false}
             classNames={{
               // img: 'pointer-events-none',
@@ -88,7 +88,7 @@ export default function ShuinPage() {
                 {
                   shuin.place.city ?
                     <div className='flex items-center text-default-500 gap-2'>
-                      <IoLocationOutline className='flex-shrink-0' size={20}/>
+                      <IoLocationOutline className='shrink-0' size={20}/>
                       <div className='flex flex-wrap gap-x-3'>
                         <div className='flex gap-1'>
                           <div color='foreground'

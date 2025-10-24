@@ -85,7 +85,7 @@ export default function ShuinModal(props: ShuinModalProps) {
                 {
                   shuin.place.city ?
                     <div className='flex items-center text-default-500 gap-1'>
-                      <IoLocationOutline className='flex-shrink-0' size={20}/>
+                      <IoLocationOutline className='shrink-0' size={20}/>
                       <div className='flex flex-wrap gap-x-3'>
                         {cityLinks}
                         <div className='flex items-center'>
@@ -161,17 +161,17 @@ export default function ShuinModal(props: ShuinModalProps) {
                   <Card
                     isFooterBlurred
                     radius="lg"
-                    className="border-none h-[100%]"
+                    className="border-none h-full"
                   >
                     <Image
                       isBlurred
                       classNames={{
-                        wrapper: 'h-[100%]',
-                        zoomedWrapper: 'h-[100%]',
-                        blurredImg: 'h-[100%] pointer-events-none',
+                        wrapper: 'h-full',
+                        zoomedWrapper: 'h-full',
+                        blurredImg: 'h-full pointer-events-none',
                         img: 'pointer-events-none',
                       }}
-                      className="object-contain h-[100%]"
+                      className="object-contain h-full"
                       src={shuin.medium_file?.url}
                       width={shuin.medium_file?.width}
                       height={shuin.medium_file?.height}

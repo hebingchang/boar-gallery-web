@@ -64,14 +64,14 @@ export default function Root() {
         <div aria-hidden="true"
              className="fixed hidden dark:md:block dark:opacity-70 -bottom-[40%] -left-[20%] pointer-events-none">
           <img src={gradLeft}
-               className="relative opacity-0 shadow-black/5 data-[loaded=true]:opacity-100 shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large"
+               className="relative opacity-0 shadow-black/5 data-[loaded=true]:opacity-100 shadow-none transition-transform-opacity motion-reduce:transition-none duration-300! rounded-large"
                alt="left background" data-loaded="true"/>
         </div>
 
         <div aria-hidden="true"
              className="fixed hidden dark:md:block dark:opacity-70 -top-[80%] -right-[60%] 2xl:-top-[60%] 2xl:-right-[45%] rotate-12 pointer-events-none">
           <img src={gradRight}
-               className="relative opacity-0 shadow-black/5 data-[loaded=true]:opacity-100 shadow-none transition-transform-opacity motion-reduce:transition-none !duration-300 rounded-large"
+               className="relative opacity-0 shadow-black/5 data-[loaded=true]:opacity-100 shadow-none transition-transform-opacity motion-reduce:transition-none duration-300! rounded-large"
                alt="right background" data-loaded="true"/>
         </div>
 
@@ -167,7 +167,7 @@ export default function Root() {
             className="mx-auto max-w-[1024px] flex"
             style={{ minHeight: 'calc(100dvh - 4rem)' }}
           >
-            <div className="max-w-64 hidden md:flex flex-col sticky top-[5rem] h-[100%] flex-shrink-0">
+            <div className="max-w-64 hidden md:flex flex-col sticky top-20 h-full shrink-0">
               <Listbox>
                 {
                   [...routes.map((r) => (

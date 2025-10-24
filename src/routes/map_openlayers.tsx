@@ -152,7 +152,7 @@ export default function MapPage() {
   if (!country) return;
 
   return <div className='scrollbar-hide box-border relative' style={{ height: 'calc(100dvh - 4rem)' }}>
-    <div className='h-[100%] w-[100%]' ref={mapElement}/>
+    <div className='h-full w-full' ref={mapElement}/>
 
     <Select
       items={countries}

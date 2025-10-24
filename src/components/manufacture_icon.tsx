@@ -22,7 +22,7 @@ const logos: { [k: string]: { light: string, dark: string, style: string } } = {
   'Apple': {
     light: appleLogo,
     dark: appleLogoDark,
-    style: 'h-[1rem]',
+    style: 'h-4',
   },
   'Panasonic': {
     light: panasonicLogo,

@@ -100,7 +100,7 @@ export default function PhotoModal(props: PhotoModalProps) {
                 {
                   photo.metadata.city ?
                     <div className='flex items-center text-default-500 gap-1'>
-                      <IoLocationOutline className='flex-shrink-0' size={20}/>
+                      <IoLocationOutline className='shrink-0' size={20}/>
                       <div className='flex flex-wrap gap-x-3'>
                         {cityLinks}
                         {
@@ -208,17 +208,17 @@ export default function PhotoModal(props: PhotoModalProps) {
                   <Card
                     isFooterBlurred
                     radius="lg"
-                    className="border-none h-[100%]"
+                    className="border-none h-full"
                   >
                     <Image
                       isBlurred
                       classNames={{
-                        wrapper: 'h-[100%]',
-                        zoomedWrapper: 'h-[100%]',
-                        blurredImg: 'h-[100%] pointer-events-none',
+                        wrapper: 'h-full',
+                        zoomedWrapper: 'h-full',
+                        blurredImg: 'h-full pointer-events-none',
                         img: 'pointer-events-none',
                       }}
-                      className="object-contain h-[100%]"
+                      className="object-contain h-full"
                       src={photo.medium_file?.url}
                       width={photo.medium_file?.width}
                       height={photo.medium_file?.height}
