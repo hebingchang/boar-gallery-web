@@ -25,15 +25,12 @@ export default function ShuinModal(props: ShuinModalProps) {
   const isDesktop = useMediaQuery('(min-width: 960px)');
   const { t } = useTranslation()
   const [shuin, setShuin] = useState(props.shuin)
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (props.isOpen) {
-      setLoading(true)
       setTimeout(() => {
         axios.get<Response<Shuin>>(`https://api.gallery.boar.ac.cn/shuin/get?id=${props.shuin.id}`).then(res => {
           setShuin(res.data.payload)
-          setLoading(false)
         })
       }, 100)
     }
@@ -257,7 +254,7 @@ export default function ShuinModal(props: ShuinModalProps) {
           </>
       )}
     </ModalContent>
-  }, [cityLinks, isDesktop, isPortrait, loading, shuin.date, shuin.medium_file?.height, shuin.medium_file?.url, shuin.medium_file?.width, shuin.place.city, shuin.place.geom, shuin.place.name])
+  }, [cityLinks, isDesktop, isPortrait, shuin.date, shuin.is_limited, shuin.medium_file?.height, shuin.medium_file?.url, shuin.medium_file?.width, shuin.place.city, shuin.place.geom, shuin.place.name, shuin.price, shuin.type, t])
 
   return <Modal
     isOpen={props.isOpen}

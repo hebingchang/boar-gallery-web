@@ -1,4 +1,4 @@
-import useDarkMode from "use-dark-mode";
+import useDarkMode from "../hooks/useDarkMode.ts";
 import sonyLogo from '../assets/logos/SONY.svg';
 import sonyLogoDark from '../assets/logos/SONY_dark.svg';
 import sigmaLogo from '../assets/logos/SIGMA.svg';
@@ -7,6 +7,8 @@ import appleLogo from '../assets/logos/Apple.svg';
 import appleLogoDark from '../assets/logos/Apple_dark.svg';
 import panasonicLogo from '../assets/logos/Panasonic.svg';
 import panasonicLogoDark from '../assets/logos/Panasonic_dark.svg';
+import djiLogo from '../assets/logos/DJI.svg';
+import djiLogoDark from '../assets/logos/DJI_dark.svg';
 
 const logos: { [k: string]: { light: string, dark: string, style: string } } = {
   'SONY': {
@@ -29,6 +31,11 @@ const logos: { [k: string]: { light: string, dark: string, style: string } } = {
     dark: panasonicLogoDark,
     style: 'h-[0.7rem]',
   },
+  'DJI': {
+    light: djiLogo,
+    dark: djiLogoDark,
+    style: 'h-4',
+  }
 }
 
 export interface ManufactureIconProps {

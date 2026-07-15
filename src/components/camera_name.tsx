@@ -2,7 +2,7 @@ import sonyAlpha from '../assets/logos/Sony_Alpha_logo.svg';
 import lumix from '../assets/logos/Lumix_logo.svg';
 import lumixDark from '../assets/logos/Lumix_logo_dark.svg';
 import { Camera } from "../models/gallery.ts";
-import useDarkMode from "use-dark-mode";
+import useDarkMode from "../hooks/useDarkMode.ts";
 import { Tooltip } from "@heroui/react";
 import { JSX } from "react";
 

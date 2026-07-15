@@ -12,7 +12,7 @@ import { getArea } from 'ol/sphere';
 import { MultiPolygon } from "ol/geom";
 import { useTranslation } from "react-i18next";
 import { Select, SelectItem } from "@heroui/react";
-import useDarkMode from "use-dark-mode";
+import useDarkMode from "../hooks/useDarkMode.ts";
 import { useNavigate } from "react-router-dom";
 
 export default function MapPage() {

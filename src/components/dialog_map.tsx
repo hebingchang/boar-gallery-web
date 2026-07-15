@@ -1,7 +1,7 @@
 import { Coordinate } from "../models/gallery.ts";
 import { useContext, useEffect, useRef } from "react";
 import { MapTokenContext, MapType } from "../contexts/map_token.tsx";
-import useDarkMode from "use-dark-mode";
+import useDarkMode from "../hooks/useDarkMode.ts";
 import { ColorScheme, Map as AppleMap, MapType as AppleMapType, Marker as AppleMarker } from "mapkit-react";
 import MapBox, { MapRef, Marker as MapBoxMarker } from 'react-map-gl/mapbox';
 

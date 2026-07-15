@@ -7,5 +7,6 @@ It has to work with the specific backend, which is not yet open source.
 ## Development
 
 ```bash
-yarn dev
+bun install
+bun run dev
 ```

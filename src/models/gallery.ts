@@ -4,10 +4,19 @@ export interface Response<T> {
   success: boolean
 }
 
+export interface LoginResponse {
+  token: string
+  token_type: string
+  expires_at: string
+}
+
+export type PhotoType = "normal" | "panorama"
+
 export interface Photo {
   id: number
   title: string
   description: string
+  type: PhotoType
   author?: Author
   metadata: Metadata
   thumb_file: File

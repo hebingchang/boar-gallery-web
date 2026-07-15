@@ -13,9 +13,11 @@ import ManufactureIcon from "./manufacture_icon.tsx";
 import DialogMap from "./dialog_map.tsx";
 import { MdOutlineOpenInNew } from "react-icons/md";
 import { useTranslation } from "react-i18next";
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import CameraName from "./camera_name.tsx";
+
+const PanoramaViewer = lazy(() => import("./panorama_viewer.tsx"));
 
 export interface PhotoModalProps {
   photo: Photo
@@ -42,8 +44,9 @@ export default function PhotoModal(props: PhotoModalProps) {
   }, [props.isOpen, props.photo.id])
 
   // if (!photo.medium_file) return null;
-  const isPortrait = photo.thumb_file.width <= photo.thumb_file.height;
-  const photoDateTime = moment(photo.metadata.datetime).utcOffset(`+${photo.metadata.timezone.split('+')[1]}`).format('M/D HH:mm ([GMT]Z)');
+  const isPanorama = photo.type === "panorama";
+  const isPortrait = !isPanorama && photo.thumb_file.width <= photo.thumb_file.height;
+  const photoDateTime = moment(photo.metadata.datetime).utcOffset(`+${photo.metadata.timezone.split('+')[1]}`).format('Y/M/D HH:mm ([GMT]Z)');
 
   const cityLinks = useMemo(() => <div className='flex gap-1'>
     <Link color='foreground'
@@ -75,21 +78,40 @@ export default function PhotoModal(props: PhotoModalProps) {
                 radius="lg"
                 className="border-none"
               >
-                <Image
-                  isBlurred
-                  draggable={false}
-                  classNames={{
-                    img: 'pointer-events-none',
-                    blurredImg: 'pointer-events-none'
-                  }}
-                  className="object-contain"
-                  src={photo.medium_file?.url}
-                  width={photo.medium_file?.width}
-                  height={photo.medium_file?.height}
-                  style={{ maxHeight: isDesktop ? 'calc(100dvh - 20rem)' : 'calc(100dvh - 18rem)', height: 'auto' }}
-                />
+                {
+                  isPanorama && photo.medium_file ?
+                    <Suspense
+                      fallback={
+                        <div
+                          aria-hidden="true"
+                          className="w-full bg-default-100"
+                          style={{ height: isDesktop ? "min(52dvh, 32rem)" : "min(48dvh, 24rem)" }}
+                        />
+                      }
+                    >
+                      <PanoramaViewer
+                        mediumSrc={photo.medium_file.url}
+                        largeSrc={photo.large_file?.url}
+                        height={isDesktop ? "min(52dvh, 32rem)" : "min(48dvh, 24rem)"}
+                      />
+                    </Suspense>
+                    :
+                    <Image
+                      isBlurred
+                      draggable={false}
+                      classNames={{
+                        img: 'pointer-events-none',
+                        blurredImg: 'pointer-events-none'
+                      }}
+                      className="object-contain"
+                      src={photo.medium_file?.url}
+                      width={photo.medium_file?.width}
+                      height={photo.medium_file?.height}
+                      style={{ maxHeight: isDesktop ? 'calc(100dvh - 20rem)' : 'calc(100dvh - 18rem)', height: 'auto' }}
+                    />
+                }
                 <CardFooter
-                  className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small right-1 z-10 w-auto font-normal">
+                  className={`justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large shadow-small right-1 z-10 w-auto font-normal ${isPanorama ? 'bottom-12' : 'bottom-1'}`}>
                   <div
                     className='text-tiny md:text-small text-white/80'>&copy; {moment(photo.metadata.datetime).year()} {photo.author?.name}</div>
                 </CardFooter>
@@ -334,7 +356,7 @@ export default function PhotoModal(props: PhotoModalProps) {
           </>
       )}
     </ModalContent>
-  }, [cityLinks, isDesktop, isPortrait, loading, photo.author?.name, photo.medium_file?.height, photo.medium_file?.url, photo.medium_file?.width, photo.metadata.camera, photo.metadata.city, photo.metadata.datetime, photo.metadata.exposure_time_rat, photo.metadata.f_number, photo.metadata.focal_length, photo.metadata.has_location, photo.metadata.lens, photo.metadata.location, photo.metadata.photographic_sensitivity, photo.metadata.place, photo.metadata.timezone, t])
+  }, [cityLinks, isDesktop, isPanorama, isPortrait, loading, photo.author?.name, photo.large_file?.url, photo.medium_file, photo.metadata.camera, photo.metadata.city, photo.metadata.datetime, photo.metadata.exposure_time_rat, photo.metadata.f_number, photo.metadata.focal_length, photo.metadata.has_location, photo.metadata.lens, photo.metadata.location, photo.metadata.photographic_sensitivity, photo.metadata.place, photoDateTime, t])
 
   return <Modal
     isOpen={props.isOpen}

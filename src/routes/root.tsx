@@ -8,8 +8,8 @@ import {
   NavbarContent,
   NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle, Spacer
 } from "@heroui/react";
-import useDarkMode from "use-dark-mode";
-import { TbBook, TbHome, TbMap, TbMoon, TbSun } from "react-icons/tb";
+import useDarkMode from "../hooks/useDarkMode.ts";
+import { TbBook, TbHome, TbLogout, TbMap, TbMoon, TbPhotoPlus, TbSun, TbUserCircle } from "react-icons/tb";
 import { Outlet, useNavigate } from "react-router-dom";
 import { LoadingContext } from "../contexts/loading";
 import { useEffect, useState } from "react";
@@ -22,6 +22,7 @@ import moment from "moment";
 import gradLeft from '../assets/gradients/left.png';
 import gradRight from '../assets/gradients/right.png';
 import { FaDice } from "react-icons/fa6";
+import useAuth from "../hooks/useAuth.ts";
 
 const routes = [
   { route: '/', text: 'sidebar.home', icon: <TbHome size={22}/> },
@@ -30,11 +31,7 @@ const routes = [
 ]
 
 export default function Root() {
-  const darkMode = useDarkMode(false, {
-    classNameDark: 'dark',
-    classNameLight: 'light',
-    element: document.documentElement,
-  });
+  const darkMode = useDarkMode();
 
   useEffect(() => {
     axios.get<Response<string>>('https://api.gallery.boar.ac.cn/geo/ip').then(async (res) => {
@@ -57,6 +54,7 @@ export default function Root() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { t, i18n } = useTranslation()
   const navigate = useNavigate();
+  const { session, logout } = useAuth();
 
   return (
     <MapTokenContext.Provider value={{ token, setToken }}>
@@ -82,6 +80,50 @@ export default function Root() {
               <Link className="font-bold text-inherit text-logo" href='/'>Boar Gallery</Link>
             </NavbarBrand>
             <NavbarContent justify="end">
+              {
+                session ?
+                  <NavbarItem>
+                    <Dropdown placement="bottom-end">
+                      <DropdownTrigger>
+                        <Button
+                          isIconOnly
+                          variant="light"
+                          aria-label={t('auth.author_menu')}
+                        >
+                          <TbUserCircle size={24}/>
+                        </Button>
+                      </DropdownTrigger>
+                      <DropdownMenu aria-label={t('auth.author_menu')} variant="flat">
+                        <DropdownItem
+                          key="author"
+                          isReadOnly
+                          textValue={session.author.name}
+                          className="h-14 gap-2"
+                          startContent={<TbUserCircle className="text-default-500" size={28}/>}
+                        >
+                          <p className="text-tiny text-default-400">{t('auth.signed_in_as')}</p>
+                          <p className="font-semibold">{session.author.name}</p>
+                        </DropdownItem>
+                        <DropdownItem
+                          key="upload-photo"
+                          startContent={<TbPhotoPlus size={19}/>}
+                          onPress={() => navigate('/author-upload')}
+                        >
+                          {t('upload.menu')}
+                        </DropdownItem>
+                        <DropdownItem
+                          key="logout"
+                          color="danger"
+                          startContent={<TbLogout size={19}/>}
+                          onPress={logout}
+                        >
+                          {t('auth.logout')}
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
+                  </NavbarItem>
+                  : null
+              }
               <NavbarItem className={`${isMenuOpen ? '' : 'hidden'} sm:flex`}>
                 <Dropdown>
                   <DropdownTrigger>

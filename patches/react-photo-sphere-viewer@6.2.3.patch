@@ -1,0 +1,85 @@
+diff --git a/dist/index.js b/dist/index.js
+index 886a57cfe11a73d3b90f73492cc072a8cf1200c3..d244f6710ceb9b719e8e8f19e2087346e73902ac 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -2,24 +2,28 @@ import { slicedToArray as _slicedToArray, objectSpread2 as _objectSpread2, typeo
+ import React, { forwardRef, useMemo, useRef, useState, useEffect, useImperativeHandle, useCallback } from 'react';
+ import { Viewer } from '@photo-sphere-viewer/core';
+ import '@photo-sphere-viewer/core/index.css';
+-import EventEmitter from './node_modules/eventemitter3/index.js';
++import EventEmitter from 'eventemitter3';
+ 
+-var eventEmitter = new EventEmitter();
+-var Emitter = {
+-  on: function on(event, fn) {
+-    return eventEmitter.on(event, fn);
+-  },
+-  once: function once(event, fn) {
+-    return eventEmitter.once(event, fn);
+-  },
+-  off: function off(event, fn) {
+-    return eventEmitter.off(event, fn);
+-  },
+-  emit: function emit(event, payload) {
+-    return eventEmitter.emit(event, payload);
+-  }
+-};
+-Object.freeze(Emitter);
++function createEmitter() {
++  var eventEmitter = new EventEmitter();
++  return Object.freeze({
++    on: function on(event, fn) {
++      return eventEmitter.on(event, fn);
++    },
++    once: function once(event, fn) {
++      return eventEmitter.once(event, fn);
++    },
++    off: function off(event, fn) {
++      return eventEmitter.off(event, fn);
++    },
++    emit: function emit(event, payload) {
++      return eventEmitter.emit(event, payload);
++    },
++    removeAllListeners: function removeAllListeners() {
++      eventEmitter.removeAllListeners();
++    }
++  });
++}
+ var omittedProps = ["src", "height", "width", "hideNavbarButton", "containerClass", "littlePlanet", "onPositionChange", "onZoomChange", "onClick", "onDblclick", "onReady"];
+ 
+ /**
+@@ -126,6 +130,11 @@ var ReactPhotoSphereViewer = /*#__PURE__*/forwardRef(function (props, ref) {
+   // recreate options when individual props change
+   props.panorama, props.src, props.size, props.canvasBackground, props.navbar, props.height, props.width, props.containerClass, props.hideNavbarButton || true, props.littlePlanet, props.fishEye, props.lang, props.onPositionChange, props.onZoomChange, props.onClick, props.onDblclick, props.onReady, props.moveSpeed, props.zoomSpeed, props.moveInertia, props.mousewheel, props.mousemove, props.mousewheelCtrlKey, props.touchmoveTwoFingers, props.panoData, props.requestHeaders, props.withCredentials, props.keyboard, props.keyboardActions, props.plugins, props.adapter, props.sphereCorrection, props.minFov, props.maxFov, props.defaultZoomLvl, props.defaultYaw, props.defaultPitch, props.caption, props.description, props.downloadUrl, props.downloadName, props.loadingImg, props.loadingTxt, props.rendererParameters, props.defaultTransition]);
+   var spherePlayerInstance = useRef(null);
++  var emitterRef = useRef(null);
++  if (emitterRef.current === null) {
++    emitterRef.current = createEmitter();
++  }
++  var Emitter = emitterRef.current;
+   var LITTLEPLANET_MAX_ZOOM = 130;
+   var _useState3 = useState(-90),
+     _useState4 = _slicedToArray(_useState3, 1),
+@@ -360,16 +369,18 @@ var ReactPhotoSphereViewer = /*#__PURE__*/forwardRef(function (props, ref) {
+     }
+   }, [sphereElement, options]);
+   useEffect(function () {
+-    var viewer = spherePlayerInstance.current;
+-    if (viewer && viewer.container && viewer.container.parentNode) {
++    return function () {
++      var viewer = spherePlayerInstance.current;
+       if (viewer && viewer.container && viewer.container.parentNode) {
+         var _viewer$renderer, _viewer$renderer$rend, _viewer$renderer2, _viewer$renderer2$ren;
+         (_viewer$renderer = viewer.renderer) === null || _viewer$renderer === void 0 ? void 0 : (_viewer$renderer$rend = _viewer$renderer.renderer) === null || _viewer$renderer$rend === void 0 ? void 0 : _viewer$renderer$rend.dispose();
+         (_viewer$renderer2 = viewer.renderer) === null || _viewer$renderer2 === void 0 ? void 0 : (_viewer$renderer2$ren = _viewer$renderer2.renderer) === null || _viewer$renderer2$ren === void 0 ? void 0 : _viewer$renderer2$ren.forceContextLoss();
+         viewer.destroy();
+       }
+-    }
+-  }, [spherePlayerInstance]);
++      spherePlayerInstance.current = null;
++      Emitter.removeAllListeners();
++    };
++  }, [Emitter]);
+   useEffect(function () {
+     var _options$panorama;
+     var panorama = (_options$panorama = options.panorama) !== null && _options$panorama !== void 0 ? _options$panorama : options.src;

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState, cloneElement, MouseEvent } from "react";
+import { lazy, Suspense, useEffect, useState, cloneElement, MouseEvent } from "react";
 import { Photo, Response } from "../models/gallery.ts";
 import axios from "axios";
 import {
@@ -26,6 +26,8 @@ import CameraName from "../components/camera_name.tsx";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import Zoom from 'react-medium-image-zoom'
 
+const PanoramaViewer = lazy(() => import("../components/panorama_viewer.tsx"));
+
 export default function PhotoPage() {
   const { id } = useParams()
   const [photo, setPhoto] = useState<Photo>()
@@ -43,6 +45,8 @@ export default function PhotoPage() {
 
   if (!photo) return null;
 
+  const isPanorama = photo.type === "panorama";
+
   return (
     <div className='scrollbar-hide px-[10px] md:px-[20px] box-content pt-4 pb-12'>
       <div className='text-5xl mb-8 md:mb-12 ml-2 pt-2'>
@@ -52,43 +56,64 @@ export default function PhotoPage() {
       <Card
         isFooterBlurred
         radius="lg"
-        className="border-none"
+        className={`border-none ${isPanorama ? "aspect-video" : ""}`}
       >
-        <Zoom
-          ZoomContent={({ buttonUnzoom, img, }) => <>
-            {buttonUnzoom}
-            {img ? cloneElement(img, {
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-expect-error
-              draggable: false,
-              onContextMenu: (e: MouseEvent<HTMLImageElement>) => e.preventDefault()
-            }) : null}
-          </>}
-        >
-          <Image
-            isBlurred
-            className={`object-contain ${isDesktop ? 'max-h-128' : ''}`}
-            draggable={false}
-            classNames={{
-              // img: 'pointer-events-none',
-              // blurredImg: 'pointer-events-none'
-            }}
-            onContextMenu={(e) => e.preventDefault()}
-            src={showHDR ? photo.hdr_file!.url : photo.large_file!.url}
-            width={showHDR ? photo.hdr_file!.width : photo.large_file!.width}
-            height={showHDR ? photo.hdr_file!.height : photo.large_file!.height}
-            style={{ height: 'auto' }}
-          />
-        </Zoom>
+        {
+          isPanorama ?
+            (photo.medium_file ?
+              <Suspense
+                fallback={
+                  <div
+                    aria-hidden="true"
+                    className="h-full w-full bg-default-100"
+                  />
+                }
+              >
+                <PanoramaViewer
+                  mediumSrc={photo.medium_file.url}
+                  largeSrc={photo.large_file?.url}
+                  height="100%"
+                  className="h-full"
+                />
+              </Suspense>
+              : null)
+            :
+            <Zoom
+              ZoomContent={({ buttonUnzoom, img, }) => <>
+                {buttonUnzoom}
+                {img ? cloneElement(img, {
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-expect-error
+                  draggable: false,
+                  onContextMenu: (e: MouseEvent<HTMLImageElement>) => e.preventDefault()
+                }) : null}
+              </>}
+            >
+              <Image
+                isBlurred
+                className={`object-contain ${isDesktop ? 'max-h-128' : ''}`}
+                draggable={false}
+                classNames={{
+                  // img: 'pointer-events-none',
+                  // blurredImg: 'pointer-events-none'
+                }}
+                onContextMenu={(e) => e.preventDefault()}
+                src={showHDR ? photo.hdr_file!.url : photo.large_file!.url}
+                width={showHDR ? photo.hdr_file!.width : photo.large_file!.width}
+                height={showHDR ? photo.hdr_file!.height : photo.large_file!.height}
+                style={{ height: 'auto' }}
+              />
+            </Zoom>
+        }
         <CardFooter
-          className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small right-1 z-10 w-auto font-normal">
+          className={`justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large shadow-small right-1 z-10 w-auto font-normal ${isPanorama ? 'bottom-12' : 'bottom-1'}`}>
           <div
             className='text-tiny md:text-small text-white/80'>&copy; {moment(photo.metadata.datetime).year()} {photo.author?.name}</div>
         </CardFooter>
       </Card>
 
       {
-        photo.hdr_file ?
+        !isPanorama && photo.hdr_file ?
           <div className='mt-4 flex justify-end'>
             <div className='flex justify-center items-center gap-2'>
               <Switch isSelected={showHDR} onValueChange={setShowHDR}>
