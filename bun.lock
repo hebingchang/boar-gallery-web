@@ -9,6 +9,7 @@
         "@heroui/react": "2.8.5",
         "@internationalized/date": "3.10.0",
         "@photo-sphere-viewer/core": "^5.14.3",
+        "@photo-sphere-viewer/gyroscope-plugin": "^5.14.3",
         "@silvia-odwyer/photon": "^0.3.3",
         "@uiw/react-baidu-map": "^2.7.5",
         "axios": "^1.18.1",
@@ -355,6 +356,8 @@
     "@petamoriken/float16": ["@petamoriken/float16@3.9.3", "", {}, "sha512-8awtpHXCx/bNpFt4mt2xdkgtgVvKqty8VbjHI/WWWQuEw+KLzFot3f4+LkQY9YmOtq7A5GdOnqoIC8Pdygjk2g=="],
 
     "@photo-sphere-viewer/core": ["@photo-sphere-viewer/core@5.14.3", "", { "dependencies": { "three": "^0.184.0" } }, "sha512-gSDzM1fuVfWQiDf8Y4AgI+un/wsKmeFO7cY4IFEbjhD1BTXUviSL8GuCXABNfPK2EThZLJqpOXxrbYAhblJrfQ=="],
+
+    "@photo-sphere-viewer/gyroscope-plugin": ["@photo-sphere-viewer/gyroscope-plugin@5.14.3", "", { "peerDependencies": { "@photo-sphere-viewer/core": "5.14.3" } }, "sha512-5JyDcndnHoJmFEfamzYncslcfDY+9gD/A7wuxLlw0mEkj2S0Vdue414nxI+xgwTTPd6UAvOwM3KWQyWWcE1Vlg=="],
 
     "@react-aria/breadcrumbs": ["@react-aria/breadcrumbs@3.5.29", "", { "dependencies": { "@react-aria/i18n": "^3.12.13", "@react-aria/link": "^3.8.6", "@react-aria/utils": "^3.31.0", "@react-types/breadcrumbs": "^3.7.17", "@react-types/shared": "^3.32.1", "@swc/helpers": "^0.5.0" } }, "sha512-rKS0dryllaZJqrr3f/EAf2liz8CBEfmL5XACj+Z1TAig6GIYe1QuA3BtkX0cV9OkMugXdX8e3cbA7nD10ORRqg=="],
 

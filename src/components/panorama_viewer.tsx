@@ -2,6 +2,7 @@ import { Button } from "@heroui/react";
 import { useCallback, useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { createPortal } from "react-dom";
 import { events, type Viewer } from "@photo-sphere-viewer/core";
+import { GyroscopePlugin } from "@photo-sphere-viewer/gyroscope-plugin";
 import { ReactPhotoSphereViewer } from "react-photo-sphere-viewer";
 import { useTranslation } from "react-i18next";
 import { TbMaximize, TbMinimize } from "react-icons/tb";
@@ -15,7 +16,8 @@ interface PanoramaViewerProps {
   className?: string;
 }
 
-const navbar = ["zoom"];
+const panoramaPlugins = [GyroscopePlugin];
+const navbar = ["zoom", "gyroscope"];
 
 function setPanorama(
   viewer: Viewer,
@@ -58,6 +60,7 @@ export default function PanoramaViewer({
     moveLeft: t("photo.panorama.move"),
     moveRight: t("photo.panorama.move"),
     fullscreen: t("photo.panorama.fullscreen"),
+    gyroscope: t("photo.panorama.gyroscope"),
   }), [t]);
 
   const releaseViewer = useCallback(() => {
@@ -120,6 +123,7 @@ export default function PanoramaViewer({
         width="100%"
         height={height}
         navbar={navbar}
+        plugins={panoramaPlugins}
         lang={lang}
         containerClass={`relative overflow-hidden ${className ?? ""}`.trim()}
         onReady={handleReady}

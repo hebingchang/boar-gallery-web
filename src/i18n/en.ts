@@ -135,6 +135,7 @@ export default {
     "photo.panorama.zoom_out": "Zoom out",
     "photo.panorama.move": "Move view",
     "photo.panorama.fullscreen": "View fullscreen",
+    "photo.panorama.gyroscope": "Gyroscope",
     "photo.panorama.exit_fullscreen": "Exit fullscreen",
 
     "shuin.basic_information": "Information",

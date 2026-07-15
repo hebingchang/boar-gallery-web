@@ -16,6 +16,7 @@
     "@heroui/react": "2.8.5",
     "@internationalized/date": "3.10.0",
     "@photo-sphere-viewer/core": "^5.14.3",
+    "@photo-sphere-viewer/gyroscope-plugin": "^5.14.3",
     "@silvia-odwyer/photon": "^0.3.3",
     "@uiw/react-baidu-map": "^2.7.5",
     "axios": "^1.18.1",

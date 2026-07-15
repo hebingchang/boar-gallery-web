@@ -135,6 +135,7 @@ export default {
     "photo.panorama.zoom_out": "縮小",
     "photo.panorama.move": "視点を移動",
     "photo.panorama.fullscreen": "全画面で表示",
+    "photo.panorama.gyroscope": "ジャイロスコープ",
     "photo.panorama.exit_fullscreen": "全画面表示を終了",
 
     "shuin.basic_information": "御朱印情報",

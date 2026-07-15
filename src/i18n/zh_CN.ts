@@ -135,6 +135,7 @@ export default {
     "photo.panorama.zoom_out": "缩小",
     "photo.panorama.move": "移动视角",
     "photo.panorama.fullscreen": "全屏查看",
+    "photo.panorama.gyroscope": "陀螺仪",
     "photo.panorama.exit_fullscreen": "退出全屏",
 
     "shuin.basic_information": "基本信息",
