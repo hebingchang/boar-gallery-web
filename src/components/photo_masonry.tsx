@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import { Photo, Response } from "../models/gallery.ts";
 import { Card, Image, CardFooter, CardBody, useDisclosure } from "@heroui/react";
@@ -17,8 +17,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function PhotoMasonry(props: { prefectureId?: string, cityId?: string }) {
   const [photos, setPhotos] = useState<Photo[]>([])
+  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null)
   const isDesktop = useMediaQuery('(min-width: 960px)');
   const loadedIndex = useRef<{ startIndex: number, stopIndex: number }[]>([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate()
 
   const containerRef = useRef(null);
   const [windowWidth, height] = useWindowSize();
@@ -70,7 +73,28 @@ export default function PhotoMasonry(props: { prefectureId?: string, cityId?: st
     isItemLoaded: (index, items) => !!items[index],
   });
 
-  return useMasonry({
+  const openPhotoModal = useCallback((photo: Photo) => {
+    history.pushState({}, '', `/photo/${photo.id}`)
+    setSelectedPhoto(photo)
+    onOpen()
+  }, [onOpen])
+
+  const renderMasonryCard = useCallback(({ data }: { data: Photo }) => (
+    <MasonryCard data={data} onOpenPhoto={openPhotoModal}/>
+  ), [openPhotoModal])
+
+  const handlePhotoModalOpenChange = useCallback((nextIsOpen: boolean, path?: string) => {
+    if (nextIsOpen) return
+
+    onClose()
+    if (path) {
+      navigate(path)
+    } else {
+      history.back()
+    }
+  }, [navigate, onClose])
+
+  const masonry = useMasonry({
     positioner,
     scrollTop,
     isScrolling,
@@ -80,28 +104,35 @@ export default function PhotoMasonry(props: { prefectureId?: string, cityId?: st
     overscanBy: 3,
     itemHeightEstimate: 0,
     onRender: maybeLoadMore,
-    render: MasonryCard,
+    render: renderMasonryCard,
     itemKey: (item) => item.id,
   })
+
+  return <>
+    {masonry}
+    {selectedPhoto ? (
+      <PhotoModal
+        key={selectedPhoto.id}
+        photo={selectedPhoto}
+        isOpen={isOpen}
+        onOpenChange={handlePhotoModalOpenChange}
+      />
+    ) : null}
+  </>
 }
 
-const MasonryCard = ({ data }: { data: Photo }) => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+const MasonryCard = ({ data, onOpenPhoto }: { data: Photo, onOpenPhoto: (photo: Photo) => void }) => {
   const isDesktop = useMediaQuery('(min-width: 960px)');
-  const navigate = useNavigate()
 
-  const openPhotoModel = useMemo(() => () => {
-    history.pushState({}, '', `/photo/${data.id}`)
-    onOpen();
-  }, [onOpen, data.id])
+  const openPhotoModal = () => onOpenPhoto(data)
 
   return <Card
     radius="lg"
     className="border-none"
     isPressable={isDesktop}
-    onPress={isDesktop ? openPhotoModel : undefined}
+    onPress={isDesktop ? openPhotoModal : undefined}
   >
-    <CardBody className="overflow-visible p-0" onClick={isDesktop ? undefined : openPhotoModel}>
+    <CardBody className="overflow-visible p-0" onClick={isDesktop ? undefined : openPhotoModal}>
       <Image
         className="object-cover"
         draggable={false}
@@ -129,13 +160,5 @@ const MasonryCard = ({ data }: { data: Photo }) => {
         null
     }
 
-    <PhotoModal photo={data} isOpen={isOpen} onOpenChange={(isOpen, path) => {
-      if (!isOpen && path) {
-        navigate(path)
-      } else if (!isOpen) {
-        history.back()
-      }
-      onOpenChange()
-    }}/>
   </Card>
 };

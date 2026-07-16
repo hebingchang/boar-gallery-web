@@ -1,5 +1,4 @@
 diff --git a/dist/index.js b/dist/index.js
-index 886a57cfe11a73d3b90f73492cc072a8cf1200c3..d244f6710ceb9b719e8e8f19e2087346e73902ac 100644
 --- a/dist/index.js
 +++ b/dist/index.js
 @@ -2,24 +2,28 @@ import { slicedToArray as _slicedToArray, objectSpread2 as _objectSpread2, typeo
@@ -60,7 +59,7 @@ index 886a57cfe11a73d3b90f73492cc072a8cf1200c3..d244f6710ceb9b719e8e8f19e2087346
    var LITTLEPLANET_MAX_ZOOM = 130;
    var _useState3 = useState(-90),
      _useState4 = _slicedToArray(_useState3, 1),
-@@ -360,16 +369,18 @@ var ReactPhotoSphereViewer = /*#__PURE__*/forwardRef(function (props, ref) {
+@@ -360,16 +369,15 @@ var ReactPhotoSphereViewer = /*#__PURE__*/forwardRef(function (props, ref) {
      }
    }, [sphereElement, options]);
    useEffect(function () {
@@ -69,9 +68,9 @@ index 886a57cfe11a73d3b90f73492cc072a8cf1200c3..d244f6710ceb9b719e8e8f19e2087346
 +    return function () {
 +      var viewer = spherePlayerInstance.current;
        if (viewer && viewer.container && viewer.container.parentNode) {
-         var _viewer$renderer, _viewer$renderer$rend, _viewer$renderer2, _viewer$renderer2$ren;
-         (_viewer$renderer = viewer.renderer) === null || _viewer$renderer === void 0 ? void 0 : (_viewer$renderer$rend = _viewer$renderer.renderer) === null || _viewer$renderer$rend === void 0 ? void 0 : _viewer$renderer$rend.dispose();
-         (_viewer$renderer2 = viewer.renderer) === null || _viewer$renderer2 === void 0 ? void 0 : (_viewer$renderer2$ren = _viewer$renderer2.renderer) === null || _viewer$renderer2$ren === void 0 ? void 0 : _viewer$renderer2$ren.forceContextLoss();
+-        var _viewer$renderer, _viewer$renderer$rend, _viewer$renderer2, _viewer$renderer2$ren;
+-        (_viewer$renderer = viewer.renderer) === null || _viewer$renderer === void 0 ? void 0 : (_viewer$renderer$rend = _viewer$renderer.renderer) === null || _viewer$renderer$rend === void 0 ? void 0 : _viewer$renderer$rend.dispose();
+-        (_viewer$renderer2 = viewer.renderer) === null || _viewer$renderer2 === void 0 ? void 0 : (_viewer$renderer2$ren = _viewer$renderer2.renderer) === null || _viewer$renderer2$ren === void 0 ? void 0 : _viewer$renderer2$ren.forceContextLoss();
          viewer.destroy();
        }
 -    }

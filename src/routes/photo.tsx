@@ -23,6 +23,7 @@ import { IoCalendarOutline, IoLocationOutline } from "react-icons/io5";
 import { PiMountains } from "react-icons/pi";
 import { useTranslation } from "react-i18next";
 import CameraName from "../components/camera_name.tsx";
+import PanoramaLoadingFallback from "../components/panorama_loading_fallback.tsx";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import Zoom from 'react-medium-image-zoom'
 
@@ -46,6 +47,7 @@ export default function PhotoPage() {
   if (!photo) return null;
 
   const isPanorama = photo.type === "panorama";
+  const copyrightText = `© ${moment(photo.metadata.datetime).year()} ${photo.author?.name ?? ""}`.trim();
 
   return (
     <div className='scrollbar-hide px-[10px] md:px-[20px] box-content pt-4 pb-12'>
@@ -63,17 +65,14 @@ export default function PhotoPage() {
             (photo.medium_file ?
               <Suspense
                 fallback={
-                  <div
-                    aria-hidden="true"
-                    className="h-full w-full bg-default-100"
-                  />
+                  <PanoramaLoadingFallback/>
                 }
               >
                 <PanoramaViewer
                   mediumSrc={photo.medium_file.url}
                   largeSrc={photo.large_file?.url}
+                  copyrightText={copyrightText}
                   height="100%"
-                  className="h-full"
                 />
               </Suspense>
               : null)
@@ -93,10 +92,6 @@ export default function PhotoPage() {
                 isBlurred
                 className={`object-contain ${isDesktop ? 'max-h-128' : ''}`}
                 draggable={false}
-                classNames={{
-                  // img: 'pointer-events-none',
-                  // blurredImg: 'pointer-events-none'
-                }}
                 onContextMenu={(e) => e.preventDefault()}
                 src={showHDR ? photo.hdr_file!.url : photo.large_file!.url}
                 width={showHDR ? photo.hdr_file!.width : photo.large_file!.width}
@@ -105,11 +100,14 @@ export default function PhotoPage() {
               />
             </Zoom>
         }
-        <CardFooter
-          className={`justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large shadow-small right-1 z-10 w-auto font-normal ${isPanorama ? 'bottom-12' : 'bottom-1'}`}>
-          <div
-            className='text-tiny md:text-small text-white/80'>&copy; {moment(photo.metadata.datetime).year()} {photo.author?.name}</div>
-        </CardFooter>
+        {!isPanorama ? (
+          <CardFooter
+            className="absolute bottom-1 right-1 z-10 w-auto justify-between overflow-hidden rounded-large border-1 border-white/20 py-1 font-normal shadow-small before:rounded-xl before:bg-white/10">
+            <div className='text-tiny md:text-small text-white/80'>
+              {copyrightText}
+            </div>
+          </CardFooter>
+        ) : null}
       </Card>
 
       {

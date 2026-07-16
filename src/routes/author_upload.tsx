@@ -230,7 +230,6 @@ export default function AuthorUpload() {
   const selectPhotoType = (nextType: PhotoType) => {
     if (isBusy || nextType === photoType) return;
     setPhotoType(nextType);
-    setIsCapturingPanoramaThumbnail(false);
     setPanoramaThumbnail(undefined);
     setErrorMessage("");
     if (nextType === "panorama") setHdr(undefined);
@@ -245,7 +244,6 @@ export default function AuthorUpload() {
 
     const selectionId = ++selectionIdRef.current;
     setSource(file);
-    setIsCapturingPanoramaThumbnail(false);
     setHdr(undefined);
     setPanoramaThumbnail(undefined);
     setPlace(undefined);
@@ -276,7 +274,7 @@ export default function AuthorUpload() {
   const handleHdrChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     event.target.value = "";
-    if (!file || photoType === "panorama") return;
+    if (!file) return;
     if (!isAvif(file)) {
       setErrorMessage(t("upload.error.invalid_hdr"));
       return;
@@ -320,7 +318,7 @@ export default function AuthorUpload() {
     try {
       const photo = await uploadPhoto({
         source,
-        hdr: photoType === "normal" ? hdr : undefined,
+        hdr,
         photoType,
         panoramaThumbnail,
         metadata: payload,
@@ -355,7 +353,6 @@ export default function AuthorUpload() {
   const reset = () => {
     selectionIdRef.current += 1;
     setPhotoType("normal");
-    setIsCapturingPanoramaThumbnail(false);
     setSource(undefined);
     setHdr(undefined);
     setPanoramaThumbnailAspect("3:2");

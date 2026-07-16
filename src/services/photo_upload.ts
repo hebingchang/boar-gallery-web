@@ -5,7 +5,7 @@ import photonWasmUrl from "@silvia-odwyer/photon/photon_rs_bg.wasm?url";
 import type { Photo, PhotoType, Place, Response } from "../models/gallery.ts";
 
 const API_ORIGIN = "https://api.gallery.boar.ac.cn";
-const NORMAL_VARIANT_NAMES = ["thumb", "medium", "large", "origin"] as const;
+const PHOTO_OBJECT_NAMES = ["thumb", "medium", "large", "origin"] as const;
 const NORMAL_VARIANT_LONGEST_EDGES = {
   thumb: 512,
   medium: 1920,
@@ -18,8 +18,6 @@ const PANORAMA_VARIANT_MAX_HEIGHTS = {
   large: 7200,
   origin: null,
 } as const;
-const NORMAL_OBJECT_NAMES = ["thumb", "medium", "large", "origin"] as const;
-const PANORAMA_OBJECT_NAMES = ["thumb", "medium", "large", "origin"] as const;
 const PANORAMA_THUMBNAIL_DIMENSIONS = {
   "3:2": { width: 510, height: 340 },
   "2:3": { width: 340, height: 510 },
@@ -97,21 +95,13 @@ export class HdrImageTooLargeError extends Error {
   }
 }
 
-type NormalVariantName = typeof NORMAL_VARIANT_NAMES[number];
+type PhotoObjectBaseName = typeof PHOTO_OBJECT_NAMES[number];
 type PanoramaVariantName = typeof PANORAMA_VARIANT_NAMES[number];
 type PhotoObjectName =
-  | typeof NORMAL_OBJECT_NAMES[number]
-  | typeof PANORAMA_OBJECT_NAMES[number]
+  | PhotoObjectBaseName
   | "hdr";
-export type PreparedPhotoVariants = Record<NormalVariantName, PreparedPhotoVariant>;
-export type PreparedPanoramaVariants = Record<
-  typeof PANORAMA_OBJECT_NAMES[number],
-  PreparedPhotoVariant
->;
-type PreparedFiles =
-  | PreparedPhotoVariants
-  | PreparedPanoramaVariants
-  | (PreparedPhotoVariants & { hdr: PreparedPhotoVariant });
+export type PreparedPhotoVariants = Record<PhotoObjectBaseName, PreparedPhotoVariant>;
+type PreparedFiles = PreparedPhotoVariants & { hdr?: PreparedPhotoVariant };
 
 interface UploadObject {
   key: string;
@@ -296,7 +286,7 @@ async function sha256(blob: Blob) {
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
-function canvasToWebp(canvas: HTMLCanvasElement) {
+export function canvasToWebp(canvas: HTMLCanvasElement) {
   return new Promise<Blob>((resolve, reject) => {
     canvas.toBlob((blob) => {
       if (blob?.type === "image/webp") resolve(blob);
@@ -323,8 +313,9 @@ export function expectedPhotoObjectNames(
   photoType: PhotoType,
   hasHdr = false,
 ): PhotoObjectName[] {
-  if (photoType === "panorama") return [...PANORAMA_OBJECT_NAMES];
-  return hasHdr ? [...NORMAL_OBJECT_NAMES, "hdr"] : [...NORMAL_OBJECT_NAMES];
+  return photoType === "normal" && hasHdr
+    ? [...PHOTO_OBJECT_NAMES, "hdr"]
+    : [...PHOTO_OBJECT_NAMES];
 }
 
 function assertPhotoObjectNames(
@@ -433,7 +424,7 @@ export function preparePhotoVariants(
 ): Promise<PreparedPhotoVariants> {
   return prepareResizedVariants(
     source,
-    NORMAL_VARIANT_NAMES,
+    PHOTO_OBJECT_NAMES,
     (name, width, height) => variantDimensions(
       width,
       height,
@@ -447,7 +438,7 @@ export async function preparePanoramaVariants(
   source: File,
   thumbnail: PanoramaThumbnail,
   onProgress?: (progress: UploadProgress) => void,
-): Promise<PreparedPanoramaVariants> {
+): Promise<PreparedPhotoVariants> {
   assertPanoramaThumbnail(thumbnail);
 
   const thumb: PreparedPhotoVariant = {
@@ -468,6 +459,7 @@ export async function preparePanoramaVariants(
   }
 
   const resized = {} as Record<PanoramaVariantName, PreparedPhotoVariant>;
+  const preparedByDimensions = new Map<string, PreparedPhotoVariant>();
   try {
     for (const [index, name] of PANORAMA_VARIANT_NAMES.entries()) {
       const dimensions = panoramaVariantDimensions(
@@ -475,26 +467,34 @@ export async function preparePanoramaVariants(
         bitmap.height,
         PANORAMA_VARIANT_MAX_HEIGHTS[name],
       );
-      canvas.width = dimensions.width;
-      canvas.height = dimensions.height;
-      context.imageSmoothingEnabled = true;
-      context.imageSmoothingQuality = "high";
-      context.fillStyle = "#ffffff";
-      context.fillRect(0, 0, canvas.width, canvas.height);
-      context.drawImage(bitmap, 0, 0, dimensions.width, dimensions.height);
+      const dimensionsKey = `${dimensions.width}x${dimensions.height}`;
+      const prepared = preparedByDimensions.get(dimensionsKey);
+      if (prepared) {
+        resized[name] = prepared;
+      } else {
+        canvas.width = dimensions.width;
+        canvas.height = dimensions.height;
+        context.imageSmoothingEnabled = true;
+        context.imageSmoothingQuality = "high";
+        context.fillStyle = "#ffffff";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(bitmap, 0, 0, dimensions.width, dimensions.height);
 
-      try {
-        const blob = await canvasToWebp(canvas);
-        resized[name] = {
-          blob,
-          size: blob.size,
-          digest: await sha256(blob),
-          width: dimensions.width,
-          height: dimensions.height,
-        };
-      } finally {
-        canvas.width = 1;
-        canvas.height = 1;
+        try {
+          const blob = await canvasToWebp(canvas);
+          const nextPrepared = {
+            blob,
+            size: blob.size,
+            digest: await sha256(blob),
+            width: dimensions.width,
+            height: dimensions.height,
+          };
+          resized[name] = nextPrepared;
+          preparedByDimensions.set(dimensionsKey, nextPrepared);
+        } finally {
+          canvas.width = 1;
+          canvas.height = 1;
+        }
       }
       onProgress?.({
         stage: "processing",

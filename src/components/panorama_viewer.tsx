@@ -1,19 +1,18 @@
 import { Button } from "@heroui/react";
-import { useCallback, useEffect, useMemo, useRef, useState, type RefObject } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { events, type Viewer } from "@photo-sphere-viewer/core";
 import { GyroscopePlugin } from "@photo-sphere-viewer/gyroscope-plugin";
 import { ReactPhotoSphereViewer } from "react-photo-sphere-viewer";
 import { useTranslation } from "react-i18next";
 import { TbMaximize, TbMinimize } from "react-icons/tb";
-import "@photo-sphere-viewer/core/index.css";
-import "react-photo-sphere-viewer/dist/index.css";
+import "./panorama_viewer.css";
 
 interface PanoramaViewerProps {
   mediumSrc: string;
   largeSrc?: string;
+  copyrightText?: string;
   height: string;
-  className?: string;
 }
 
 const panoramaPlugins = [GyroscopePlugin];
@@ -22,10 +21,8 @@ const navbar = ["zoom", "gyroscope"];
 function setPanorama(
   viewer: Viewer,
   src: string,
-  currentSrcRef: RefObject<string>,
 ) {
-  if (currentSrcRef.current === src) return;
-  currentSrcRef.current = src;
+  if (viewer.config.panorama === src) return;
 
   void viewer.setPanorama(src, {
     transition: false,
@@ -36,13 +33,12 @@ function setPanorama(
 export default function PanoramaViewer({
   mediumSrc,
   largeSrc,
+  copyrightText,
   height,
-  className,
 }: PanoramaViewerProps) {
   const { t } = useTranslation();
   const viewerRef = useRef<Viewer | null>(null);
   const fullscreenListenerRef = useRef<((event: events.FullscreenEvent) => void) | null>(null);
-  const currentSrcRef = useRef(mediumSrc);
   const sourcesRef = useRef({ mediumSrc, largeSrc });
   const [fullscreenTarget, setFullscreenTarget] = useState<HTMLElement | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -74,8 +70,6 @@ export default function PanoramaViewer({
 
     fullscreenListenerRef.current = null;
     viewerRef.current = null;
-    setFullscreenTarget(null);
-    setIsFullscreen(false);
   }, []);
 
   const handleReady = useCallback((viewer: Viewer) => {
@@ -89,32 +83,28 @@ export default function PanoramaViewer({
         ? currentLargeSrc
         : currentMediumSrc;
 
-      setPanorama(viewer, nextSrc, currentSrcRef);
+      setPanorama(viewer, nextSrc);
     };
 
     viewerRef.current = viewer;
-    currentSrcRef.current = sourcesRef.current.mediumSrc;
     fullscreenListenerRef.current = handleFullscreen;
     setFullscreenTarget(viewer.parent);
     setIsFullscreen(viewer.isFullscreenEnabled());
     viewer.addEventListener(events.FullscreenEvent.type, handleFullscreen);
-    viewer.setOption("navbar", navbar);
-    viewer.setOption("lang", lang);
-  }, [lang, releaseViewer]);
+  }, [releaseViewer]);
 
   useEffect(() => {
     const viewer = viewerRef.current;
-    if (!viewer) return;
+    if (!viewer?.isFullscreenEnabled()) return;
 
-    const nextSrc = viewer.isFullscreenEnabled() && largeSrc ? largeSrc : mediumSrc;
-    setPanorama(viewer, nextSrc, currentSrcRef);
+    setPanorama(viewer, largeSrc ?? mediumSrc);
   }, [largeSrc, mediumSrc]);
 
   useEffect(() => {
     viewerRef.current?.setOption("lang", lang);
   }, [lang]);
 
-  useEffect(() => releaseViewer, [releaseViewer]);
+  useEffect(() => () => releaseViewer(), [releaseViewer]);
 
   return (
     <>
@@ -125,22 +115,32 @@ export default function PanoramaViewer({
         navbar={navbar}
         plugins={panoramaPlugins}
         lang={lang}
-        containerClass={`relative overflow-hidden ${className ?? ""}`.trim()}
+        canvasBackground="#111113"
+        containerClass="boar-panorama-viewer relative overflow-hidden"
         onReady={handleReady}
       />
-      {largeSrc && fullscreenTarget ? createPortal(
-        <Button
-          isIconOnly
-          size="sm"
-          radius="full"
-          variant="flat"
-          className="absolute bottom-1 right-2 z-[1001] bg-black/50 text-white shadow-md backdrop-blur-md"
-          aria-label={t(isFullscreen ? "photo.panorama.exit_fullscreen" : "photo.panorama.fullscreen")}
-          title={t(isFullscreen ? "photo.panorama.exit_fullscreen" : "photo.panorama.fullscreen")}
-          onPress={() => viewerRef.current?.toggleFullscreen()}
-        >
-          {isFullscreen ? <TbMinimize size={18}/> : <TbMaximize size={18}/>}
-        </Button>,
+      {fullscreenTarget ? createPortal(
+        <div className="pointer-events-none absolute bottom-1 right-2 z-[1001] flex h-8 items-center gap-2">
+          {copyrightText ? (
+            <span className="max-w-[45vw] truncate text-tiny text-white/80 drop-shadow-sm md:text-small">
+              {copyrightText}
+            </span>
+          ) : null}
+          {largeSrc ? (
+            <Button
+              isIconOnly
+              size="sm"
+              radius="full"
+              variant="flat"
+              className="pointer-events-auto bg-black/50 text-white shadow-md backdrop-blur-md"
+              aria-label={t(isFullscreen ? "photo.panorama.exit_fullscreen" : "photo.panorama.fullscreen")}
+              title={t(isFullscreen ? "photo.panorama.exit_fullscreen" : "photo.panorama.fullscreen")}
+              onPress={() => viewerRef.current?.toggleFullscreen()}
+            >
+              {isFullscreen ? <TbMinimize size={18}/> : <TbMaximize size={18}/>}
+            </Button>
+          ) : null}
+        </div>,
         fullscreenTarget,
       ) : null}
     </>

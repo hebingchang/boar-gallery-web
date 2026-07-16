@@ -1,0 +1,87 @@
+.boar-panorama-viewer {
+  background: #111113;
+}
+
+.boar-panorama-viewer .psv-container {
+  background: #111113;
+}
+
+.boar-panorama-viewer .psv-loader-container {
+  background: rgba(9, 9, 11, 0.58);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.boar-panorama-viewer .psv-loader {
+  --psv-loader-border: 1px;
+  --psv-loader-tickness: 3px;
+  width: 44px;
+  height: 44px;
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.boar-panorama-viewer .psv-loader-canvas {
+  color: rgba(255, 255, 255, 0.16);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.24));
+}
+
+.boar-panorama-viewer .psv-loader-text {
+  position: absolute;
+  top: calc(100% + 14px);
+  width: max-content;
+  max-width: min(72vw, 280px) !important;
+  max-height: none !important;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  text-align: center;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
+}
+
+.boar-panorama-viewer .psv-overlay {
+  padding: 24px;
+  background: rgba(9, 9, 11, 0.82);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  opacity: 1;
+}
+
+.boar-panorama-viewer .psv-overlay-image {
+  color: rgb(253, 164, 175);
+}
+
+.boar-panorama-viewer .psv-overlay-image:empty,
+.boar-panorama-viewer .psv-overlay-title:empty {
+  display: none;
+}
+
+.boar-panorama-viewer .psv-overlay-image > svg[viewBox="15 15 70 70"] {
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  border: 1px solid rgba(251, 113, 133, 0.22);
+  border-radius: 9999px;
+  margin-inline: auto;
+  background: rgba(244, 63, 94, 0.13);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.boar-panorama-viewer .psv-overlay-title {
+  max-width: 320px;
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.96);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boar-panorama-viewer .psv-loader--undefined .psv-loader-canvas {
+    animation: none;
+  }
+}

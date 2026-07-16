@@ -4,8 +4,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TbCamera, TbCheck, TbCropLandscape, TbCropPortrait } from "react-icons/tb";
 import { ReactPhotoSphereViewer } from "react-photo-sphere-viewer";
-import "react-photo-sphere-viewer/dist/index.css";
+import "./panorama_viewer.css";
 import {
+  canvasToWebp,
   panoramaThumbnailDimensions,
   type PanoramaThumbnail,
   type PanoramaThumbnailAspect,
@@ -28,15 +29,6 @@ const CAPTURE_RENDERER_PARAMETERS = {
 
 function nextAnimationFrame() {
   return new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
-}
-
-function canvasToWebp(canvas: HTMLCanvasElement) {
-  return new Promise<Blob>((resolve, reject) => {
-    canvas.toBlob((blob) => {
-      if (blob?.type === "image/webp") resolve(blob);
-      else reject(new Error("This browser cannot create a WebP thumbnail"));
-    }, "image/webp", 1);
-  });
 }
 
 function drawViewerCanvas(
@@ -106,7 +98,6 @@ export default function PanoramaThumbnailEditor({
     setCaptureError("");
     return () => {
       captureIdRef.current += 1;
-      onCapturingChange(false);
     };
   }, [aspect, onCapturingChange, sourceUrl]);
 
@@ -238,6 +229,8 @@ export default function PanoramaThumbnailEditor({
           height="100%"
           navbar={["zoom", "move"]}
           lang={viewerLanguage}
+          canvasBackground="#111113"
+          containerClass="boar-panorama-viewer"
           rendererParameters={CAPTURE_RENDERER_PARAMETERS}
           onReady={handleReady}
         />

@@ -1,0 +1,58 @@
+diff --git a/index.cjs b/index.cjs
+--- a/index.cjs
++++ b/index.cjs
+@@ -6170,5 +6170,16 @@ class Viewer extends TypedEventTarget {
+   */
+   setPanorama(path, options = {}) {
++    const displayedPanorama = this.state.textureData?.panorama;
++    if (displayedPanorama !== void 0 && path === displayedPanorama && this.config.panorama !== displayedPanorama) {
++      this.textureLoader.abortLoading();
++      this.state.transitionAnimation?.cancel();
++      this.config.panorama = displayedPanorama;
++      this.loader.hide();
++      this.hideError();
++      this.navbar.setCaption(this.config.caption);
++      this.state.loadingPromise = null;
++      return Promise.resolve(true);
++    }
+     this.textureLoader.abortLoading();
+     this.state.transitionAnimation?.cancel();
+     const transition = this.dataHelper.getTransitionOptions(options);
+@@ -6194,7 +6205,7 @@ class Viewer extends TypedEventTarget {
+       this.config.panoData = options.panoData;
+     }
+     const done = (err) => {
+-      if (isAbortError(err)) {
++      if (isAbortError(err) || path !== this.config.panorama) {
+         return false;
+       }
+       this.loader.hide();
+diff --git a/index.module.js b/index.module.js
+--- a/index.module.js
++++ b/index.module.js
+@@ -6152,5 +6152,16 @@ class Viewer extends TypedEventTarget {
+   */
+   setPanorama(path, options = {}) {
++    const displayedPanorama = this.state.textureData?.panorama;
++    if (displayedPanorama !== void 0 && path === displayedPanorama && this.config.panorama !== displayedPanorama) {
++      this.textureLoader.abortLoading();
++      this.state.transitionAnimation?.cancel();
++      this.config.panorama = displayedPanorama;
++      this.loader.hide();
++      this.hideError();
++      this.navbar.setCaption(this.config.caption);
++      this.state.loadingPromise = null;
++      return Promise.resolve(true);
++    }
+     this.textureLoader.abortLoading();
+     this.state.transitionAnimation?.cancel();
+     const transition = this.dataHelper.getTransitionOptions(options);
+@@ -6176,7 +6187,7 @@ class Viewer extends TypedEventTarget {
+       this.config.panoData = options.panoData;
+     }
+     const done = (err) => {
+-      if (isAbortError(err)) {
++      if (isAbortError(err) || path !== this.config.panorama) {
+         return false;
+       }
+       this.loader.hide();

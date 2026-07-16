@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import CameraName from "./camera_name.tsx";
+import PanoramaLoadingFallback from "./panorama_loading_fallback.tsx";
 
 const PanoramaViewer = lazy(() => import("./panorama_viewer.tsx"));
 
@@ -43,9 +44,10 @@ export default function PhotoModal(props: PhotoModalProps) {
     }
   }, [props.isOpen, props.photo.id])
 
-  // if (!photo.medium_file) return null;
   const isPanorama = photo.type === "panorama";
   const isPortrait = !isPanorama && photo.thumb_file.width <= photo.thumb_file.height;
+  const panoramaHeight = isDesktop ? "min(52dvh, 32rem)" : "min(48dvh, 24rem)";
+  const copyrightText = `© ${moment(photo.metadata.datetime).year()} ${photo.author?.name ?? ""}`.trim();
   const photoDateTime = moment(photo.metadata.datetime).utcOffset(`+${photo.metadata.timezone.split('+')[1]}`).format('Y/M/D HH:mm ([GMT]Z)');
 
   const cityLinks = useMemo(() => <div className='flex gap-1'>
@@ -82,17 +84,16 @@ export default function PhotoModal(props: PhotoModalProps) {
                   isPanorama && photo.medium_file ?
                     <Suspense
                       fallback={
-                        <div
-                          aria-hidden="true"
-                          className="w-full bg-default-100"
-                          style={{ height: isDesktop ? "min(52dvh, 32rem)" : "min(48dvh, 24rem)" }}
+                        <PanoramaLoadingFallback
+                          style={{ height: panoramaHeight }}
                         />
                       }
                     >
                       <PanoramaViewer
                         mediumSrc={photo.medium_file.url}
                         largeSrc={photo.large_file?.url}
-                        height={isDesktop ? "min(52dvh, 32rem)" : "min(48dvh, 24rem)"}
+                        copyrightText={copyrightText}
+                        height={panoramaHeight}
                       />
                     </Suspense>
                     :
@@ -110,11 +111,14 @@ export default function PhotoModal(props: PhotoModalProps) {
                       style={{ maxHeight: isDesktop ? 'calc(100dvh - 20rem)' : 'calc(100dvh - 18rem)', height: 'auto' }}
                     />
                 }
-                <CardFooter
-                  className={`justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large shadow-small right-1 z-10 w-auto font-normal ${isPanorama ? 'bottom-12' : 'bottom-1'}`}>
-                  <div
-                    className='text-tiny md:text-small text-white/80'>&copy; {moment(photo.metadata.datetime).year()} {photo.author?.name}</div>
-                </CardFooter>
+                {!isPanorama ? (
+                  <CardFooter
+                    className="absolute bottom-1 right-1 z-10 w-auto justify-between overflow-hidden rounded-large border-1 border-white/20 py-1 font-normal shadow-small before:rounded-xl before:bg-white/10">
+                    <div className='text-tiny md:text-small text-white/80'>
+                      {copyrightText}
+                    </div>
+                  </CardFooter>
+                ) : null}
               </Card>
             </ModalHeader>
             <ModalBody className="p-4">
@@ -249,7 +253,7 @@ export default function PhotoModal(props: PhotoModalProps) {
                     <CardFooter
                       className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 shadow-small right-1 z-10 w-auto font-normal">
                       <div
-                        className='text-tiny md:text-small text-white/80'>&copy; {moment(photo.metadata.datetime).year()} {photo.author?.name}</div>
+                        className='text-tiny md:text-small text-white/80'>{copyrightText}</div>
                     </CardFooter>
                   </Card>
                 </div>
@@ -356,7 +360,7 @@ export default function PhotoModal(props: PhotoModalProps) {
           </>
       )}
     </ModalContent>
-  }, [cityLinks, isDesktop, isPanorama, isPortrait, loading, photo.author?.name, photo.large_file?.url, photo.medium_file, photo.metadata.camera, photo.metadata.city, photo.metadata.datetime, photo.metadata.exposure_time_rat, photo.metadata.f_number, photo.metadata.focal_length, photo.metadata.has_location, photo.metadata.lens, photo.metadata.location, photo.metadata.photographic_sensitivity, photo.metadata.place, photoDateTime, t])
+  }, [cityLinks, copyrightText, isDesktop, isPanorama, isPortrait, loading, panoramaHeight, photo.large_file?.url, photo.medium_file, photo.metadata.camera, photo.metadata.city, photo.metadata.exposure_time_rat, photo.metadata.f_number, photo.metadata.focal_length, photo.metadata.has_location, photo.metadata.lens, photo.metadata.location, photo.metadata.photographic_sensitivity, photo.metadata.place, photoDateTime, t])
 
   return <Modal
     isOpen={props.isOpen}

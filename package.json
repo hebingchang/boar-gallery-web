@@ -65,6 +65,7 @@
     "vite": "^7.3.6"
   },
   "patchedDependencies": {
+    "@photo-sphere-viewer/core@5.14.3": "patches/photo-sphere-viewer-core@5.14.3.patch",
     "react-photo-sphere-viewer@6.2.3": "patches/react-photo-sphere-viewer@6.2.3.patch"
   }
 }
